@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { Offer } from '../../models/offer';
 
 @Component({
   selector: 'app-show-hotel-offers',
@@ -10,7 +11,7 @@ export class ShowHotelOffersComponent implements OnInit {
 
   constructor(private service: SharedService) { }
 
-  HotelOffersList: any = [];
+  HotelOffersList: Offer[] = [];
 
   ngOnInit(): void {
       this.refreshHotelOffersList();
