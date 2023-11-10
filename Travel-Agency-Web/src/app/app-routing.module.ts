@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
+import { FlightOffersComponent } from './flight-offers/flight-offers.component';
 
 const routes: Routes = [
-  { path: 'hotelOffers', component: HotelOffersComponent }
+  { path: 'hotelOffers', component: HotelOffersComponent },
+  {path: 'flightOffers', component: FlightOffersComponent}
 ];
 
 @NgModule({

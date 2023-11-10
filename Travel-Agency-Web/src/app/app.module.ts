@@ -6,15 +6,20 @@ import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
 import { ShowHotelOffersComponent } from './hotel-offers/show-hotel-offers/show-hotel-offers.component';
 import { SharedService } from './shared.service';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthenticationInterceptor } from './interceptor';
+import { FlightOffersComponent } from './flight-offers/flight-offers.component';
+import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HotelOffersComponent,
-    ShowHotelOffersComponent
+    ShowHotelOffersComponent,
+    FlightOffersComponent,
+    ShowFlightOffersComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +28,13 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [SharedService],
+  providers: [SharedService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

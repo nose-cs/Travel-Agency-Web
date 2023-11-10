@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Description</th>
+          <th>Price</th>
+        </tr>
+  </thead>
+    <tbody>
+      <tr *ngFor="let offer of FlightOffersList">
+        <td>{{offer.description}}</td>
+        <td>{{offer.price}}</td>
+      </tr>
+    </tbody>
+  </table>
