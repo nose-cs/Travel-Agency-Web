@@ -20,6 +20,9 @@ export class SharedService {
   getFlightOffers(): Observable<Offer[]> {
     return this.http.get<any>(this.APIUrl + '/Show/getFlightOffers');
   }
+  getTourOffers(): Observable<Offer[]> {
+    return this.http.get<any>(this.APIUrl + '/Show/getTourOffers');
+  }
   
 
   register(user: Register): Observable<JwtAuth> {

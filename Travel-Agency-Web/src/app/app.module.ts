@@ -12,14 +12,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationInterceptor } from './interceptor';
 import { FlightOffersComponent } from './flight-offers/flight-offers.component';
 import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
-
+import { ShowTourOffersComponent } from './tour-offers/show-tour-offers/show-tour-offers.component';
+import { TourOffersComponent } from './tour-offers/tour-offers.component';
 @NgModule({
   declarations: [
     AppComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
     FlightOffersComponent,
-    ShowFlightOffersComponent
+    ShowFlightOffersComponent,
+    ShowTourOffersComponent,
+    TourOffersComponent
   ],
   imports: [
     BrowserModule,
