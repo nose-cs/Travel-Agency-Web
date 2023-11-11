@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Offer } from '../../models/offer';
+import { HotelFilter } from 'src/app/models/filterMapper';
+import { HttpParams } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-show-hotel-offers',
@@ -9,18 +12,15 @@ import { Offer } from '../../models/offer';
 })
 export class ShowHotelOffersComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
-
+  constructor() { }
+  showFilter: boolean = false;
   HotelOffersList: Offer[] = [];
 
   ngOnInit(): void {
-      this.refreshHotelOffersList();
   }
-
-  refreshHotelOffersList() {
-      this.service.getHotelOffers().subscribe(data => {
-        this.HotelOffersList = data;
-      });
+  onFilter(data: any[]) {
+    // Asigna los resultados del filtro a la variable
+    this.HotelOffersList = data;
   }
 
 }

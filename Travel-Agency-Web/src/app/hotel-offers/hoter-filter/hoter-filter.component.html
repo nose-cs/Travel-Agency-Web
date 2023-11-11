@@ -1,0 +1,34 @@
+<form #filterForm="ngForm" (ngSubmit)="onSubmit(filterForm.value)">
+    <div class="form-row">
+      <div class="col">
+        <label for="productId">Product ID</label>
+        <input type="number" id="productId" name="productId" ngModel class="form-control">
+      </div>
+      <div class="col">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" name="startDate" ngModel class="form-control">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <label for="startPrice">Start Price</label>
+        <input type="number" id="startPrice" name="startPrice" ngModel class="form-control">
+      </div>
+      <div class="col">
+        <label for="endPrice">End Price</label>
+        <input type="number" id="endPrice" name="endPrice" ngModel class="form-control">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        <label for="agencyId">Agency ID</label>
+        <input type="number" id="agencyId" name="agencyId" ngModel class="form-control">
+      </div>
+      <div class="col">
+        <label for="hotelName">Hotel Name</label>
+        <input type="text" id="hotelName" name="hotelName" ngModel class="form-control">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  

@@ -1,14 +1,22 @@
-<table class="table table-striped">
-  <thead>
+<div class="container">
+  <h1>Hotel Offers</h1>
+  <button (click)="showFilter = !showFilter" class="btn btn-secondary">Filtrar por</button>
+  <div *ngIf="showFilter">
+    <app-hotel-filter (filterResults)="onFilter($event)"></app-hotel-filter>
+  </div>
+  <!-- Muestra la tabla con los resultados del filtro -->
+  <table class="table table-striped" *ngIf="HotelOffersList">
+    <thead>
       <tr>
         <th>Description</th>
         <th>Price</th>
       </tr>
-</thead>
-  <tbody>
-    <tr *ngFor="let offer of HotelOffersList">
-      <td>{{offer.description}}</td>
-      <td>{{offer.price}}</td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <tr *ngFor="let offer of HotelOffersList">
+        <td>{{offer.description}}</td>
+        <td>{{offer.price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
