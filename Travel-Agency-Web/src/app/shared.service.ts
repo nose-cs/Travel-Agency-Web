@@ -40,6 +40,9 @@ export class SharedService {
       // Hace la petición al backend con los parámetros
     return this.http.get<any>(this.APIUrl + '/Show/getHotelOffers', {params});
   }
+  postHotelOffers(offer: Offer){
+    this.http.post(this.APIUrl + '/Post/createHotelOffer', offer)
+  }
   getFlightOffers(): Observable<Offer[]> {
     return this.http.get<any>(this.APIUrl + '/Show/getFlightOffers');
   }
@@ -47,7 +50,6 @@ export class SharedService {
     return this.http.get<any>(this.APIUrl + '/Show/getTourOffers');
   }
   
-
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/signup', user);
   }

@@ -7,4 +7,6 @@ export class Offer {
   endDate: Date | undefined;
   agencyId = 0;
   productId = 0;
+  productName = '';
+  agencyName = '';
 }
