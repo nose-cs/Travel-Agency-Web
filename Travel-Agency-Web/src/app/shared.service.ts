@@ -35,7 +35,7 @@ export class SharedService {
         params = params.append('agencyId', filter.agencyId.toString());
       }
       if (filter.hotelName) {
-        params = params.append('hotelName', filter.hotelName);
+        params = params.append('hotelName', filter.hotelName.toString());
       }
       // Hace la petición al backend con los parámetros
     return this.http.get<any>(this.APIUrl + '/Show/getHotelOffers', {params});
@@ -43,9 +43,31 @@ export class SharedService {
   postHotelOffers(offer: Offer){
     this.http.post(this.APIUrl + '/Post/createHotelOffer', offer)
   }
-  getFlightOffers(): Observable<Offer[]> {
-    return this.http.get<any>(this.APIUrl + '/Show/getFlightOffers');
-  }
+
+   getFlightOffers(filter : HotelFilter): Observable<Offer[]> {
+    // Construye los parámetros de la consulta a partir del filtro
+    let params = new HttpParams();
+    if (filter.productId) {
+      params = params.append('productId', filter.productId.toString());
+    }
+    if (filter.startDate) {
+      params = params.append('startDate', filter.startDate.toISOString());
+    }
+    if (filter.startPrice) {
+      params = params.append('startPrice', filter.startPrice.toString());
+    }
+    if (filter.endPrice) {
+      params = params.append('endPrice', filter.endPrice.toString());
+    }
+    if (filter.agencyId) {
+      params = params.append('agencyId', filter.agencyId.toString());
+    }
+    if (filter.hotelName) {
+      params = params.append('hotelName', filter.hotelName);
+    }
+    // Hace la petición al backend con los parámetros
+  return this.http.get<any>(this.APIUrl + '/Show/getFlightOffers', {params});
+}
   getTourOffers(): Observable<Offer[]> {
     return this.http.get<any>(this.APIUrl + '/Show/getTourOffers');
   }

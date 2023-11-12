@@ -1,14 +1,24 @@
-<table class="table table-striped">
-    <thead>
+  <div class="container">
+    <h1>Flight Offers</h1>
+    <button (click)="showFilter = !showFilter" class="btn btn-secondary">Filtrar por</button>
+    <div *ngIf="showFilter">
+      <app-flight-filter (filterResults)="onFilter($event)"></app-flight-filter>
+    </div>
+    <!-- Muestra la tabla con los resultados del filtro -->
+    <table class="table table-striped" *ngIf="FlightOffersList">
+      <thead>
         <tr>
           <th>Description</th>
           <th>Price</th>
         </tr>
-  </thead>
-    <tbody>
-      <tr *ngFor="let offer of FlightOffersList">
-        <td>{{offer.description}}</td>
-        <td>{{offer.price}}</td>
-      </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <tr *ngFor="let offer of FlightOffersList">
+       <!--   <div (click)="showOfferDetails(offer)"></div>       -->
+          <td>{{offer.description}}</td>
+          <td>{{offer.price}}</td>
+        </tr>
+      </tbody>
+    </table>
+  <!--  <app-hotel-offer-details [offer]="selectedOffer" *ngIf="selectedOffer"></app-hotel-offer-details>     -->
+  </div>

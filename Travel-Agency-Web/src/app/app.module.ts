@@ -18,6 +18,8 @@ import { HoterFilterComponent } from './hotel-offers/hoter-filter/hoter-filter.c
 import { HotelOfferDetailsComponent } from './hotel-offers/hotel-offer-details/hotel-offer-details.component';
 import { LoginComponent } from './login/login.component';
 import { AddHotelOffersComponent } from './add-hotel-offers/add-hotel-offers.component';
+import { FlightFilterComponent } from './flight-offers/flight-filter/flight-filter.component';
+import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,8 @@ import { AddHotelOffersComponent } from './add-hotel-offers/add-hotel-offers.com
     HoterFilterComponent,
     HotelOfferDetailsComponent,
     LoginComponent,
-    AddHotelOffersComponent
+    AddHotelOffersComponent,
+    FlightFilterComponent
   ],
   imports: [
     BrowserModule,
