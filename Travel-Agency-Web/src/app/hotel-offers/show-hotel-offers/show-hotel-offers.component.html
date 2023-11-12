@@ -14,9 +14,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let offer of HotelOffersList">
+        <div (click)="showOfferDetails(offer)"></div>
         <td>{{offer.description}}</td>
         <td>{{offer.price}}</td>
       </tr>
     </tbody>
   </table>
+  <app-hotel-offer-details [offer]="selectedOffer" *ngIf="selectedOffer"></app-hotel-offer-details>
 </div>

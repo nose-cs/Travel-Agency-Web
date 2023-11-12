@@ -16,7 +16,12 @@ export class ShowHotelOffersComponent implements OnInit {
   constructor(private service: SharedService) { }
   showFilter: boolean = false;
   HotelOffersList: Offer[] = [];
+  selectedOffer?: Offer;
 
+
+  showOfferDetails(offer: Offer) {
+    this.selectedOffer = offer;
+  }
   ngOnInit(): void {
     let filter: HotelFilter;
 

@@ -15,6 +15,7 @@ import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/sh
 import { ShowTourOffersComponent } from './tour-offers/show-tour-offers/show-tour-offers.component';
 import { TourOffersComponent } from './tour-offers/tour-offers.component';
 import { HoterFilterComponent } from './hotel-offers/hoter-filter/hoter-filter.component';
+import { HotelOfferDetailsComponent } from './hotel-offers/hotel-offer-details/hotel-offer-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { HoterFilterComponent } from './hotel-offers/hoter-filter/hoter-filter.c
     ShowFlightOffersComponent,
     ShowTourOffersComponent,
     TourOffersComponent,
-    HoterFilterComponent
+    HoterFilterComponent,
+    HotelOfferDetailsComponent
   ],
   imports: [
     BrowserModule,
