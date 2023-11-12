@@ -8,15 +8,19 @@
   <table class="table table-striped" *ngIf="HotelOffersList">
     <thead>
       <tr>
+        <th>Hotel</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Agency</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let offer of HotelOffersList">
-        <div (click)="showOfferDetails(offer)"></div>
+      <!--  <div (click)="showOfferDetails(offer)"></div>  -->
+        <td>{{offer.productName}}</td>
         <td>{{offer.description}}</td>
         <td>{{offer.price}}</td>
+        <td>{{offer.agencyName}}</td>
       </tr>
     </tbody>
   </table>

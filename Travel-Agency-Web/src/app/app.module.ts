@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { AddHotelOffersComponent } from './add-hotel-offers/add-hotel-offers.component';
 import { FlightFilterComponent } from './flight-offers/flight-filter/flight-filter.component';
 import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
+import { PackageOffersComponent } from './package-offers/package-offers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { JQueryStyleEventEmitter } from 'rxjs/internal/observable/fromEvent';
     HotelOfferDetailsComponent,
     LoginComponent,
     AddHotelOffersComponent,
-    FlightFilterComponent
+    FlightFilterComponent,
+    PackageOffersComponent
   ],
   imports: [
     BrowserModule,
