@@ -1,14 +1,43 @@
 <table class="table table-striped">
   <thead>
-      <tr>
-        <th>Description</th>
-        <th>Price</th>
-      </tr>
-</thead>
+    <tr>
+      <th scope="col"></th>
+    </tr>
+  </thead>
   <tbody>
     <tr *ngFor="let offer of HotelOffersList">
-      <td>{{offer.description}}</td>
-      <td>{{offer.price}}</td>
+      <th class="row justify-content-center">
+        <div class="card" style="width: 50%;">
+          <div class="row justify-content-center">
+            <img src="../../assets/noimage.png" class="card-img-top" style="max-width: 50%; margin-top: 8px;">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><label>{{ offer.price | number }}$</label></h5>
+            <p class="card-text"><label>{{ offer.description }}</label></p>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item" (click)="openHotel(offer.productId)"><label>Hotel: {{ offer.productName }}</label></li>
+            <li class="list-group-item" (click)="openAgency(offer.agencyId)"><label>Agency: {{ offer.agencyName }}</label></li>
+          </ul>
+          <div class="card-body">
+            <button class="btn btn-primary" (click)="openOffer(offer.id)">Take a look</button>
+          </div>
+        </div>
+      </th>
     </tr>
   </tbody>
 </table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize"
+                  [(page)]="page"
+                  [pageSize]="pageSize"
+                  (pageChange)="refreshHotelOffersList()">
+  </ngb-pagination>
+
+  <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshHotelOffersList()">
+    <option [ngValue]="10">10 items per page</option>
+    <option [ngValue]="20">20 items per page</option>
+    <option [ngValue]="30">30 items per page</option>
+  </select>
+</div>

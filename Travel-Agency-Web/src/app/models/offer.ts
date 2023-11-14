@@ -5,6 +5,8 @@ export class Offer {
   capacity = 0;
   startDate: Date | undefined;
   endDate: Date | undefined;
+  agencyName = '';
   agencyId = 0;
+  productName = '';
   productId = 0;
 }

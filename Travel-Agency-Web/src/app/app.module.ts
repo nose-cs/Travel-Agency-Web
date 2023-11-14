@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationInterceptor } from './interceptor';
 import { FlightOffersComponent } from './flight-offers/flight-offers.component';
 import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/sh
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [SharedService,
     {

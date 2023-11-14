@@ -10,15 +10,15 @@ import { Offer } from './models/offer';
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5000/api';
+  readonly APIUrl = 'https://localhost:3571/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
   getHotelOffers(): Observable<Offer[]> {
-    return this.http.get<any>(this.APIUrl + '/Show/getHotelOffers');
+    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer');
   }
   getFlightOffers(): Observable<Offer[]> {
-    return this.http.get<any>(this.APIUrl + '/Show/getFlightOffers');
+    return this.http.get<any>(this.APIUrl + '/FlightOffer');
   }
   
 
