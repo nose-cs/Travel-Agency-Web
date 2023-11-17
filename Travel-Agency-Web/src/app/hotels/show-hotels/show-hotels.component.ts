@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Hotel } from 'src/app/models/hotel';
 import { SharedService } from 'src/app/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-hotels',
@@ -10,7 +11,7 @@ import { SharedService } from 'src/app/shared.service';
 export class ShowHotelsComponent {
   layout: 'list' | 'grid' = 'list';
 
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService, private router: Router) { }
 
   
 
@@ -26,8 +27,8 @@ export class ShowHotelsComponent {
       });
   }
 
-  openOffer(id: number) {
-    console.log(id);
+  openOfferList(id: number) {
+    this.router.navigate(['/show-hotel-offers', id]);
   }
 
   openHotel(id: number) {

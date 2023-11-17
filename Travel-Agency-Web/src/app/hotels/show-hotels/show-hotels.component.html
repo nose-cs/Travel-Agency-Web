@@ -15,7 +15,7 @@
               </div>
               <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                 <span class="text-2xl font-semibold">{{ getStars(product.category)       }}</span>
-                <p-button label="Reserve" styleClass="md:align-self-end mb-2" [rounded]="true" (click)="openOffer(product.id)"></p-button>
+                <p-button label="See Offers" styleClass="md:align-self-end mb-2" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
               </div>
             </div>
           </div>
@@ -29,8 +29,8 @@
               <div class="text-2xl font-bold">{{ product.name }}</div>
             </div>
             <div class="flex align-items-center justify-content-between">
-              <span class="text-2xl font-semibold">{{ '$' + product.category }}</span>
-              <p-button label="See Offers" [rounded]="true" (click)="openOffer(product.id)"></p-button>
+              <span class="text-2xl font-semibold">{{ getStars(product.category) }}</span>
+              <p-button label="See Offers" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
             </div>
           </div>
         </div>
