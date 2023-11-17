@@ -1,88 +1,62 @@
-<div>
-  <nav class="navbar bg-body-tertiary fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Travel Agency</a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<p-menubar>
+  <ng-template pTemplate="start">
+    <label>Travel Agencies</label>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <table *ngIf="username; else login">
+      <tr>
+        <td>
+          <a href="#">{{username}}</a>
+        </td>
+        <td></td>
+        <td>
+          <p-button label="Logout" (click)="logoutFun()" [text]="true" [rounded]="true"></p-button>
+        </td>
+      </tr>
+    </table>
+    <ng-template #login>
+      <p-button label="Login" (click)="showDialogLogin()" [text]="true" [rounded]="true"></p-button>
 
-      <div class="row">
-        <div class="col">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a *ngIf="username; else login" class="nav-link" href="#">{{username}}</a>
-              <ng-template #login>
-                <button type="button" class="btn btn-primary" (click)="openModal(content)">
-                  Login
-                </button>
+      <p-dialog header="Header" [(visible)]="visible" [modal]="true" (onHide)="dismissDialogLogin()">
+        <ng-template pTemplate="header">
+          <span class="text-xl font-bold">Login</span>
+        </ng-template>
+        <br />
+        <table>
+          <tr>
+            <td>
+              <span class="p-float-label">
+                <input pInputText id="email" [(ngModel)]="inputEmail" />
+                <label htmlFor="email">Email</label>
+              </span>
+            </td>
+            <td></td>
+            <td>
+              <span class="p-float-label">
+                <p-password [(ngModel)]="inputPassword" [toggleMask]="true" [feedback]="false"></p-password>
+                <label for="password">Password</label>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <br />
+        <label style="color: #ff0000">{{ errorLabel }}</label> 
+        <ng-template pTemplate="footer">
+          <p-button icon="pi pi-check" (click)="loginFun()" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+      </p-dialog>
+    </ng-template>
+  </ng-template>
+</p-menubar>
 
-                <ng-template #content let-modal>
-                  <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Login</h4>
-                    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form>
-                      <div class="mb-3 row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com">
-                        </div>
-                      </div>
+<br/>
 
-                      <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
-                          <input type="password" class="form-control" id="inputPassword">
-                        </div>
-                      </div>
-
-                      <div class="mb-3 row">
-                        <label class="col-form-label text-danger" id="errorLabel"></label>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="loginFun()">Enter</button>
-                  </div>
-                </ng-template>
-
-              </ng-template>
-
-            </li>
-          </ul>
-        </div>
-        <div class="col">
-          <button class="navbar-toggler" type="button" (click)="openHNav(content)">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
-
-      <ng-template #content let-offcanvas>
-        <div class="offcanvas-header">
-          <h4 class="offcanvas-title" id="offcanvas-basic-title">Home</h4>
-          <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss()"></button>
-        </div>
-        <div class="offcanvas-body">
-          <form>
-            <div class="mb-3">
-              <a class="nav-link" href="hotelOffers">Hotel Offers</a>
-            </div>
-            <div class="mb-3">
-              <a class="nav-link" href="flightOffers">Flight Offers</a>
-            </div>
-          </form>
-        </div>
-      </ng-template>
-    </div>
-  </nav>
-
-  <div class="container" style="margin-top: 65px;">
-    <router-outlet></router-outlet>
-  </div>
-
+<div class="card flex justify-content-center">
+  <p-tabMenu [model]="menuItems" [activeItem]="activeMenuItem" (activeItemChange)="onActiveMenuItemChange($event)"></p-tabMenu>
 </div>
+<div class="container" style="margin-top: 65px;">
+  <router-outlet></router-outlet>
+</div>
+
+
 

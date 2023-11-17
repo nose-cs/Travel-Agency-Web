@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
@@ -13,6 +14,13 @@ import { AuthenticationInterceptor } from './interceptor';
 import { FlightOffersComponent } from './flight-offers/flight-offers.component';
 import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { MenubarModule } from 'primeng/menubar';
+import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
   declarations: [
@@ -24,11 +32,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    DataViewModule,
+    ButtonModule,
+    MenubarModule,
+    DialogModule,
+    PasswordModule,
+    InputTextModule,
+    TabMenuModule
   ],
   providers: [SharedService,
     {

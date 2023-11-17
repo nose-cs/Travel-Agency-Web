@@ -4,10 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
 import { FlightOffersComponent } from './flight-offers/flight-offers.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: 'hotelOffers', component: HotelOffersComponent },
-  {path: 'flightOffers', component: FlightOffersComponent}
+  {path: '', component: HomeComponent },
+  {path: 'Home', component: HomeComponent },
+  {path: 'HotelOffers', component: HotelOffersComponent },
+  {path: 'FlightOffers', component: FlightOffersComponent}
 ];
 
 @NgModule({

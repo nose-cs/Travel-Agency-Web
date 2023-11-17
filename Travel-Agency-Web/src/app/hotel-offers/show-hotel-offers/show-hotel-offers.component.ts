@@ -9,13 +9,13 @@ import { Offer } from '../../models/offer';
 })
 export class ShowHotelOffersComponent implements OnInit {
 
+  layout: 'list' | 'grid' = 'list';
+
   constructor(private service: SharedService) { }
 
-  HotelOffersList: Offer[] = [];
+  
 
-  page = 1;
-  pageSize = 20;
-  collectionSize = 0;
+  HotelOffersList: Offer[] = [];
 
   ngOnInit(): void {
       this.refreshHotelOffersList();
@@ -23,13 +23,7 @@ export class ShowHotelOffersComponent implements OnInit {
 
   refreshHotelOffersList() {
       this.service.getHotelOffers().subscribe(data => {
-        this.HotelOffersList = data.map((offer, i) => ({ i: i + 1, ...offer })).slice(
-          (this.page - 1) * this.pageSize,
-          (this.page - 1) * this.pageSize + this.pageSize,
-        );
-
-
-        this.collectionSize = data.length;
+        this.HotelOffersList = data;
       });
   }
 

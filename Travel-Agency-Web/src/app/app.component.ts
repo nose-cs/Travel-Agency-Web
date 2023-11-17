@@ -3,8 +3,8 @@ import { Login } from './models/login';
 import { Register } from './models/register';
 import { JwtAuth } from './models/jwtAuth';
 import { SharedService } from './shared.service';
-import { NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -14,29 +14,52 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Travel-Agency-Web';
 
-  constructor(private service: SharedService, private offcanvasService: NgbOffcanvas, private modalService: NgbModal, private router: Router) { }
+  constructor(private service: SharedService, private router: Router) { }
+
+  menuItems: MenuItem[] | undefined;
+  activeMenuItem: MenuItem | undefined;
 
   username: string | null = null;
 
+  visible: boolean = false;
+
+  errorLabel: string = '';
+
+  inputEmail: string = '';
+  inputPassword: string = '';
+
   ngOnInit(): void {
+
+    this.username = null;
 
     const token = localStorage.getItem('jwtToken');
 
-    if (token) {
-      const parts = token.split('.');
-      const payload = parts[1];
-      const decoded = atob(payload);
+    try {
+      if (token) {
+        const parts = token.split('.');
+        const payload = parts[1];
+        const decoded = atob(payload);
 
-      const data = JSON.parse(decoded);
+        const data = JSON.parse(decoded);
 
-      const exp = new Date(data.exp * 1000);
-      const now = new Date();
+        const exp = new Date(data.exp * 1000);
+        const now = new Date();
 
-      if(now < exp)
-        this.username = data.name;
-      else
-        localStorage.setItem('jwtToken', null!);
+        if (now < exp)
+          this.username = data.name;
+        else
+          localStorage.setItem('jwtToken', null!);
+      }
     }
+    catch { }
+
+    this.menuItems = [
+      { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/Home'] },
+      { label: 'Hotels', icon: 'pi pi-fw pi-building', routerLink: ['/HotelOffers'] },
+      { label: 'Flights', icon: 'pi pi-fw pi-cloud', routerLink: ['/FlightOffers'] }
+    ];
+
+    this.activeMenuItem = this.menuItems[0];
   }
 
   registerFun(registerDto: Register) {
@@ -45,13 +68,14 @@ export class AppComponent {
   loginFun() {
     let loginDto = new Login(); 
 
-    loginDto.email = (<HTMLInputElement>document.getElementById("inputEmail")).value;
-    loginDto.password = (<HTMLInputElement>document.getElementById("inputPassword")).value;
+    loginDto.email = this.inputEmail;
+    loginDto.password = this.inputPassword;
 
     this.service.login(loginDto).subscribe(
       jwtAuth => {
         localStorage.setItem('jwtToken', jwtAuth.token);
-        this.modalService.dismissAll();
+        this.visible = false;
+        this.dismissDialogLogin();
         this.ngOnInit();
       },
       error => {
@@ -66,22 +90,31 @@ export class AppComponent {
             }
           }
 
-          (<HTMLLabelElement>document.getElementById("errorLabel")).innerHTML = err;
+          this.errorLabel = err;
         }
         else
-          (<HTMLLabelElement>document.getElementById("errorLabel")).innerHTML = error.error;
+          this.errorLabel = error.error;
       },
       () => { }
     );
   }
 
-  openHNav(content: any) {
-    this.offcanvasService.open(content, { position: 'end' , ariaLabelledBy: 'offcanvas-basic-title' });
+  logoutFun() {
+    localStorage.setItem('jwtToken', null!);
+    this.ngOnInit();
   }
 
-  openModal(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  showDialogLogin() {
+    this.visible = true;
   }
 
+  dismissDialogLogin() {
+    this.inputEmail = '';
+    this.inputPassword = '';
+    this.errorLabel = '';
+  }
 
+  onActiveMenuItemChange(event: MenuItem) {
+    this.activeMenuItem = event;
+  }
 }
