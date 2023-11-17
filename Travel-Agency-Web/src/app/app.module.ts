@@ -21,6 +21,8 @@ import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { HotelsComponent } from './hotels/hotels.component';
+import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { TabMenuModule } from 'primeng/tabmenu';
     HotelOffersComponent,
     ShowHotelOffersComponent,
     FlightOffersComponent,
-    ShowFlightOffersComponent
+    ShowFlightOffersComponent,
+    HotelsComponent,
+    ShowHotelsComponent
   ],
   imports: [
     BrowserModule,
