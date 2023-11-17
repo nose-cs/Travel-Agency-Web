@@ -28,7 +28,7 @@ export class ShowHotelsComponent {
   }
 
   openOfferList(id: number) {
-    this.router.navigate(['/show-hotel-offers', id]);
+    this.router.navigate(['HotelOffers']);
   }
 
   openHotel(id: number) {
