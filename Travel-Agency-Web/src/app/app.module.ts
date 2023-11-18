@@ -23,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
+import { SplitterModule } from 'primeng/splitter';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component'
     DialogModule,
     PasswordModule,
     InputTextModule,
-    TabMenuModule
+    TabMenuModule,
+    SplitterModule
   ],
   providers: [SharedService,
     {
