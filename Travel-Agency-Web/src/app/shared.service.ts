@@ -5,12 +5,13 @@ import { Login } from './models/login';
 import { Register } from './models/register';
 import { JwtAuth } from './models/jwtAuth';
 import { Offer } from './models/offer';
+import { Hotel } from './models/hotel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
@@ -20,7 +21,9 @@ export class SharedService {
   getFlightOffers(): Observable<Offer[]> {
     return this.http.get<any>(this.APIUrl + '/FlightOffer');
   }
-  
+  getHotels():Observable<Hotel[]>{
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel')
+  }
 
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/signup', user);

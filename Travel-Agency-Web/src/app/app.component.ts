@@ -55,7 +55,7 @@ export class AppComponent {
 
     this.menuItems = [
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/Home'] },
-      { label: 'Hotels', icon: 'pi pi-fw pi-building', routerLink: ['/HotelOffers'] },
+      { label: 'Hotels', icon: 'pi pi-fw pi-building', routerLink: ['/Hotels'] },
       { label: 'Flights', icon: 'pi pi-fw pi-cloud', routerLink: ['/FlightOffers'] }
     ];
 

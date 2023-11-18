@@ -5,12 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
 import { FlightOffersComponent } from './flight-offers/flight-offers.component';
 import { HomeComponent } from './home/home.component';
+import { HotelsComponent } from './hotels/hotels.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {path: 'Home', component: HomeComponent },
   {path: 'HotelOffers', component: HotelOffersComponent },
-  {path: 'FlightOffers', component: FlightOffersComponent}
+  {path: 'FlightOffers', component: FlightOffersComponent},
+  {path: 'Hotels', component: HotelsComponent}
 ];
 
 @NgModule({

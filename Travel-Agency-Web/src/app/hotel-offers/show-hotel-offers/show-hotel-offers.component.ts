@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
 import { Offer } from '../../models/offer';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-show-hotel-offers',
@@ -11,13 +13,14 @@ export class ShowHotelOffersComponent implements OnInit {
 
   layout: 'list' | 'grid' = 'list';
 
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService, private route: ActivatedRoute ) { }
 
   
 
   HotelOffersList: Offer[] = [];
 
   ngOnInit(): void {
+      // Lógica adicional utilizando el valor de id
       this.refreshHotelOffersList();
   }
 
