@@ -1,4 +1,4 @@
-<p-splitter [style]="{ height: '500px' }" styleClass="mb-5">
+<p-splitter [panelSizes]="[25, 75]" [style]="{ height: '500px' }" styleClass="mb-5">
   <ng-template pTemplate> <div class="col flex align-items-center justify-content-center"></div></ng-template>
   <ng-template pTemplate><div class="col flex align-items-center justify-content-center"></div>
 <div class="card" style="margin-top: 90px;">
@@ -14,7 +14,7 @@
             <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src="../../assets/noimage.png"/>
             <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
               <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                <div class="text-5xl font-bold text-900">{{ product.name }}</div>
+                <div class="text-5 xl font-bold text-900">{{ product.name }}</div>
                 <div class="text-2xl font-semibold">{{ getStars(product.category)  }}</div>
               </div>
               <div class="text-2xl text-700  ">{{ product.address }}</div>
