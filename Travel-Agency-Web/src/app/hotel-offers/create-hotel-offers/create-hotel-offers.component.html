@@ -12,7 +12,7 @@
 
 <div class="formgrid grid" style="margin-top: 24px; margin-left: 1px;">
   <span class="p-float-label">
-    <input pInputText id="title" [(ngModel)]="inputTitle" style="min-width: 815px;"/>
+    <input pInputText id="title" [(ngModel)]="inputTitle" style="width: 41vw;"/>
     <label htmlFor="title">Title</label>
   </span>
 </div>
@@ -20,13 +20,13 @@
 <div class="formgrid grid" style="margin-top: 24px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-inputNumber inputId="price" [(ngModel)]="inputPrice" mode="currency" currency="USD" locale="en-US" [style]="{ minWidth: '400px' }"> </p-inputNumber>
+      <p-inputNumber inputId="price" [(ngModel)]="inputPrice" mode="currency" currency="USD" locale="en-US" [style]="{ width: '20vw' }"> </p-inputNumber>
       <label htmlFor="price">Price</label>
     </span>
   </div>
   <div class="field col">
     <span class="p-float-label">
-      <p-inputNumber inputId="capacity" [(ngModel)]="inputCapacity" [style]="{ minWidth: '400px' }"> </p-inputNumber>
+      <p-inputNumber inputId="capacity" [(ngModel)]="inputCapacity" [style]="{ width: '20vw' }"> </p-inputNumber>
       <label htmlFor="capacity">Capacity</label>
     </span>
   </div>
@@ -35,13 +35,13 @@
 <div class="formgrid grid" style="margin-top: 10px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ minWidth: '400px' }"></p-calendar>
+      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }"></p-calendar>
       <label htmlFor="startDate">Start Date</label>
     </span>
   </div>
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ minWidth: '400px' }"></p-calendar>
+      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }"></p-calendar>
       <label htmlFor="endDate">End Date</label>
     </span>
   </div>
@@ -49,7 +49,7 @@
 
 <div class="field grid" style="margin-top: 22px; margin-left: 1px;">
   <span class="p-float-label">
-    <textarea id="description" [(ngModel)]="inputDescription" rows="5" [style]="{ minWidth: '815px' }" pInputTextarea></textarea>
+    <textarea id="description" [(ngModel)]="inputDescription" rows="5" [style]="{ width: '41vw' }" pInputTextarea></textarea>
     <label for="description">Description</label>
   </span>
 </div>

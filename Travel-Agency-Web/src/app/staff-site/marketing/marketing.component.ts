@@ -29,7 +29,7 @@ export class MarketingComponent {
               header: 'Create a Hotel offer',
               contentStyle: { overflow: 'auto' },
               baseZIndex: 10000,
-              maximizable: true
+              maximizable: false
             });
             break;
         }
