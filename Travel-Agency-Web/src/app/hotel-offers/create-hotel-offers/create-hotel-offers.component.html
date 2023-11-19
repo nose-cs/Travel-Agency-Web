@@ -1,0 +1,61 @@
+
+<div class="field grid" style="margin-top: 22px; margin-left: 1px;">
+  <span class="p-float-label">
+    <p-autoComplete [(ngModel)]="selectedHotel" field="name" [suggestions]="suggestions" (completeMethod)="searchHotel($event)" inputId="selectHotel">
+      <ng-template let-hotel pTemplate="item">
+        {{ hotel.name }}
+      </ng-template>
+    </p-autoComplete>
+    <label for="selectHotel">Select Hotel</label>
+  </span>
+</div>
+
+<div class="formgrid grid" style="margin-top: 24px; margin-left: 1px;">
+  <span class="p-float-label">
+    <input pInputText id="title" [(ngModel)]="inputTitle" style="min-width: 815px;"/>
+    <label htmlFor="title">Title</label>
+  </span>
+</div>
+
+<div class="formgrid grid" style="margin-top: 24px;">
+  <div class="field col">
+    <span class="p-float-label">
+      <p-inputNumber inputId="price" [(ngModel)]="inputPrice" mode="currency" currency="USD" locale="en-US" [style]="{ minWidth: '400px' }"> </p-inputNumber>
+      <label htmlFor="price">Price</label>
+    </span>
+  </div>
+  <div class="field col">
+    <span class="p-float-label">
+      <p-inputNumber inputId="capacity" [(ngModel)]="inputCapacity" [style]="{ minWidth: '400px' }"> </p-inputNumber>
+      <label htmlFor="capacity">Capacity</label>
+    </span>
+  </div>
+</div>
+
+<div class="formgrid grid" style="margin-top: 10px;">
+  <div class="field col">
+    <span class="p-float-label">
+      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ minWidth: '400px' }"></p-calendar>
+      <label htmlFor="startDate">Start Date</label>
+    </span>
+  </div>
+  <div class="field col">
+    <span class="p-float-label">
+      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ minWidth: '400px' }"></p-calendar>
+      <label htmlFor="endDate">End Date</label>
+    </span>
+  </div>
+</div>
+
+<div class="field grid" style="margin-top: 22px; margin-left: 1px;">
+  <span class="p-float-label">
+    <textarea id="description" [(ngModel)]="inputDescription" rows="5" [style]="{ minWidth: '815px' }" pInputTextarea></textarea>
+    <label for="description">Description</label>
+  </span>
+</div>
+
+<label style="color: #ff0000">{{ errorLabel }}</label>
+
+<div class="card flex justify-content-end">
+  <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [style]="{ position: 'end' }" (click)="onOk()"></p-button>
+</div>

@@ -20,17 +20,38 @@ export class AppComponent {
   activeMenuItem: MenuItem | undefined;
 
   username: string | null = null;
+  role: string | null = null;
 
-  visible: boolean = false;
+  visibleLogin: boolean = false;
+  visibleRegister: boolean = false;
 
   errorLabel: string = '';
 
+  inputName: string = '';
+  inputNationality: string = '';
   inputEmail: string = '';
   inputPassword: string = '';
 
   ngOnInit(): void {
 
+    if (this.router.url == '' || this.router.url == '/')
+      this.router.navigateByUrl('/Home');
+
+    this.checkToken();
+
+    this.menuItems = [
+      { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/Home'] },
+      { label: 'Hotels', icon: 'pi pi-fw pi-building', routerLink: ['/Hotels'] },
+      { label: 'Flights', icon: 'pi pi-fw pi-cloud', routerLink: ['/FlightOffers'] }
+    ];
+
+    this.activeMenuItem = this.menuItems[0];
+
+  }
+
+  checkToken() {
     this.username = null;
+    this.role = null;
 
     const token = localStorage.getItem('jwtToken');
 
@@ -45,28 +66,58 @@ export class AppComponent {
         const exp = new Date(data.exp * 1000);
         const now = new Date();
 
-        if (now < exp)
+        if (now < exp) {
           this.username = data.name;
-        else
+          this.role = data.role;
+
+          localStorage.setItem('role', this.role!);
+        }
+        else {
           localStorage.setItem('jwtToken', null!);
+          localStorage.setItem('role', null!);
+        }
       }
     }
     catch { }
-
-    this.menuItems = [
-      { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/Home'] },
-      { label: 'Hotels', icon: 'pi pi-fw pi-building', routerLink: ['/Hotels'] },
-      { label: 'Flights', icon: 'pi pi-fw pi-cloud', routerLink: ['/FlightOffers'] }
-    ];
-
-    this.activeMenuItem = this.menuItems[0];
   }
 
-  registerFun(registerDto: Register) {
-    this.service.register(registerDto).subscribe();
+  registerFun() {
+    let registerDto = new Register();
+
+    registerDto.name = this.inputName;
+    registerDto.nationality = this.inputNationality;
+    registerDto.email = this.inputEmail;
+    registerDto.password = this.inputPassword;
+
+    this.service.register(registerDto).subscribe(
+      jwtAuth => {
+        localStorage.setItem('jwtToken', jwtAuth.token);
+        this.visibleRegister = false;
+        this.dismissDialogRegister();
+        this.ngOnInit();
+      },
+      error => {
+        localStorage.setItem('jwtToken', null!);
+
+        if (error.error.errors) {
+          let err = '';
+
+          for (let errs of Object.values(error.error.errors)) {
+            for (let e of <Array<string>>errs) {
+              err += e + '\n';
+            }
+          }
+
+          this.errorLabel = err;
+        }
+        else
+          this.errorLabel = error.error;
+      },
+      () => { }
+    );
   }
   loginFun() {
-    let loginDto = new Login(); 
+    let loginDto = new Login();
 
     loginDto.email = this.inputEmail;
     loginDto.password = this.inputPassword;
@@ -74,9 +125,9 @@ export class AppComponent {
     this.service.login(loginDto).subscribe(
       jwtAuth => {
         localStorage.setItem('jwtToken', jwtAuth.token);
-        this.visible = false;
+        this.visibleLogin = false;
         this.dismissDialogLogin();
-        this.ngOnInit();
+        this.checkToken();
       },
       error => {
         localStorage.setItem('jwtToken', null!);
@@ -101,14 +152,28 @@ export class AppComponent {
 
   logoutFun() {
     localStorage.setItem('jwtToken', null!);
-    this.ngOnInit();
+    this.router.navigate(['/Home']).then(() => {
+      location.reload();
+    });
   }
 
   showDialogLogin() {
-    this.visible = true;
+    this.visibleLogin = true;
+  }
+
+  showDialogRegister() {
+    this.visibleRegister = true;
   }
 
   dismissDialogLogin() {
+    this.inputEmail = '';
+    this.inputPassword = '';
+    this.errorLabel = '';
+  }
+
+  dismissDialogRegister() {
+    this.inputName = '';
+    this.inputNationality = '';
     this.inputEmail = '';
     this.inputPassword = '';
     this.errorLabel = '';

@@ -3,60 +3,101 @@
     <label>Travel Agencies</label>
   </ng-template>
   <ng-template pTemplate="end">
+
     <table *ngIf="username; else login">
       <tr>
         <td>
-          <a href="#">{{username}}</a>
+          Hello <a href="#">{{username}}</a>!
         </td>
-        <td></td>
+        <td>
+          <label style="margin-left: 28px; margin-right: 10px;">|</label>
+        </td>
+        <td *ngIf="role != 'Tourist'">
+          <p-button label="Staff Site" [routerLink]="'/StaffSite'" [text]="true" [rounded]="true"></p-button>
+        </td>
         <td>
           <p-button label="Logout" (click)="logoutFun()" [text]="true" [rounded]="true"></p-button>
         </td>
       </tr>
     </table>
+
     <ng-template #login>
       <p-button label="Login" (click)="showDialogLogin()" [text]="true" [rounded]="true"></p-button>
 
-      <p-dialog header="Header" [(visible)]="visible" [modal]="true" (onHide)="dismissDialogLogin()">
+      <p-button label="Register" (click)="showDialogRegister()" [text]="true" [rounded]="true"></p-button>
+
+
+      <p-dialog header="Header" [(visible)]="visibleLogin" [modal]="true" (onHide)="dismissDialogLogin()">
         <ng-template pTemplate="header">
           <span class="text-xl font-bold">Login</span>
         </ng-template>
         <br />
-        <table>
-          <tr>
-            <td>
-              <span class="p-float-label">
-                <input pInputText id="email" [(ngModel)]="inputEmail" />
-                <label htmlFor="email">Email</label>
-              </span>
-            </td>
-            <td></td>
-            <td>
-              <span class="p-float-label">
-                <p-password [(ngModel)]="inputPassword" [toggleMask]="true" [feedback]="false"></p-password>
-                <label for="password">Password</label>
-              </span>
-            </td>
-          </tr>
-        </table>
+        <div class="formgrid grid">
+          <div class="field col">
+            <span class="p-float-label">
+              <input pInputText id="email" [(ngModel)]="inputEmail" />
+              <label htmlFor="email">Email</label>
+            </span>
+          </div>
+          <div class="field col">
+            <span class="p-float-label">
+              <p-password [(ngModel)]="inputPassword" [toggleMask]="true" [feedback]="false"></p-password>
+              <label for="password">Password</label>
+            </span>
+          </div>
+        </div>
         <br />
-        <label style="color: #ff0000">{{ errorLabel }}</label> 
+        <label style="color: #ff0000">{{ errorLabel }}</label>
         <ng-template pTemplate="footer">
           <p-button icon="pi pi-check" (click)="loginFun()" label="Ok" styleClass="p-button-text"></p-button>
         </ng-template>
       </p-dialog>
+
+      <p-dialog header="Header" [(visible)]="visibleRegister" [modal]="true" (onHide)="dismissDialogRegister()">
+        <ng-template pTemplate="header">
+          <span class="text-xl font-bold">Register</span>
+        </ng-template>
+        <br />
+        <div class="field grid">
+          <span class="p-float-label">
+            <input pInputText id="name" [(ngModel)]="inputName" style="width: 280px;" />
+            <label htmlFor="name">Name</label>
+          </span>
+        </div>
+        <div class="field grid" style="margin-top: 22px;">
+          <span class="p-float-label">
+            <input pInputText id="nationality" [(ngModel)]="inputNationality" style="width: 280px;" />
+            <label htmlFor="nationality">Nationality</label>
+          </span>
+        </div>
+        <div class="field grid" style="margin-top: 22px;">
+          <span class="p-float-label">
+            <input pInputText id="email" [(ngModel)]="inputEmail" style="width: 280px;" />
+            <label htmlFor="email">Email</label>
+          </span>
+        </div>
+        <div class="field grid" style="margin-top: 22px;">
+          <span class="p-float-label">
+            <p-password [(ngModel)]="inputPassword" [toggleMask]="true" [feedback]="false"></p-password>
+            <label for="password">Password</label>
+          </span>
+        </div>
+        <label style="color: #ff0000">{{ errorLabel }}</label>
+        <ng-template pTemplate="footer">
+          <p-button icon="pi pi-check" (click)="registerFun()" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
+      </p-dialog>
+
     </ng-template>
   </ng-template>
 </p-menubar>
 
-<br/>
+<br />
 
 <div class="card flex justify-content-center">
   <p-tabMenu [model]="menuItems" [activeItem]="activeMenuItem" (activeItemChange)="onActiveMenuItemChange($event)"></p-tabMenu>
 </div>
+
 <div class="container" style="margin-top: 65px;">
   <router-outlet></router-outlet>
 </div>
-
-
-

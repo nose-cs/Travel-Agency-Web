@@ -1,0 +1,14 @@
+<p-dataView #dv [value]="OffersControlItems" [layout]="'grid'">
+  <ng-template let-ofi pTemplate="gridItem">
+    <p-card header="{{ofi}}" [style]="{ margin: '10px' }">
+      <div class="grid">
+        <div class="col-6">
+          <p-button label="Create" icon="pi pi-plus-circle" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Create')"></p-button>
+        </div>
+        <div class="col-6">
+          <p-button label="Manage" icon="pi pi-file-edit" [style]="{ width: '100%'}" (click)="redirect(ofi.Name, 'Manage')"></p-button>
+        </div>
+      </div>
+    </p-card>
+  </ng-template>
+</p-dataView>
