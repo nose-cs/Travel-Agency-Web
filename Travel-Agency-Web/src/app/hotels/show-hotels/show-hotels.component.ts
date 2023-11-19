@@ -29,7 +29,7 @@ export class ShowHotelsComponent {
       });
   }
 
-  onFilter(data: any[]) {
+  onFilter(data: Hotel[]) {
     // Asigna los resultados del filtro a la variable
     this.HotelList = data;
   }

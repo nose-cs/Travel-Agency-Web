@@ -25,17 +25,33 @@ import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
 import { SplitterModule } from 'primeng/splitter';
 import { HotelfilteringComponent } from './hotels/hotelfiltering/hotelfiltering.component';
+import { CreateHotelOffersComponent } from './hotel-offers/create-hotel-offers/create-hotel-offers.component';
+import { StaffSiteComponent } from './staff-site/staff-site.component';
+import { MarketingComponent } from './staff-site/marketing/marketing.component';
+
+import { CardModule } from 'primeng/card';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { HomeComponent } from './home/home.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
     FlightOffersComponent,
     ShowFlightOffersComponent,
     HotelsComponent,
     ShowHotelsComponent,
-    HotelfilteringComponent
+    HotelfilteringComponent,
+    CreateHotelOffersComponent,
+    StaffSiteComponent,
+    MarketingComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +68,13 @@ import { HotelfilteringComponent } from './hotels/hotelfiltering/hotelfiltering.
     PasswordModule,
     InputTextModule,
     TabMenuModule,
-    SplitterModule
+    SplitterModule,
+    CardModule,
+    DynamicDialogModule,
+    AutoCompleteModule,
+    CalendarModule,
+    InputNumberModule,
+    InputTextareaModule
   ],
   providers: [SharedService,
     {
