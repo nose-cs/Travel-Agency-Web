@@ -1,6 +1,4 @@
-<p-splitter [panelSizes]="[25, 75]" [style]="{ height: '500px' }" styleClass="mb-5">
-  <ng-template pTemplate> <div class="col flex align-items-center justify-content-center"></div></ng-template>
-  <ng-template pTemplate><div class="col flex align-items-center justify-content-center"></div>
+<app-hotelfiltering (filterResults)="onFilter($event)"></app-hotelfiltering>
 <div class="card" style="margin-top: 90px;">
     <p-dataView #dv [value]="HotelList" [layout]="layout">
       <ng-template pTemplate="header">
@@ -42,6 +40,5 @@
       </ng-template>
     </p-dataView>
   </div>
-</ng-template>
-</p-splitter>
+
   

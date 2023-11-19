@@ -30,6 +30,8 @@ export class ShowHotelOffersComponent implements OnInit {
       });
   }
 
+  
+
   openOffer(id: number) {
     console.log(id);
   }

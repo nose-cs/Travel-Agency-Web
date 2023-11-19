@@ -24,6 +24,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
 import { SplitterModule } from 'primeng/splitter';
+import { HotelfilteringComponent } from './hotels/hotelfiltering/hotelfiltering.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SplitterModule } from 'primeng/splitter';
     FlightOffersComponent,
     ShowFlightOffersComponent,
     HotelsComponent,
-    ShowHotelsComponent
+    ShowHotelsComponent,
+    HotelfilteringComponent
   ],
   imports: [
     BrowserModule,

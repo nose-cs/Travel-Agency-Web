@@ -13,7 +13,9 @@ export class ShowHotelsComponent {
 
   constructor(private service: SharedService, private router: Router) { }
 
-  
+  name!: string;
+  address!: string;
+  category!: number;
 
   HotelList: Hotel[] = [];
 
@@ -25,6 +27,11 @@ export class ShowHotelsComponent {
       this.service.getHotels().subscribe(data => {
         this.HotelList = data;
       });
+  }
+
+  onFilter(data: any[]) {
+    // Asigna los resultados del filtro a la variable
+    this.HotelList = data;
   }
 
   openOfferList(id: number) {
