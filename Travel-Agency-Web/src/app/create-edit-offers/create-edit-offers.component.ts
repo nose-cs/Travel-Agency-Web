@@ -43,8 +43,8 @@ export class CreateEditOffersComponent {
       this.selectedModel = { id: offer.productId, name: offer.productName };
   }
 
-  searchModel(event: any) {
-    this.suggestions = this.config.data['filter'](event.query);
+  async searchModel(event: any) {
+    this.suggestions = await this.config.data['filter'](event.query);
   }
 
   onOk() {

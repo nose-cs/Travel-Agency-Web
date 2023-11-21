@@ -36,19 +36,29 @@ export class ShowStaffHotelOffersComponent {
       data: {
         offer: offer,
         execute: (offer: Offer) => this.service.editHotelOffer(offer),
-        filter: (query: string) => {
+        filter: async (query: string) => {
           const filter = new HotelFilter();
           filter.hotelName = query;
 
           let suggestions: { id: number, name: string }[] = [];
-          this.service.getHotelsWithFilter(filter).subscribe(
-            (hotels: Hotel[]) => {
-              for(let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name }; }))
-              {
-                suggestions.push(sugg);
+
+          let promise = new Promise<void>((resolve, reject) => {
+            this.service.getHotelsWithFilter(filter).subscribe(
+              (hotels: Hotel[]) => {
+                for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name }; })) {
+                  suggestions.push(sugg);
+                }
+
+                resolve();
+              },
+              (error) => {
+                reject(error);
               }
-            }
+            );
+          }
           );
+
+          await promise;
 
           return suggestions;
         }
