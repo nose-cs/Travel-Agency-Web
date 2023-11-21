@@ -1,12 +1,12 @@
 
 <div class="field grid" style="margin-top: 22px; margin-left: 1px;">
   <span class="p-float-label">
-    <p-autoComplete [(ngModel)]="selectedHotel" field="name" [suggestions]="suggestions" (completeMethod)="searchHotel($event)" inputId="selectHotel">
+    <p-autoComplete [(ngModel)]="selectedModel" field="name" [suggestions]="suggestions" (completeMethod)="searchModel($event)" inputId="selectModel">
       <ng-template let-hotel pTemplate="item">
         {{ hotel.name }}
       </ng-template>
     </p-autoComplete>
-    <label for="selectHotel">Select Hotel</label>
+    <label for="selectModel">Select Product</label>
   </span>
 </div>
 
@@ -20,14 +20,14 @@
 <div class="formgrid grid" style="margin-top: 24px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-inputNumber inputId="price" [(ngModel)]="inputPrice" mode="currency" currency="USD" locale="en-US" [style]="{ width: '20vw' }"> </p-inputNumber>
-      <label htmlFor="price">Price</label>
+      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }"></p-calendar>
+      <label htmlFor="startDate">Start Date</label>
     </span>
   </div>
   <div class="field col">
     <span class="p-float-label">
-      <p-inputNumber inputId="capacity" [(ngModel)]="inputCapacity" [style]="{ width: '20vw' }"> </p-inputNumber>
-      <label htmlFor="capacity">Capacity</label>
+      <p-inputNumber inputId="price" [(ngModel)]="inputPrice" mode="currency" currency="USD" locale="en-US" [style]="{ width: '20vw' }"> </p-inputNumber>
+      <label htmlFor="price">Price</label>
     </span>
   </div>
 </div>
@@ -35,14 +35,14 @@
 <div class="formgrid grid" style="margin-top: 10px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }"></p-calendar>
-      <label htmlFor="startDate">Start Date</label>
+      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }"></p-calendar>
+      <label htmlFor="endDate">End Date</label>
     </span>
   </div>
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }"></p-calendar>
-      <label htmlFor="endDate">End Date</label>
+      <p-inputNumber inputId="capacity" [(ngModel)]="inputCapacity" [style]="{ width: '20vw' }"> </p-inputNumber>
+      <label htmlFor="capacity">Capacity</label>
     </span>
   </div>
 </div>

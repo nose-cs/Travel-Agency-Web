@@ -20,6 +20,13 @@ export class SharedService {
   getHotelOffers(): Observable<Offer[]> {
     return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer');
   }
+  getHotelOffer(id: number): Observable<Offer> {
+    return this.http.get<Offer>(this.APIUrl + '/HotelOffer/' + id);
+  }
+  deleteHotelOffer(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/HotelOffer/' + id);
+  }
+
   getFlightOffers(): Observable<Offer[]> {
     return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer');
   }
@@ -45,6 +52,10 @@ export class SharedService {
 
   createHotelOffer(offer: Offer): Observable<void> {
     return this.http.post<void>(this.APIUrl + '/HotelOffer', offer);
+  }
+
+  editHotelOffer(offer: Offer): Observable<void> {
+    return this.http.put<void>(this.APIUrl + '/HotelOffer', offer);
   }
 
   register(user: Register): Observable<JwtAuth> {
