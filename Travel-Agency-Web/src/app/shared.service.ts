@@ -59,11 +59,11 @@ export class SharedService {
   }
 
   register(user: Register): Observable<JwtAuth> {
-    return this.http.post<JwtAuth>(this.APIUrl + '/Identity/signup', user);
+    return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
   }
   
   getIdHotelOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/' + id  + '/offers'); 
+    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers'); 
   }
 
   login(user: Login): Observable<JwtAuth> {
