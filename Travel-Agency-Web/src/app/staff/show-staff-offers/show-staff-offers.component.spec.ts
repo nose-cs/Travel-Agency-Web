@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowStaffHotelOffersComponent } from './show-staff-hotel-offers.component';
+import { ShowStaffHotelOffersComponent } from './show-staff-offers.component';
 
 describe('ShowStaffHotelOffersComponent', () => {
   let component: ShowStaffHotelOffersComponent;
