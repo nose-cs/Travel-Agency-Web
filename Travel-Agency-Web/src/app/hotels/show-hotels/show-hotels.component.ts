@@ -34,8 +34,9 @@ export class ShowHotelsComponent {
     this.HotelList = data;
   }
 
-  openOfferList(id: number) {
-    this.router.navigate(['HotelOffers']);
+  openOfferList(hotelId: number) {
+    console.log(hotelId);
+    this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: hotelId } });
   }
 
   openHotel(id: number) {
