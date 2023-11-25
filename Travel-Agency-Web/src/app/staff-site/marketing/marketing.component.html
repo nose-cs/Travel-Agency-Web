@@ -9,6 +9,29 @@
           <p-button label="Manage" icon="pi pi-file-edit" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Manage')"></p-button>
         </div>
       </div>
+      <p-card>
+        <div class="grid">
+          <div class="col-4">
+            <span class="p-float-label">
+              <p-calendar [(ngModel)]="inputStartSales[ofi]" (onSelect)="onChangeRequest(ofi)" id="startSales" appendTo="body"></p-calendar>
+              <label htmlFor="startSales">Start</label>
+            </span>
+          </div>
+          <div class="col-4">
+            <span class="p-float-label">
+              <p-calendar [(ngModel)]="inputEndSales[ofi]" (onSelect)="onChangeRequest(ofi)" id="endSales" appendTo="body"></p-calendar>
+              <label htmlFor="endSales">End</label>
+            </span>
+          </div>
+          <div class="col-4">
+            <span class="p-float-label">
+              <p-dropdown [options]="groups" [(ngModel)]="selectedGroup[ofi]" (onChange)="onChangeRequest(ofi)" optionLabel="name" inputId="float-label"></p-dropdown>
+              <label for="float-label">Group by</label>
+            </span>
+          </div>
+        </div>
+        <p-chart type="line" [data]="dataSales[ofi]" [options]="optionSales[ofi]"></p-chart>
+</p-card>
     </p-card>
   </ng-template>
 </p-dataView>

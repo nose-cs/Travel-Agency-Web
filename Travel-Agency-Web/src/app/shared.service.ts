@@ -9,6 +9,8 @@ import { Hotel } from './models/hotel';
 import { Params } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { HotelFilter } from './models/hotelFilter';
+import { SaleRequest, SaleResponse } from './models/salesStatistics';
+import { param } from 'jquery';
 @Injectable({
   providedIn: 'root'
 })
@@ -56,6 +58,42 @@ export class SharedService {
 
   editHotelOffer(offer: Offer): Observable<void> {
     return this.http.put<void>(this.APIUrl + '/HotelOffer', offer);
+  }
+
+  getHotelSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+    params = params.append('groupBy', request.groupBy.toString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/HotelReservation/getSales', { params });
+  }
+
+  getFlightSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+    params = params.append('groupBy', request.groupBy.toString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/FlightReservation/getSales', { params });
+  }
+
+  getTourSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+    params = params.append('groupBy', request.groupBy.toString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/TourReservation/getSales', { params });
+  }
+
+  getPackageSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+    params = params.append('groupBy', request.groupBy.toString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/PackageReservation/getSales', { params });
   }
 
   register(user: Register): Observable<JwtAuth> {
