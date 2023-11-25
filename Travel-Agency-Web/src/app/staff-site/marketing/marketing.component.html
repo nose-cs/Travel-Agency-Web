@@ -1,37 +1,54 @@
-<p-dataView #dv [value]="OffersControlItems" [layout]="'grid'">
-  <ng-template let-ofi pTemplate="gridItem">
-    <p-card header="{{ofi}}" [style]="{ margin: '10px' }">
-      <div class="grid">
-        <div class="col-6">
-          <p-button label="Create" icon="pi pi-plus-circle" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Create')"></p-button>
-        </div>
-        <div class="col-6">
-          <p-button label="Manage" icon="pi pi-file-edit" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Manage')"></p-button>
-        </div>
-      </div>
-      <p-card>
+<p-dataView [value]="OffersControlItems" [layout]="'list'">
+    <ng-template let-ofi pTemplate="listItem">
+      <p-card header="{{ofi}}" [style]="{ margin: '10px', width: '97.5vw' }">
         <div class="grid">
-          <div class="col-4">
-            <span class="p-float-label">
-              <p-calendar [(ngModel)]="inputStartSales[ofi]" (onSelect)="onChangeRequest(ofi)" id="startSales" appendTo="body"></p-calendar>
-              <label htmlFor="startSales">Start</label>
-            </span>
+          <div class="col-3">
+            <p-button label="Create" icon="pi pi-plus-circle" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Create')"></p-button>
           </div>
-          <div class="col-4">
-            <span class="p-float-label">
-              <p-calendar [(ngModel)]="inputEndSales[ofi]" (onSelect)="onChangeRequest(ofi)" id="endSales" appendTo="body"></p-calendar>
-              <label htmlFor="endSales">End</label>
-            </span>
-          </div>
-          <div class="col-4">
-            <span class="p-float-label">
-              <p-dropdown [options]="groups" [(ngModel)]="selectedGroup[ofi]" (onChange)="onChangeRequest(ofi)" optionLabel="name" inputId="float-label"></p-dropdown>
-              <label for="float-label">Group by</label>
-            </span>
+          <div class="col-3">
+            <p-button label="Manage" icon="pi pi-file-edit" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Manage')"></p-button>
           </div>
         </div>
-        <p-chart type="line" [data]="dataSales[ofi]" [options]="optionSales[ofi]"></p-chart>
-</p-card>
-    </p-card>
-  </ng-template>
+        <p-card [style]="{ marginBottom: '10px', marginTop: '10px' }">
+          <div class="grid">
+            <div class="col-3">
+              <span class="p-float-label">
+                <p-calendar [(ngModel)]="inputStartSales[ofi]" (onSelect)="onChangeRequest(ofi)" id="startSales" appendTo="body"></p-calendar>
+                <label htmlFor="startSales">Start</label>
+              </span>
+            </div>
+            <div class="col-3">
+              <span class="p-float-label">
+                <p-calendar [(ngModel)]="inputEndSales[ofi]" (onSelect)="onChangeRequest(ofi)" id="endSales" appendTo="body"></p-calendar>
+                <label htmlFor="endSales">End</label>
+              </span>
+            </div>
+            <div class="col-6">
+              <table>
+                <tr>
+                  <td>
+                    <span class="p-float-label">
+                      <p-dropdown [options]="charts" [(ngModel)]="selectedChart[ofi]" (onChange)="onChangeRequest(ofi)" optionLabel="name" inputId="float-label"></p-dropdown>
+                      <label for="float-label">Chart</label>
+                    </span>
+                  </td>
+                  <td *ngIf="selectedChart[ofi].value != 2">
+                    <span class="p-float-label">
+                      <p-dropdown [options]="groups" [(ngModel)]="selectedGroup[ofi]" (onChange)="onChangeRequest(ofi)" optionLabel="name" inputId="float-label"></p-dropdown>
+                      <label for="float-label">Group by</label>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </p-card>
+
+        <p-card>
+          <p-chart *ngIf="selectedChart[ofi].value == 1" type="line" [data]="dataSales[ofi]" [options]="optionSales[ofi]"></p-chart>
+          <p-chart *ngIf="selectedChart[ofi].value == 2" type="bar" [data]="dataOfferSales[ofi]" [options]="optionOfferSales[ofi]"></p-chart>
+        </p-card>
+
+      </p-card>
+    </ng-template>
 </p-dataView>

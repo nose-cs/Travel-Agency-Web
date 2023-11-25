@@ -26,11 +26,18 @@ export class MarketingComponent {
 
   ref: DynamicDialogRef | undefined;
 
-  dataSales: Record<string, any> = {};
-  optionSales: Record<string, any> = {};
-
   inputStartSales: Record<string, Date> = {};
   inputEndSales: Record<string, Date> = {};
+
+  groups: { name: string, value: number }[] = [{ name: 'Day', value: GroupBy.Day }, { name: 'Month', value: GroupBy.Month }, { name: 'Year', value: GroupBy.Year }];
+  selectedGroup: Record<string, { name: string, value: number }> = {};
+
+  charts: { name: string, value: number }[] = [{ name: 'Sales', value: 1 }, { name: 'Offer sales', value: 2 }];
+  selectedChart: Record<string, { name: string, value: number }> = {};
+
+  //Sales
+  dataSales: Record<string, any> = {};
+  optionSales: Record<string, any> = {};
 
   groupSales: Record<string, string[]> = {};
   totalSales: Record<string, number[]> = {};
@@ -38,42 +45,56 @@ export class MarketingComponent {
 
   serviceSales: Record<string, Function> = {};
 
-  groups: { name: string, value: number }[] = [{ name: 'Day', value: GroupBy.Day }, { name: 'Month', value: GroupBy.Month }, { name: 'Year', value: GroupBy.Year }];
-  selectedGroup: Record<string, { name: string, value: number }> = {};
+  //Offer Sales
+  dataOfferSales: Record<string, any> = {};
+  optionOfferSales: Record<string, any> = {};
+
+  groupOfferSales: Record<string, string[]> = {};
+  descriptionOfferSales: Record<string, string[]> = {};
+  totalOfferSales: Record<string, number[]> = {};
+  moneyOfferSales: Record<string, number[]> = {};
+
+  serviceOfferSales: Record<string, Function> = {};
 
   ngOnInit() {
     for (let model of this.OffersControlItems) {
       this.inputStartSales[model] = new Date();
       this.inputEndSales[model] = new Date();
 
+      this.selectedGroup[model] = this.groups[0];
+      this.selectedChart[model] = this.charts[0];
+
+      //Sales
       this.groupSales[model] = [];
       this.totalSales[model] = [];
       this.moneySales[model] = [];
 
-      this.selectedGroup[model] = this.groups[0];
+      //Offer Sales
+      this.groupOfferSales[model] = [];
+      this.descriptionOfferSales[model] = [];
+      this.totalOfferSales[model] = [];
+      this.moneyOfferSales[model] = [];
 
       switch (model) {
         case 'Hotel Offers':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getHotelSales(request);
+          this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getHotelOfferSales(request);
           break;
         case 'Flight Offers':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getFlightSales(request);
+          this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getFlightOfferSales(request);
           break;
         case 'Tour Offers':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getTourSales(request);
+          this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getTourOfferSales(request);
           break;
         case 'Packages':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getPackageSales(request);
+          this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getPackageOfferSales(request);
           break;
       }
 
-      this.serviceSales[model]({ start: this.inputStartSales[model], end: this.inputEndSales[model], groupBy: this.selectedGroup[model].value })
-        .subscribe((data: SaleResponse[]) => {
-          this.groupSales[model] = data.map(sale => sale.group);
-          this.totalSales[model] = data.map(sale => sale.total);
-          this.moneySales[model] = data.map(sale => sale.moneyAmount);
-          this.refreshSales(model);
-        });
+      this.onChangeRequest(model);
     }
   }
 
@@ -84,7 +105,16 @@ export class MarketingComponent {
         this.totalSales[model] = data.map(sale => sale.total);
         this.moneySales[model] = data.map(sale => sale.moneyAmount);
         this.refreshSales(model);
-      });  
+      });
+
+    this.serviceOfferSales[model]({ start: this.inputStartSales[model], end: this.inputEndSales[model] })
+      .subscribe((data: SaleResponse[]) => {
+        this.groupOfferSales[model] = data.map(sale => sale.group);
+        this.descriptionOfferSales[model] = data.map(sale => sale.description);
+        this.totalOfferSales[model] = data.map(sale => sale.total);
+        this.moneyOfferSales[model] = data.map(sale => sale.moneyAmount);
+        this.refreshOfferSales(model);
+      });
   }
 
   refreshSales(model: string) {
@@ -129,6 +159,70 @@ export class MarketingComponent {
         x: {
           ticks: {
             color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    };
+  }
+
+  refreshOfferSales(model: string) {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    const footer = (tooltipItems: any) => {
+      return 'Total: ' + this.totalOfferSales[model][tooltipItems[0].dataIndex] + '\n\n' + this.descriptionOfferSales[model][tooltipItems[0].dataIndex];
+    };
+
+    this.dataOfferSales[model] = {
+      labels: this.groupOfferSales[model],
+      datasets: [
+        {
+          label: 'Offer Sales',
+          data: this.moneyOfferSales[model],
+          backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+          borderColor: documentStyle.getPropertyValue('--blue-500'),
+          barThickness: this.groupOfferSales[model].length <= 5 ? 60 : 'flex'
+        }
+      ]
+    };
+
+    this.optionOfferSales[model] = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        },
+        tooltip: {
+          callbacks: {
+            footer: footer,
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary,
+            font: {
+              weight: 500
+            }
           },
           grid: {
             color: surfaceBorder,
