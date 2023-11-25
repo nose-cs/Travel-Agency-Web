@@ -64,36 +64,76 @@ export class SharedService {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
     params = params.append('end', request.end.toDateString());
-    params = params.append('groupBy', request.groupBy.toString());
+
+    if (request.groupBy)
+      params = params.append('groupBy', request.groupBy.toString());
 
     return this.http.get<SaleResponse[]>(this.APIUrl + '/HotelReservation/getSales', { params });
+  }
+
+  getHotelOfferSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/HotelOffer/getSales', { params });
   }
 
   getFlightSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
     params = params.append('end', request.end.toDateString());
-    params = params.append('groupBy', request.groupBy.toString());
+
+    if (request.groupBy)
+      params = params.append('groupBy', request.groupBy.toString());
 
     return this.http.get<SaleResponse[]>(this.APIUrl + '/FlightReservation/getSales', { params });
+  }
+
+  getFlightOfferSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/FlightOffer/getSales', { params });
   }
 
   getTourSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
     params = params.append('end', request.end.toDateString());
-    params = params.append('groupBy', request.groupBy.toString());
+
+    if (request.groupBy)
+      params = params.append('groupBy', request.groupBy.toString());
 
     return this.http.get<SaleResponse[]>(this.APIUrl + '/TourReservation/getSales', { params });
+  }
+
+  getTourOfferSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/TourOffer/getSales', { params });
   }
 
   getPackageSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
     params = params.append('end', request.end.toDateString());
-    params = params.append('groupBy', request.groupBy.toString());
+
+    if (request.groupBy)
+      params = params.append('groupBy', request.groupBy.toString());
 
     return this.http.get<SaleResponse[]>(this.APIUrl + '/PackageReservation/getSales', { params });
+  }
+
+  getPackageOfferSales(request: SaleRequest): Observable<SaleResponse[]> {
+    let params = new HttpParams();
+    params = params.append('start', request.start.toDateString());
+    params = params.append('end', request.end.toDateString());
+
+    return this.http.get<SaleResponse[]>(this.APIUrl + '/PackageOffer/getSales', { params });
   }
 
   register(user: Register): Observable<JwtAuth> {
