@@ -1,11 +1,14 @@
 <form #filterForm="ngForm" (ngSubmit)="onSubmit(filterForm.value)" class="p-fluid">
+  <div style="display: flex;">
   <div class="p-field">
+    
     <span class="p-float-label">
       <input type="text" id="hotelName" name="hotelName" ngModel class="p-inputtext p-component" />
       <i class="pi pi-hotel p-input-overlay"></i>
       <label for="name">Hotel Name</label>
     </span>
   </div>
+  <div style="flex: 1;">
   <div class="p-field">
     <span class="p-float-label">
       <input type="text" id="address" name="address" ngModel class="p-inputtext p-component" />
@@ -13,11 +16,13 @@
       <label for="address">Address</label>
     </span>
   </div>
+  </div>
   <div class="p-field">
     <span class="p-float-label">
-      <input type="number" id="Category" name="Category" ngModel class="p-inputtext p-component" />
+      <input type="number" id="Category" name="Category" ngModel class="p-inputtext p-component" min="1" max="5" />
       <label for="Category">Category</label>
     </span>
+  </div>
   </div>
   <button type="submit" class="p-button p-button-primary">Search</button>
 </form>

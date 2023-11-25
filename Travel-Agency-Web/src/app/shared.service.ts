@@ -9,6 +9,7 @@ import { Hotel } from './models/hotel';
 import { Params } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 import { HotelFilter } from './models/hotelFilter';
+import { OfferFilter } from './models/offerFilter';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,6 +49,21 @@ export class SharedService {
         params = params.append('category', filter.Category.toString())
       }
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/Get', {params});
+  }
+  getHotelOffersWithFilter(filter : OfferFilter) {
+    let params = new HttpParams();
+    if (filter.capacity) {
+      params = params.append('capacity', filter.capacity.toString());
+    }
+    if(filter.startPrice){
+      params = params.append('startPrice', filter.startPrice.toString());
+    }
+    if(filter.endPrice){
+      params = params.append('endPrice', filter.endPrice.toString());
+    }
+    if(filter.startDate){
+      
+    }
   }
 
   createHotelOffer(offer: Offer): Observable<void> {
