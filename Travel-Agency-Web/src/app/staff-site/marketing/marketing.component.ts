@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Offer } from '../../models/offer';
 import { Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -7,6 +7,9 @@ import { ShowStaffHotelOffersComponent } from '../../staff/show-staff-offers/sho
 import { SharedService } from '../../shared.service';
 import { HotelFilter } from '../../models/hotelFilter';
 import { Hotel } from '../../models/hotel';
+import { GroupBy, SaleRequest, SaleResponse } from '../../models/salesStatistics';
+import { UIChart } from 'primeng/chart';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-marketing',
@@ -15,12 +18,135 @@ import { Hotel } from '../../models/hotel';
   providers: [DialogService]
 })
 export class MarketingComponent {
+  @ViewChild('SaleChart') _chart: UIChart | undefined; 
 
   constructor(private service: SharedService, private router: Router, private dialogService: DialogService) { }
 
   OffersControlItems: string[] = ["Hotel Offers", "Flight Offers", "Tour Offers", "Packages"];
 
   ref: DynamicDialogRef | undefined;
+
+  dataSales: Record<string, any> = {};
+  optionSales: Record<string, any> = {};
+
+  inputStartSales: Record<string, Date> = {};
+  inputEndSales: Record<string, Date> = {};
+
+  groupSales: Record<string, string[]> = {};
+  totalSales: Record<string, number[]> = {};
+  moneySales: Record<string, number[]> = {};
+
+  serviceSales: Record<string, Function> = {};
+
+  groups: { name: string, value: number }[] = [{ name: 'Day', value: GroupBy.Day }, { name: 'Month', value: GroupBy.Month }, { name: 'Year', value: GroupBy.Year }];
+  selectedGroup: Record<string, { name: string, value: number }> = {};
+
+  ngOnInit() {
+    for (let model of this.OffersControlItems) {
+      this.inputStartSales[model] = new Date();
+      this.inputEndSales[model] = new Date();
+
+      this.groupSales[model] = [];
+      this.totalSales[model] = [];
+      this.moneySales[model] = [];
+
+      this.selectedGroup[model] = this.groups[0];
+
+      switch (model) {
+        case 'Hotel Offers':
+          this.serviceSales[model] = (request: SaleRequest) => this.service.getHotelSales(request);
+          break;
+        case 'Flight Offers':
+          this.serviceSales[model] = (request: SaleRequest) => this.service.getFlightSales(request);
+          break;
+        case 'Tour Offers':
+          this.serviceSales[model] = (request: SaleRequest) => this.service.getTourSales(request);
+          break;
+        case 'Packages':
+          this.serviceSales[model] = (request: SaleRequest) => this.service.getPackageSales(request);
+          break;
+      }
+
+      this.serviceSales[model]({ start: this.inputStartSales[model], end: this.inputEndSales[model], groupBy: this.selectedGroup[model].value })
+        .subscribe((data: SaleResponse[]) => {
+          this.groupSales[model] = data.map(sale => sale.group);
+          this.totalSales[model] = data.map(sale => sale.total);
+          this.moneySales[model] = data.map(sale => sale.moneyAmount);
+          this.refreshSales(model);
+        });
+    }
+  }
+
+  onChangeRequest(model: string) {
+    this.serviceSales[model]({ start: this.inputStartSales[model], end: this.inputEndSales[model], groupBy: this.selectedGroup[model].value })
+      .subscribe((data: SaleResponse[]) => {
+        this.groupSales[model] = data.map(sale => sale.group);
+        this.totalSales[model] = data.map(sale => sale.total);
+        this.moneySales[model] = data.map(sale => sale.moneyAmount);
+        this.refreshSales(model);
+      });  
+  }
+
+  refreshSales(model: string) {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColor = documentStyle.getPropertyValue('--text-color');
+    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+    const footer = (tooltipItems: any) => {
+      return 'Total: ' + this.totalSales[model][tooltipItems[0].dataIndex];
+    };
+
+    this.dataSales[model] = {
+      labels: this.groupSales[model],
+      datasets: [
+        {
+          label: 'Sales',
+          data: this.moneySales[model],
+          fill: false,
+          borderColor: documentStyle.getPropertyValue('--blue-500'),
+          tension: 0.4
+        }
+      ]
+    };
+
+    this.optionSales[model] = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {
+        legend: {
+          labels: {
+            color: textColor
+          }
+        },
+        tooltip: {
+          callbacks: {
+            footer: footer,
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        },
+        y: {
+          ticks: {
+            color: textColorSecondary
+          },
+          grid: {
+            color: surfaceBorder,
+            drawBorder: false
+          }
+        }
+      }
+    };
+  }
 
   redirect(offerModel: string, action: string) {
 

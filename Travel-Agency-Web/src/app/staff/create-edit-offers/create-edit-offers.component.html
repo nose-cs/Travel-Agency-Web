@@ -20,7 +20,7 @@
 <div class="formgrid grid" style="margin-top: 24px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }"></p-calendar>
+      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }" appendTo="body"></p-calendar>
       <label htmlFor="startDate">Start Date</label>
     </span>
   </div>
@@ -35,7 +35,7 @@
 <div class="formgrid grid" style="margin-top: 10px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }"></p-calendar>
+      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }" appendTo="body"></p-calendar>
       <label htmlFor="endDate">End Date</label>
     </span>
   </div>

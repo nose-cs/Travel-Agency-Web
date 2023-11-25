@@ -21,6 +21,9 @@ import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ChartModule } from 'primeng/chart';
+import { DropdownModule } from 'primeng/dropdown';
+
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
 import { SplitterModule } from 'primeng/splitter';
@@ -80,7 +83,9 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
     InputNumberModule,
     InputTextareaModule,
     TableModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ChartModule,
+    DropdownModule
   ],
   providers: [SharedService,
     {
