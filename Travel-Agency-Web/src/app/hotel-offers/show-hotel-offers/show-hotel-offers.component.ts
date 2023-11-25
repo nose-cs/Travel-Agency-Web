@@ -15,22 +15,24 @@ export class ShowHotelOffersComponent implements OnInit {
 
   constructor(private service: SharedService, private route: ActivatedRoute ) { }
 
-  
+  hotelID!: number;
 
   HotelOffersList: Offer[] = [];
 
-  ngOnInit(): void {
-      // Lógica adicional utilizando el valor de id
-      this.refreshHotelOffersList();
+
+  ngOnInit() {
+    this.hotelID = +this.route.snapshot.queryParamMap.get('hotelId')!;
+    console.log(this.hotelID);
+    this.refreshHotelOffersList();
   }
+  
 
   refreshHotelOffersList() {
-      this.service.getHotelOffers().subscribe(data => {
-        this.HotelOffersList = data;
-      });
-  }
-
-  
+    this.service.getIdHotelOffers(this.hotelID).subscribe(data => {
+      this.HotelOffersList = data;
+      console.log(data);
+    });
+}
 
   openOffer(id: number) {
     console.log(id);

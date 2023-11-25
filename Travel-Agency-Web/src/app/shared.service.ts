@@ -15,7 +15,7 @@ import { param } from 'jquery';
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
@@ -98,6 +98,10 @@ export class SharedService {
 
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/signup', user);
+  }
+  
+  getIdHotelOffers(id: number): Observable<Offer[]>{ 
+    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/' + id  + '/offers'); 
   }
 
   login(user: Login): Observable<JwtAuth> {
