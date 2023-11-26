@@ -41,6 +41,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HomeComponent } from './home/home.component';
+
+import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
 
 
@@ -58,7 +60,8 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
     CreateEditOffersComponent,
     StaffSiteComponent,
     MarketingComponent,
-    ShowStaffHotelOffersComponent
+    ShowStaffHotelOffersComponent,
+    OfferFilterComponent
   ],
   imports: [
     BrowserModule,

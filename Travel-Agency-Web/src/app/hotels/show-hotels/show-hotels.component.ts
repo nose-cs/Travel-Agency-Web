@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Hotel } from 'src/app/models/hotel';
+import { Hotel, Place } from 'src/app/models/hotel';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-show-hotels',
@@ -50,5 +51,8 @@ export class ShowHotelsComponent {
   getStars(category: number): string {
   
     return '⭐'.repeat(category);
+  }
+  getAddres(place: Place) {
+    return place.address + ', ' + place.city + ', ' + place.country;
   }
 }

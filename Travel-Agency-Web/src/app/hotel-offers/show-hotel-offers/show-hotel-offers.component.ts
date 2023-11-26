@@ -25,6 +25,11 @@ export class ShowHotelOffersComponent implements OnInit {
     console.log(this.hotelID);
     this.refreshHotelOffersList();
   }
+
+  onFilter(data: Offer[]) {
+    // Asigna los resultados del filtro a la variable
+    this.HotelOffersList = data;
+  }
   
 
   refreshHotelOffersList() {
