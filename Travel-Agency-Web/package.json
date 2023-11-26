@@ -21,6 +21,7 @@
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
+    "chart.js": "^4.4.0",
     "component": "^1.1.0",
     "jest-editor-support": "*",
     "primeflex": "^3.3.1",
