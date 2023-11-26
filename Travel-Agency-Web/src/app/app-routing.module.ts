@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'FlightOffers', component: FlightOffersComponent},
   { path: 'Hotels', component: HotelsComponent},
   { path: 'HotelFiltering', component: HotelfilteringComponent},
-  {path: 'ShowHotelOffers', component: ShowHotelOffersComponent}
+  {path: 'ShowHotelOffers', component: ShowHotelOffersComponent},
+  {path: 'OfferFilter', component: HotelfilteringComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, Output,EventEmitter } from '@angular/core';
+import { Component, Output,EventEmitter, Input } from '@angular/core';
 import { OfferFilter } from '../models/offerFilter';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from '../shared.service';
@@ -22,11 +22,13 @@ export class OfferFilterComponent {
   // Usa un evento para enviar los resultados del filtro al componente padre
   @Output() filterResults = new EventEmitter<Offer[]>();
 
+  @Input() idHotel!: number;
 
 onSubmit(filter: OfferFilter) {
   // Llama al servicio con el filtro y emite el evento con los resultados
- // this.service.getHotelOffersWithFilter(filter).subscribe(data => {
-  //  this.filterResults.emit(data);
-  //});
+  console.log(filter)
+  this.service.getHotelOffersWithFilter(this.idHotel, filter).subscribe(data => {
+  this.filterResults.emit(data);
+  });
 }
 }

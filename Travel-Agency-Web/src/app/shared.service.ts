@@ -50,8 +50,11 @@ export class SharedService {
       }
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/Get', {params});
   }
-  getHotelOffersWithFilter(filter : OfferFilter) {
+  getHotelOffersWithFilter(id:number, filter : OfferFilter) {
+    console.log(filter);
+    console.log(id);
     let params = new HttpParams();
+    params = params.append('idHotel', id.toString());
     if (filter.capacity) {
       params = params.append('capacity', filter.capacity.toString());
     }
@@ -62,9 +65,13 @@ export class SharedService {
       params = params.append('endPrice', filter.endPrice.toString());
     }
     if(filter.startDate){
-      
+      params = params.append('startDate', filter.startDate.toString());
     }
-  }
+    if(filter.endDate){
+      params = params.append('endDate', filter.endDate.toString());
+    }
+    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/GetHotelsWithFilter', {params} )
+}
 
   createHotelOffer(offer: Offer): Observable<void> {
     return this.http.post<void>(this.APIUrl + '/HotelOffer', offer);
