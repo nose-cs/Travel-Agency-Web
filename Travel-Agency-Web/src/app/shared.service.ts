@@ -6,18 +6,15 @@ import { Register } from './models/register';
 import { JwtAuth } from './models/jwtAuth';
 import { Offer } from './models/offer';
 import { Hotel } from './models/hotel';
-import { Params } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
-import { param } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5000/api';
+  readonly APIUrl = 'http://localhost:5235/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
@@ -35,7 +32,7 @@ export class SharedService {
     return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer');
   }
   getHotels():Observable<Hotel[]>{
-    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel')
+    return this.getHotelsWithFilter({} as HotelFilter);
   }
   getHotelsWithFilter(filter : HotelFilter) {
     let params = new HttpParams();
@@ -51,7 +48,7 @@ export class SharedService {
       if(filter.Category){
         params = params.append('category', filter.Category.toString())
       }
-    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/Get', {params});
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel', {params});
   }
   getHotelOffersWithFilter(id:number, filter : OfferFilter) {
     console.log(filter);
@@ -163,9 +160,9 @@ export class SharedService {
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
   }
-  
-  getIdHotelOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers'); 
+
+  getIdHotelOffers(id: number): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }
 
   login(user: Login): Observable<JwtAuth> {
