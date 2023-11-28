@@ -45,6 +45,7 @@ import { HomeComponent } from './home/home.component';
 
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
+import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
     StaffSiteComponent,
     MarketingComponent,
     ShowStaffHotelOffersComponent,
-    OfferFilterComponent
+    OfferFilterComponent,
+    AgencyAdminComponent
   ],
   imports: [
     BrowserModule,

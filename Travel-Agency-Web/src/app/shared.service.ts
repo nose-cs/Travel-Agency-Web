@@ -9,12 +9,13 @@ import { Hotel } from './models/hotel';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
+import {AgencyUser} from "./models/agencyUser";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5235/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
@@ -186,5 +187,9 @@ export class SharedService {
 
   login(user: Login): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);
+  }
+
+  createAgencyUser(agencyUser: AgencyUser): Observable<void> {
+    return this.http.post<void>(this.APIUrl + `${agencyUser.agencyId}/Agency/register`, agencyUser);
   }
 }
