@@ -73,22 +73,17 @@
   </p-card>
 
   <p-card header="Packages" [style]="{ marginTop: '20px' }">
-    <p-carousel [style]="{ margin: '50px' }" [value]="hotels" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+    <p-carousel [style]="{ margin: '50px' }" [value]="packages" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
       <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
           <div class="mb-3">
             <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png" />
           </div>
           <div>
-            <h4 class="mb-1">{{ product.name }}</h4>
-            <div style="margin: 10px">
-              <ng-container *ngFor="let item of [].constructor(product.category); let i = index">
-                <i class="pi pi-fw pi-star-fill" style="color: #FFE642; font-size: 1.5rem"></i>
-              </ng-container>
-            </div>
-            <div class="text-1xl">{{ product.address.city }}</div>
+            <h4 class="mb-1">{{ product.title }}</h4>
+            <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
             <div class="car-buttons mt-5">
-              <p-button label="See Offers" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
+              <p-button label="Reserve" [rounded]="true"></p-button>
             </div>
           </div>
         </div>

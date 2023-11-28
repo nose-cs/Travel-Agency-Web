@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Hotel } from '../models/hotel';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
+import { Offer } from '../models/offer';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 export class HomeComponent {
 
   hotels: Hotel[] = [];
+  packages: Offer[] = [];
+
   responsiveOptions: any[] | undefined;
   interval: number = 3000;
 
@@ -18,6 +21,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.service.getHotelMostSolds().subscribe(data => { this.hotels = data });
+    this.service.getPackageMostSolds().subscribe(data => { this.packages = data });
 
     this.responsiveOptions = [
       {

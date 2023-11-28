@@ -172,9 +172,9 @@ export class SharedService {
     return this.http.get<SaleResponse[]>(this.APIUrl + '/PackageOffer/getSales', { params });
   }
 
-  //getPackageMostSolds(): Observable<Package[]> {
-  //  return this.http.get<Package[]>(this.APIUrl + '/Package/getMostSolds');
-  //}
+  getPackageMostSolds(): Observable<Offer[]> {
+    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer/getMostSolds');
+  }
 
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
