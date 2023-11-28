@@ -23,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
+import { CarouselModule } from 'primeng/carousel';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -88,7 +89,8 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
     TableModule,
     ConfirmDialogModule,
     ChartModule,
-    DropdownModule
+    DropdownModule,
+    CarouselModule
   ],
   providers: [SharedService,
     {

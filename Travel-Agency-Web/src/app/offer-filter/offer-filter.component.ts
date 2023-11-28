@@ -26,8 +26,8 @@ export class OfferFilterComponent {
 
 onSubmit(filter: OfferFilter) {
   // Llama al servicio con el filtro y emite el evento con los resultados
-  console.log(filter)
-  this.service.getHotelOffersWithFilter(this.idHotel, filter).subscribe(data => {
+  filter.productId = this.idHotel;
+  this.service.getHotelOffersWithFilter(filter).subscribe(data => {
   this.filterResults.emit(data);
   });
 }
