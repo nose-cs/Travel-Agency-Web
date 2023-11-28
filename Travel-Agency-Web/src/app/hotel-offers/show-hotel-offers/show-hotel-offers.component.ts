@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ShowHotelOffersComponent implements OnInit {
 
-  layout: 'list' | 'grid' = 'list';
+  layout: 'list' | 'grid' = 'grid';
 
   constructor(private service: SharedService, private route: ActivatedRoute ) { }
 
