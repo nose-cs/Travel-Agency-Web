@@ -40,16 +40,15 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { HomeComponent } from './home/home.component';
 
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
+import { FlightsComponent } from './flights/flights.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
     FlightOffersComponent,
@@ -61,7 +60,8 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
     StaffSiteComponent,
     MarketingComponent,
     ShowStaffHotelOffersComponent,
-    OfferFilterComponent
+    OfferFilterComponent,
+    FlightsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,4 +5,5 @@ export interface OfferFilter{
     capacity: number;
     startPrice: number;
     endPrice: number;
+    productId: number | undefined;
 }

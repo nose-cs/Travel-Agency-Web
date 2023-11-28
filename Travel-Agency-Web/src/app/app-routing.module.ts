@@ -4,13 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
 import { FlightOffersComponent } from './flight-offers/flight-offers.component';
-import { HomeComponent } from './home/home.component';
 import { HotelsComponent } from './hotels/hotels.component';
 import { HotelfilteringComponent } from './hotels/hotelfiltering/hotelfiltering.component';
 import { StaffSiteComponent } from './staff-site/staff-site.component';
 import { ShowHotelOffersComponent } from './hotel-offers/show-hotel-offers/show-hotel-offers.component';
-
-
+import { HomeComponent } from './home/home.component';
+import { FlightsComponent } from './flights/flights.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'Home', component: HomeComponent },
@@ -20,7 +19,8 @@ const routes: Routes = [
   { path: 'Hotels', component: HotelsComponent},
   { path: 'HotelFiltering', component: HotelfilteringComponent},
   {path: 'ShowHotelOffers', component: ShowHotelOffersComponent},
-  {path: 'OfferFilter', component: HotelfilteringComponent}
+  {path: 'OfferFilter', component: HotelfilteringComponent},
+  {path: 'Flights', component: FlightsComponent}
 ];
 
 @NgModule({

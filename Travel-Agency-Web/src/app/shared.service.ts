@@ -11,7 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
-import { param } from 'jquery';
+import { Flight } from './models/flight';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +37,9 @@ export class SharedService {
   getHotels():Observable<Hotel[]>{
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel')
   }
+  getFlights(): Observable<Flight[]>{
+    return this.http.get<Flight[]>(this.APIUrl + '/Flight')
+  }
   getHotelsWithFilter(filter : HotelFilter) {
     let params = new HttpParams();
       if (filter.productId) {
@@ -53,11 +56,11 @@ export class SharedService {
       }
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/Get', {params});
   }
-  getHotelOffersWithFilter(id:number, filter : OfferFilter) {
-    console.log(filter);
-    console.log(id);
+  getHotelOffersWithFilter(filter : OfferFilter) {
     let params = new HttpParams();
-    params = params.append('idHotel', id.toString());
+
+    if(filter.productId)
+      params = params.append('productId', filter.productId.toString());
     if (filter.capacity) {
       params = params.append('capacity', filter.capacity.toString());
     }
