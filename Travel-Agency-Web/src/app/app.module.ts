@@ -25,6 +25,7 @@ import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
 
+import { HomeComponent } from './home/home.component'
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
 import { SplitterModule } from 'primeng/splitter';
@@ -62,7 +63,8 @@ import { FlightsComponent } from './flights/flights.component';
     MarketingComponent,
     ShowStaffHotelOffersComponent,
     OfferFilterComponent,
-    FlightsComponent
+    FlightsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
