@@ -9,6 +9,7 @@ import { Hotel } from './models/hotel';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
+import { Flight } from './models/flight';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,9 @@ export class SharedService {
   getHotels():Observable<Hotel[]>{
     return this.getHotelsWithFilter({} as HotelFilter);
   }
+  getFlights(): Observable<Flight[]>{
+    return this.http.get<Flight[]>(this.APIUrl + '/Flight')
+  }
   getHotelsWithFilter(filter : HotelFilter) {
     let params = new HttpParams();
       if (filter.productId) {
@@ -52,6 +56,7 @@ export class SharedService {
   }
   getHotelOffersWithFilter(filter : OfferFilter) {
     let params = new HttpParams();
+
     if (filter.productId) {
       params = params.append('productId', filter.productId.toString());
     }
