@@ -10,6 +10,7 @@ import { Hotel } from '../../models/hotel';
 import { GroupBy, SaleRequest, SaleResponse } from '../../models/salesStatistics';
 import { UIChart } from 'primeng/chart';
 import { group } from '@angular/animations';
+import { OfferFilter } from '../../models/offerFilter';
 
 @Component({
   selector: 'app-marketing',
@@ -264,7 +265,7 @@ export class MarketingComponent {
                   let promise = new Promise<void>((resolve, reject) => {
                     this.service.getHotelsWithFilter(filter).subscribe(
                       (hotels: Hotel[]) => {
-                        for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name }; })) {
+                        for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name + " - " + hotel.address.city }; })) {
                           suggestions.push(sugg);
                         }
 
@@ -290,10 +291,13 @@ export class MarketingComponent {
             break;
 
           case "Manage":
+            const agencyFilter = new OfferFilter();
+            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Hotel',
-                getOfferList: this.service.getHotelOffers(),
+                getOfferList: this.service.getHotelOffersWithFilter(agencyFilter),
                 editOffer: (offer: Offer) => this.service.editHotelOffer(offer),
                 deleteOffer: (id: number) => this.service.deleteHotelOffer(id),
 
@@ -306,7 +310,7 @@ export class MarketingComponent {
                     let promise = new Promise<void>((resolve, reject) => {
                       this.service.getHotelsWithFilter(filter).subscribe(
                         (hotels: Hotel[]) => {
-                          for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name }; })) {
+                          for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name + ' - ' + hotel.address.city }; })) {
                             suggestions.push(sugg);
                           }
 
@@ -326,7 +330,7 @@ export class MarketingComponent {
               },
               contentStyle: { overflow: 'auto' },
               baseZIndex: 10000,
-              width: '70%',
+              width: '80%',
               maximizable: true
             });
             break;

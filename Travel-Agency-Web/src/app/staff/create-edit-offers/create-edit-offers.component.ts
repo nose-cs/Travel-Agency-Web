@@ -24,23 +24,32 @@ export class CreateEditOffersComponent {
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig)
   {
-    const offer : Offer = config.data['offer'];
+    if (config.data['offer']) {
+      const offer: Offer = config.data['offer'];
 
-    this.id = offer.id;
-    this.inputTitle = offer.title;
-    this.inputPrice = offer.price;
-    this.inputCapacity = offer.capacity;
-    this.inputDescription = offer.description;
+      this.id = offer.id;
+      this.inputTitle = offer.title;
+      this.inputPrice = offer.price;
+      this.inputCapacity = offer.capacity;
+      this.inputDescription = offer.description;
 
-    if (offer.startDate) {
-      this.inputStartDate = new Date(offer.startDate.toString());
+      if (offer.startDate) {
+        this.inputStartDate = new Date(offer.startDate.toString());
+      }
+      if (offer.endDate) {
+        this.inputEndDate = new Date(offer.endDate.toString());
+      }
+
+      if (offer.productId && offer.productName)
+        this.setSelectedModel(offer.productId, offer.productName);
+        
     }
-    if (offer.endDate) {
-      this.inputEndDate = new Date(offer.endDate.toString());
-    }
+  }
 
-    if (offer.productId && offer.productName)
-      this.selectedModel = { id: offer.productId, name: offer.productName };
+  async setSelectedModel(productId: number, productName: string) {
+    this.suggestions = await this.config.data['filter'](productName);
+
+    this.selectedModel = this.suggestions.find(sugg => sugg.id == productId);
   }
 
   async searchModel(event: any) {

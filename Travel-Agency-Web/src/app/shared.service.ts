@@ -6,8 +6,6 @@ import { Register } from './models/register';
 import { JwtAuth } from './models/jwtAuth';
 import { Offer } from './models/offer';
 import { Hotel } from './models/hotel';
-import { Params } from '@angular/router';
-import { HttpHeaders } from '@angular/common/http';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
@@ -17,7 +15,7 @@ import { Flight } from './models/flight';
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5000/api';
+  readonly APIUrl = 'https://localhost:3571/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
@@ -35,7 +33,7 @@ export class SharedService {
     return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer');
   }
   getHotels():Observable<Hotel[]>{
-    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel')
+    return this.getHotelsWithFilter({} as HotelFilter);
   }
   getFlights(): Observable<Flight[]>{
     return this.http.get<Flight[]>(this.APIUrl + '/Flight')
@@ -54,13 +52,17 @@ export class SharedService {
       if(filter.Category){
         params = params.append('category', filter.Category.toString())
       }
-    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/Get', {params});
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel', {params});
   }
   getHotelOffersWithFilter(filter : OfferFilter) {
     let params = new HttpParams();
 
-    if(filter.productId)
+    if (filter.productId) {
       params = params.append('productId', filter.productId.toString());
+    }
+    if (filter.agencyId) {
+      params = params.append('agencyId', filter.agencyId.toString());
+    }
     if (filter.capacity) {
       params = params.append('capacity', filter.capacity.toString());
     }
@@ -76,7 +78,7 @@ export class SharedService {
     if(filter.endDate){
       params = params.append('endDate', filter.endDate.toString());
     }
-    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/GetHotelsWithFilter', {params} )
+    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer', {params} )
 }
 
   createHotelOffer(offer: Offer): Observable<void> {
@@ -106,6 +108,10 @@ export class SharedService {
     return this.http.get<SaleResponse[]>(this.APIUrl + '/HotelOffer/getSales', { params });
   }
 
+  getHotelMostSolds(): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/getMostSolds');
+  }
+
   getFlightSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -125,6 +131,10 @@ export class SharedService {
     return this.http.get<SaleResponse[]>(this.APIUrl + '/FlightOffer/getSales', { params });
   }
 
+  //getFlightMostSolds(): Observable<Flight[]> {
+  //  return this.http.get<Flight[]>(this.APIUrl + '/Flight/getMostSolds');
+  //}
+
   getTourSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -135,6 +145,10 @@ export class SharedService {
 
     return this.http.get<SaleResponse[]>(this.APIUrl + '/TourReservation/getSales', { params });
   }
+
+  //getTourMostSolds(): Observable<Flight[]> {
+  //  return this.http.get<Tour[]>(this.APIUrl + '/Tour/getMostSolds');
+  //}
 
   getTourOfferSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
@@ -163,12 +177,16 @@ export class SharedService {
     return this.http.get<SaleResponse[]>(this.APIUrl + '/PackageOffer/getSales', { params });
   }
 
+  getPackageMostSolds(): Observable<Offer[]> {
+    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer/getMostSolds');
+  }
+
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
   }
-  
-  getIdHotelOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers'); 
+
+  getIdHotelOffers(id: number): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }
 
   login(user: Login): Observable<JwtAuth> {
