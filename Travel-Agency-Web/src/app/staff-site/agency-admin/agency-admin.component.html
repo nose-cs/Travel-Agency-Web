@@ -1,10 +1,9 @@
-<p-dataView [value]="OffersControlItems" [layout]="'list'">
-  <ng-template let-ofi pTemplate="listItem">
-    <div class="col-3" style="margin-right: 50px; margin-bottom: 15px">
-      <p-button label="Create {{ofi}}" icon="pi pi-plus-circle" [style]="{ width: '100%'}" (click)="redirect(ofi, 'Create')"></p-button>
-    </div>
-  </ng-template>
-</p-dataView>
-<div class="col-3">
-  <p-button label="Manage" icon="pi pi-file-edit" [style]="{ width: '100%'}" (click)="redirect('Admin','Manage')"></p-button>
+<div class="flex-column">
+  <div class="col-3">
+    <p-button label="Create User" icon="pi pi-plus-circle" [style]="{ width: '100%'}" (click)="redirect('Create')"></p-button>
+  </div>
+
+  <div class="col-3">
+    <p-button label="Manage" icon="pi pi-file-edit" [style]="{ width: '100%'}" (click)="redirect('Manage')"></p-button>
+  </div>
 </div>

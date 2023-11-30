@@ -190,6 +190,7 @@ export class SharedService {
   }
 
   createAgencyUser(agencyUser: AgencyUser): Observable<void> {
-    return this.http.post<void>(this.APIUrl + `${agencyUser.agencyId}/Agency/register`, agencyUser);
+    console.log(agencyUser)
+    return this.http.post<void>(this.APIUrl + `/Agency/${agencyUser.agencyId}/register`, agencyUser);
   }
 }

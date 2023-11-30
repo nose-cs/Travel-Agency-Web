@@ -46,6 +46,8 @@ import { HomeComponent } from './home/home.component';
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
 import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.component';
+import { CreateAgencyUserComponent } from './staff/create-agency-user/create-agency-user.component';
+import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 
 
 @NgModule({
@@ -64,7 +66,9 @@ import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.com
     MarketingComponent,
     ShowStaffHotelOffersComponent,
     OfferFilterComponent,
-    AgencyAdminComponent
+    AgencyAdminComponent,
+    CreateAgencyUserComponent,
+    ShowAgencyUsersComponent
   ],
   imports: [
     BrowserModule,
