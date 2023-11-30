@@ -45,6 +45,7 @@ import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
 import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
+import { ToursComponent } from './tours/tours.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { FlightFilteringComponent } from './flights/flight-filtering/flight-filt
     ShowStaffHotelOffersComponent,
     OfferFilterComponent,
     FlightsComponent,
-    FlightFilteringComponent
+    FlightFilteringComponent,
+    ToursComponent
   
   ],
   imports: [

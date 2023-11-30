@@ -12,6 +12,7 @@ import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Flight, FlightFilter } from './models/flight';
+import { Tour } from './models/tour';
 
 
 @Injectable({
@@ -40,6 +41,9 @@ export class SharedService {
   }
   getFlights(): Observable<Flight[]>{
     return this.http.get<Flight[]>(this.APIUrl + '/Flight')
+  }
+  getTours():Observable<Tour[]>{
+    return this.http.get<Tour[]>(this.APIUrl + '/Tour')
   }
   getHotelsWithFilter(filter : HotelFilter) {
     let params = new HttpParams();
