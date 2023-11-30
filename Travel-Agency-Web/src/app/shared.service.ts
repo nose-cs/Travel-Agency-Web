@@ -15,7 +15,7 @@ import { Flight } from './models/flight';
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
