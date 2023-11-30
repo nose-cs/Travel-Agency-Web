@@ -12,7 +12,7 @@ import { Hotel } from '../../models/hotel';
 export class HotelfilteringComponent {
   name!: string;
   address!: string;
-  category!: string;
+  category!: number;
 
   constructor(private http: HttpClient, private service: SharedService) {}
   
@@ -20,9 +20,15 @@ export class HotelfilteringComponent {
   @Output() filterResults = new EventEmitter<Hotel[]>();
 
 
-onSubmit(filter: HotelFilter) {
+onSubmit() {
+  const filter = new HotelFilter();
+  filter.hotelName = this.name;
+  filter.address = this.address;
+  filter.Category = this.category;
+
   // Llama al servicio con el filtro y emite el evento con los resultados
   this.service.getHotelsWithFilter(filter).subscribe(data => {
+    console.log(data)
     this.filterResults.emit(data);
   });
 }

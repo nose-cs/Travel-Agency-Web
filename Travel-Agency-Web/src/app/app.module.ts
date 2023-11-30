@@ -44,6 +44,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
 import { FlightsComponent } from './flights/flights.component';
+import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 
 
 @NgModule({
@@ -61,7 +62,9 @@ import { FlightsComponent } from './flights/flights.component';
     MarketingComponent,
     ShowStaffHotelOffersComponent,
     OfferFilterComponent,
-    FlightsComponent
+    FlightsComponent,
+    FlightFilteringComponent
+  
   ],
   imports: [
     BrowserModule,

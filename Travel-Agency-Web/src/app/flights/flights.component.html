@@ -1,3 +1,4 @@
+<app-flight-filtering (filterResults)="onFilter($event)"></app-flight-filtering>
 <div class="card" style="margin-top: 90px;">
     <p-dataView [value]="FlightList" [layout]="layout">
       <ng-template pTemplate="header">
@@ -11,11 +12,11 @@
             <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src="../../assets/noimage.png"/>
             <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
               <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                <div class="text-2xl font-bold">Flight Number: {{product.flightNumber }}</div>
+                <div class="text-2xl font-bold">{{product.source.city + ' - ' + product.destination.city}}</div>
                 <div class="text-1xl font-bold">Airline: {{product.airline}} </div>
                 <div style="display: flex" >
                 </div>
-                <div class="text-1xl">From {{getAddres(product.source)}} to {{getAddres(product.destination)}}</div>
+                <div class="text-1xl">Flight: {{product.flightNumber }}</div>
               </div>
               <div class="flex flex-column align-items-center sm:align-items-start gap-3 sm:gap-2">
                 <p-button label="See Offers" styleClass="md:align-self-end mb-2" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
@@ -29,14 +30,11 @@
           <div class="p-4 border-1 surface-border surface-card border-round">
             <div class="flex flex-column align-items-center gap-3 py-5">
               <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png"/>
-              <div class="text-2xl font-bold">{{ product.flightNumber }}</div>
+              <div class="text-2xl font-bold">Flight Number: {{ product.flightNumber }}</div>
               <div style="display: flex" >
-                <ng-container *ngFor="let item of [].constructor(product.category); let i = index">
-                  <i class="pi pi-fw pi-star-fill" style="color:#FFFF00; font-size:1.5rem"></i>
-                </ng-container>
               </div>
-              <div class="text-1xl">From {{getAddres(product.source) }} to {{getAddres(product.destination)}}/div>
-            </div>
+              <div class="text-1xl">From {{getAddres(product.source) }} to {{getAddres(product.destination)}}</div>
+             <div class="text -1x1">Airline: {{product.airline}}</div>
               <p-button label="See Offers" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
             </div>
           </div>

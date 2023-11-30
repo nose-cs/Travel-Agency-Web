@@ -31,6 +31,7 @@ export class FlightsComponent {
 
   onFilter(data: Flight[]) {
     // Asigna los resultados del filtro a la variable
+    console.log(data)
     this.FlightList = data;
   }
 

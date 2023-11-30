@@ -11,7 +11,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
-import { Flight } from './models/flight';
+import { Flight, FlightFilter } from './models/flight';
+
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,17 @@ export class SharedService {
       }
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/Get', {params});
   }
+
+  getFlightsWithFilter(filter: FlightFilter){
+    let params = new HttpParams();
+    console.log(filter.flightNumber)
+    if(filter.flightNumber) params = params.append('flightNumber', filter.flightNumber.toString())
+    if(filter.DestinationPlace) params = params.append('destination', filter.DestinationPlace.toString())
+    if(filter.SourcePlace) params = params.append('source', filter.SourcePlace.toString())
+    if(filter.airline) params = params.append('airline', filter.airline.toString())
+    return this.http.get<Flight[]>(this.APIUrl + '/Flight/Get', {params});
+  }
+
   getHotelOffersWithFilter(filter : OfferFilter) {
     let params = new HttpParams();
 
@@ -86,6 +98,7 @@ export class SharedService {
   editHotelOffer(offer: Offer): Observable<void> {
     return this.http.put<void>(this.APIUrl + '/HotelOffer', offer);
   }
+  
 
   getHotelSales(request: SaleRequest): Observable<SaleResponse[]> {
     let params = new HttpParams();
