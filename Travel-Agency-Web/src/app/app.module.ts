@@ -24,6 +24,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 import { HomeComponent } from './home/home.component'
 import { HotelsComponent } from './hotels/hotels.component';
@@ -92,7 +94,9 @@ import { FlightsComponent } from './flights/flights.component';
     ConfirmDialogModule,
     ChartModule,
     DropdownModule,
-    CarouselModule
+    CarouselModule,
+    FileUploadModule,
+    ToastModule
   ],
   providers: [SharedService,
     {
