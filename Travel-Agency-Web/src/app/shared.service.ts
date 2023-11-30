@@ -181,6 +181,10 @@ export class SharedService {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
   }
 
+  getAgencyUsers(id: number): Observable<AgencyUser[]>{
+    return this.http.get<AgencyUser[]>(this.APIUrl + '/Agency/' + id + '/employees');
+  }
+
   getIdHotelOffers(id: number): Observable<Offer[]>{
     return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }

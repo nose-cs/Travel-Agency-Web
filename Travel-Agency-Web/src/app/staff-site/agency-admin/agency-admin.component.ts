@@ -48,15 +48,13 @@ export class AgencyAdminComponent {
             break;
 
           case "Manage":
-            const agencyFilter = new OfferFilter();
-            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+            const agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
 
             this.ref = this.dialogService.open(ShowAgencyUsersComponent, {
               data: {
-                offerName: 'Hotel',
-                getOfferList: this.service.getHotelOffersWithFilter(agencyFilter),
-                editOffer: (offer: Offer) => this.service.editHotelOffer(offer),
-                deleteOffer: (id: number) => this.service.deleteHotelOffer(id),
+                getUserList: this.service.getAgencyUsers(agencyId),
+                editAgencyUser: (offer: Offer) => this.service.editHotelOffer(offer),
+                deleteAgencyUser: (id: number) => this.service.deleteHotelOffer(id),
 
                 productFilter: async (query: string) => {
                   const filter = new HotelFilter();
