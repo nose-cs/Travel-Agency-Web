@@ -24,6 +24,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -48,6 +50,7 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
 import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.component';
 import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-user.component';
 import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
+import { FlightsComponent } from './flights/flights.component';
 
 
 @NgModule({
@@ -68,7 +71,10 @@ import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-
     OfferFilterComponent,
     AgencyAdminComponent,
     CreateEditUserComponent,
-    ShowAgencyUsersComponent
+    ShowAgencyUsersComponent,
+    OfferFilterComponent,
+    FlightsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +102,9 @@ import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-
     ConfirmDialogModule,
     ChartModule,
     DropdownModule,
-    CarouselModule
+    CarouselModule,
+    FileUploadModule,
+    ToastModule
   ],
   providers: [SharedService,
     {

@@ -54,8 +54,21 @@
   </span>
 </div>
 
+<div class="formgrid grid" style="margin-top: 10px;">
+  <div class="field col">
+    <p-fileUpload [disabled]="disableUpload" mode="basic" accept="image/*" [maxFileSize]="1000000" [auto]="true" [customUpload]="true" (uploadHandler)="myUploader($event)" [chooseLabel]="imageId ? 'Change Image' : 'Upload Image'"></p-fileUpload>
+  </div>
+  <div class="field col">
+    <p-button *ngIf="imageId" (click)="ViewImage()" icon="pi pi-eye" [rounded]="true" [text]="true"></p-button>
+  </div>
+</div>
+
+<img *ngIf="viewImage" [alt]="imageName" class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'../../../assets/' + imagePath" />
+
 <label style="color: #ff0000">{{ errorLabel }}</label>
 
 <div class="card flex justify-content-end">
   <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [style]="{ position: 'end' }" (click)="onOk()"></p-button>
 </div>
+
+<p-toast position="center" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>

@@ -9,14 +9,14 @@ import { Hotel } from './models/hotel';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
+import { Flight } from './models/flight';
 import {AgencyUser} from "./models/agencyUser";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5235/api';
-  readonly PhotoUrl = '';
+  readonly APIUrl = 'https://localhost:3571/api';
   constructor(private http: HttpClient) { }
 
   getHotelOffers(): Observable<Offer[]> {
@@ -34,6 +34,9 @@ export class SharedService {
   }
   getHotels():Observable<Hotel[]>{
     return this.getHotelsWithFilter({} as HotelFilter);
+  }
+  getFlights(): Observable<Flight[]>{
+    return this.http.get<Flight[]>(this.APIUrl + '/Flight')
   }
   getHotelsWithFilter(filter : HotelFilter) {
     let params = new HttpParams();
@@ -53,6 +56,7 @@ export class SharedService {
   }
   getHotelOffersWithFilter(filter : OfferFilter) {
     let params = new HttpParams();
+
     if (filter.productId) {
       params = params.append('productId', filter.productId.toString());
     }
@@ -187,6 +191,21 @@ export class SharedService {
 
   login(user: Login): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);
+  }
+
+  uploadImage(file: File): Observable<number> {
+    let formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post<number>(this.APIUrl + '/File', formData);
+  }
+
+  deleteImage(id: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrl + '/File/' + id);
+  }
+
+  getImage(id: number): Observable<import('./models/file').File> {
+    return this.http.get<import('./models/file').File>(this.APIUrl + '/File/' + id);
   }
 
 
