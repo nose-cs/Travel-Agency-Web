@@ -16,7 +16,7 @@ import {AgencyUser} from "./models/agencyUser";
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5235/api';
   constructor(private http: HttpClient) { }
 
   getHotelOffers(): Observable<Offer[]> {

@@ -51,6 +51,7 @@ import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.com
 import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-user.component';
 import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 import { FlightsComponent } from './flights/flights.component';
+import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-admin.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { FlightsComponent } from './flights/flights.component';
     ShowAgencyUsersComponent,
     OfferFilterComponent,
     FlightsComponent,
-    HomeComponent
+    HomeComponent,
+    TravellerAdminComponent
   ],
   imports: [
     BrowserModule,
