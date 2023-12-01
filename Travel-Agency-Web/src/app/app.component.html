@@ -1,6 +1,13 @@
 <p-menubar>
   <ng-template pTemplate="start">
-    <label>Travel Agencies</label>
+    <div class="field grid">
+      <div class="field-col">
+        <img src="../assets/logo.jpg" alt="Logo" class="logo" style="max-width:64px; margin-left: 50%"/>
+      </div>
+      <div class="field-col" style="margin-top: 25px">
+        <label class="text-2xl font-bold" style="margin-left: 50%">Traveller</label>
+      </div>
+    </div>
   </ng-template>
   <ng-template pTemplate="end">
 
@@ -33,7 +40,7 @@
         </ng-template>
         <br />
         <div class="formgrid grid">
-          <div class="field col">
+          <div class="field col" style="margin-bottom: 25px">
             <span class="p-float-label">
               <input pInputText id="email" [(ngModel)]="inputEmail" />
               <label htmlFor="email">Email</label>

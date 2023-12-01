@@ -72,10 +72,12 @@ export class AppComponent {
           this.role = data.role;
 
           localStorage.setItem('role', this.role!);
+          localStorage.setItem('agencyId', data.agencyId);
         }
         else {
           localStorage.setItem('jwtToken', null!);
           localStorage.setItem('role', null!);
+          localStorage.setItem('agencyId', null!);
         }
       }
     }

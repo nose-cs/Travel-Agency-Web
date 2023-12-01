@@ -30,6 +30,7 @@ onSubmit() {
   this.service.getHotelsWithFilter(filter).subscribe(data => {
     console.log(data)
     this.filterResults.emit(data);
+    console.log(data);
   });
 }
 

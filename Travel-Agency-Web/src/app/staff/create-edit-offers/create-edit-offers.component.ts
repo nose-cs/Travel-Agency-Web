@@ -1,13 +1,23 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Offer } from '../../models/offer';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { SharedService } from '../../shared.service';
+import { FileUpload, FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-create-edit-offers',
   templateUrl: './create-edit-offers.component.html',
-  styleUrls: ['./create-edit-offers.component.css']
+  styleUrls: ['./create-edit-offers.component.css'],
+  providers: [MessageService]
 })
 export class CreateEditOffersComponent {
+
+  @ViewChild(FileUpload) fileUpload!: FileUpload;
+  disableUpload: boolean = false;
+  
+  viewImage = false;
+  editImage = false;
 
   selectedModel: { id: number, name: string } | undefined;
   suggestions: { id: number, name: string }[] = [];
@@ -20,27 +30,44 @@ export class CreateEditOffersComponent {
   inputEndDate: Date | undefined;
   inputDescription: string | undefined;
 
+  imageId: number | undefined;
+  imageName: string | undefined;
+  imagePath: string | undefined;
+
   errorLabel: string = '';
 
-  constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig)
+  constructor(private service: SharedService, public ref: DynamicDialogRef, public config: DynamicDialogConfig, private messageService: MessageService)
   {
-    const offer : Offer = config.data['offer'];
+    if (config.data['offer']) {
+      const offer: Offer = config.data['offer'];
 
-    this.id = offer.id;
-    this.inputTitle = offer.title;
-    this.inputPrice = offer.price;
-    this.inputCapacity = offer.capacity;
-    this.inputDescription = offer.description;
+      this.editImage = true;
 
-    if (offer.startDate) {
-      this.inputStartDate = new Date(offer.startDate.toString());
+      this.id = offer.id;
+      this.inputTitle = offer.title;
+      this.inputPrice = offer.price;
+      this.inputCapacity = offer.capacity;
+      this.inputDescription = offer.description;
+      
+      if (offer.startDate) {
+        this.inputStartDate = new Date(offer.startDate.toString());
+      }
+      if (offer.endDate) {
+        this.inputEndDate = new Date(offer.endDate.toString());
+      }
+
+      if (offer.productId && offer.productName)
+        this.setSelectedModel(offer.productId, offer.productName);
+
+      if (offer.imageId)
+        this.imageId = offer.imageId;
     }
-    if (offer.endDate) {
-      this.inputEndDate = new Date(offer.endDate.toString());
-    }
+  }
 
-    if (offer.productId && offer.productName)
-      this.selectedModel = { id: offer.productId, name: offer.productName };
+  async setSelectedModel(productId: number, productName: string) {
+    this.suggestions = await this.config.data['filter'](productName);
+
+    this.selectedModel = this.suggestions.find(sugg => sugg.id == productId);
   }
 
   async searchModel(event: any) {
@@ -57,6 +84,7 @@ export class CreateEditOffersComponent {
     offer.description = this.inputDescription;
     offer.startDate = this.inputStartDate;
     offer.endDate = this.inputEndDate;
+    offer.imageId = this.imageId;
 
     if (this.selectedModel)
       offer.productId = this.selectedModel.id;
@@ -83,6 +111,48 @@ export class CreateEditOffersComponent {
           this.errorLabel = error.error;
       },
       () => { }
+    );
+  }
+
+  myUploader(event: FileUploadHandlerEvent) {
+    this.disableUpload = true;
+    this.viewImage = false;
+
+    if (!this.editImage && this.imageId) {
+      this.service.deleteImage(this.imageId).subscribe(
+        () => {}
+      );
+    }
+
+    this.imageId = undefined;
+
+    this.service.uploadImage(event.files[0]).subscribe(
+      id => {
+        this.imageId = id;
+        this.fileUpload.clear();
+        this.disableUpload = false;
+        this.editImage = false;
+      },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'There was an error uploading the image, please try again' });
+        this.disableUpload = false;
+        this.fileUpload.clear();
+      }
+    );
+  }
+
+  ViewImage() {
+    this.service.getImage(this.imageId!).subscribe(
+      file => {
+        this.imageName = file.name;
+        this.imagePath = file.filePath;
+        this.viewImage = true;
+      },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'There was an error showing the image, please try again' });
+        this.imageName = undefined;
+        this.imagePath = undefined;
+      }
     );
   }
 }

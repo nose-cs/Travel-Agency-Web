@@ -23,6 +23,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ChartModule } from 'primeng/chart';
 import { DropdownModule } from 'primeng/dropdown';
+import { CarouselModule } from 'primeng/carousel';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -40,9 +43,13 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { HomeComponent } from './home/home.component';
 
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
+import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.component';
+import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-user.component';
+import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
@@ -52,6 +59,7 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
     FlightOffersComponent,
@@ -67,7 +75,10 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     FlightsComponent,
     FlightFilteringComponent,
     ToursComponent,
-    TourFilteringComponent
+    TourFilteringComponent,
+    AgencyAdminComponent,
+    CreateEditUserComponent,
+    ShowAgencyUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +105,10 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     TableModule,
     ConfirmDialogModule,
     ChartModule,
-    DropdownModule
+    DropdownModule,
+    CarouselModule,
+    FileUploadModule,
+    ToastModule
   ],
   providers: [SharedService,
     {

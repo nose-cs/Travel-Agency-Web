@@ -14,8 +14,6 @@ export class StaffSiteComponent {
   constructor(private service: SharedService, private router: Router) { }
 
   ngOnInit(): void {
-    localStorage.setItem('hideTabBar', 'true');
-
     this.role = localStorage.getItem('role')!;
 
     if (this.role == 'Tourist') {
