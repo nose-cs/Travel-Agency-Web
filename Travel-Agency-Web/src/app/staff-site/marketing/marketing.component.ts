@@ -310,7 +310,7 @@ export class MarketingComponent {
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Hotel',
-                getOfferList: this.service.getHotelOffersWithFilter(agencyFilter),
+                getOfferList: this.service.getOffersWithFilter(agencyFilter, 'hotel'),
                 editOffer: (offer: Offer) => this.service.editHotelOffer(offer),
                 deleteOffer: (id: number) => this.service.deleteHotelOffer(id),
 
