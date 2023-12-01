@@ -33,11 +33,11 @@ export class ToursComponent {
     this.TourList = data;
   }
 
-  openOfferList(hotelId: number) {
-    console.log(hotelId);
-    this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: hotelId } });
+  openOfferList(tourId: number) {
+    console.log(tourId);
+    this.router.navigate(['ShowHotelOffers'], { queryParams: { offerId: tourId, offerType: 'tour' } });
   }
-  
+
   getDayOfWeek(day: number): string {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const date = new Date(0);

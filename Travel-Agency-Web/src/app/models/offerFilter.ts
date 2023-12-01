@@ -1,5 +1,5 @@
 export interface OfferFilter{
-
+    
     startDate: Date;
     endDate: Date
     capacity: number;

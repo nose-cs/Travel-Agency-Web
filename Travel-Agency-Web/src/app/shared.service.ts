@@ -199,6 +199,12 @@ export class SharedService {
   getIdHotelOffers(id: number): Observable<Offer[]>{ 
     return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers'); 
   }
+  getIdFlightOffers(id: number): Observable<Offer[]>{ 
+    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers'); 
+  }
+  getIdTourOffers(id: number): Observable<Offer[]>{ 
+    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers'); 
+  }
 
   login(user: Login): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);

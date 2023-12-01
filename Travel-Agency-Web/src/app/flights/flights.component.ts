@@ -35,9 +35,9 @@ export class FlightsComponent {
     this.FlightList = data;
   }
 
-  openOfferList(hotelId: number) {
-    console.log(hotelId);
-    this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: hotelId } });
+  openOfferList(flightId: number) {
+    console.log(flightId);
+    this.router.navigate(['ShowHotelOffers'], { queryParams: { offerId: flightId, offerType: 'flight' } });
   }
 
   openHotel(id: number) {
