@@ -11,6 +11,7 @@ import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Flight } from './models/flight';
 import { Document, ExportType } from './models/document';
+import {AgencyUser} from "./models/agencyUser";
 
 @Injectable({
   providedIn: 'root'
@@ -230,5 +231,22 @@ export class SharedService {
 
   getImage(id: number): Observable<import('./models/file').File> {
     return this.http.get<import('./models/file').File>(this.APIUrl + '/File/' + id);
+  }
+
+
+  getAgencyUsers(id: number): Observable<AgencyUser[]>{
+    return this.http.get<AgencyUser[]>(this.APIUrl + '/Agency/' + id + '/employees');
+  }
+
+  createAgencyUser(agencyUser: AgencyUser, agencyId: number): Observable<void> {
+    return this.http.post<void>(this.APIUrl + `/Agency/${agencyId}/register`, agencyUser);
+  }
+
+  editAgencyUser(agencyUser: AgencyUser, agencyId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Agency/${agencyId}/employees/${agencyUser.id}`, agencyUser);
+  }
+
+  deleteAgencyUser(agencyId: number, userId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}/employees/${userId}`);
   }
 }
