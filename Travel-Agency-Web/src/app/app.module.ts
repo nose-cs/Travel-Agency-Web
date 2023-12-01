@@ -27,7 +27,6 @@ import { CarouselModule } from 'primeng/carousel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 
-import { HomeComponent } from './home/home.component'
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
 import { SplitterModule } from 'primeng/splitter';
@@ -44,15 +43,20 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { HomeComponent } from './home/home.component';
 
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
+import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.component';
+import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-user.component';
+import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 import { FlightsComponent } from './flights/flights.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
     FlightOffersComponent,
@@ -64,6 +68,10 @@ import { FlightsComponent } from './flights/flights.component';
     StaffSiteComponent,
     MarketingComponent,
     ShowStaffHotelOffersComponent,
+    OfferFilterComponent,
+    AgencyAdminComponent,
+    CreateEditUserComponent,
+    ShowAgencyUsersComponent,
     OfferFilterComponent,
     FlightsComponent,
     HomeComponent
