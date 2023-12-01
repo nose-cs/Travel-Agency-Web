@@ -5,3 +5,4 @@ export class HotelFilter
     hotelName: string | null = null;
     Category? : number| null;
 }
+

@@ -10,6 +10,7 @@ import { StaffSiteComponent } from './staff-site/staff-site.component';
 import { ShowHotelOffersComponent } from './hotel-offers/show-hotel-offers/show-hotel-offers.component';
 import { HomeComponent } from './home/home.component';
 import { FlightsComponent } from './flights/flights.component';
+import { ToursComponent } from './tours/tours.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'Home', component: HomeComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'HotelFiltering', component: HotelfilteringComponent},
   {path: 'ShowHotelOffers', component: ShowHotelOffersComponent},
   {path: 'OfferFilter', component: HotelfilteringComponent},
-  {path: 'Flights', component: FlightsComponent}
+  {path: 'Flights', component: FlightsComponent},
+  {path: 'Tours', component: ToursComponent}
 ];
 
 @NgModule({

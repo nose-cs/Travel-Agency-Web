@@ -52,6 +52,9 @@ import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-us
 import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 import { FlightsComponent } from './flights/flights.component';
 import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-admin.component';
+import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
+import { ToursComponent } from './tours/tours.component';
+import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
 
 
 @NgModule({
@@ -70,6 +73,10 @@ import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-
     MarketingComponent,
     ShowStaffHotelOffersComponent,
     OfferFilterComponent,
+    FlightsComponent,
+    FlightFilteringComponent,
+    ToursComponent,
+    TourFilteringComponent,
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
