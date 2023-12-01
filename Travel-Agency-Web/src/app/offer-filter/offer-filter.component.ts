@@ -22,13 +22,14 @@ export class OfferFilterComponent {
   // Usa un evento para enviar los resultados del filtro al componente padre
   @Output() filterResults = new EventEmitter<Offer[]>();
 
-  @Input() idHotel!: number;
+  @Input() idProduct!: number;
+  @Input() offerType!: string;
+
 
 onSubmit(filter: OfferFilter) {
   // Llama al servicio con el filtro y emite el evento con los resultados
-  filter.productId = this.idHotel;
-  console.log(filter.capacity)
-  this.service.getHotelOffersWithFilter(filter).subscribe(data => {
+  filter.productId = this.idProduct;
+  this.service.getOffersWithFilter(filter, this.offerType)!.subscribe(data => {
   this.filterResults.emit(data);
   });
 }

@@ -84,7 +84,7 @@ export class SharedService {
     return this.http.get<Tour[]>(this.APIUrl + '/Tour/Get', {params})
   }
 
-  getHotelOffersWithFilter(filter : OfferFilter) {
+  getOffersWithFilter(filter : OfferFilter, offerType: string) {
     let params = new HttpParams();
 
     if(filter.productId)
@@ -104,7 +104,14 @@ export class SharedService {
     if(filter.endDate){
       params = params.append('endDate', filter.endDate.toString());
     }
-    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/GetHotelsWithFilter', {params} )
+    console.log(offerType);
+    if(offerType == 'hotel')
+    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/GetHotelsWithFilter', {params} );
+    if(offerType == 'flight')
+    return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer/GetFlightsWithFilter', {params} );
+    if(offerType == 'tour')
+    return this.http.get<Offer[]>(this.APIUrl + '/TourOffer/GetToursWithFilter', {params} );
+  return
 }
 
   createHotelOffer(offer: Offer): Observable<void> {
