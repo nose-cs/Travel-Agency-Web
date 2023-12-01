@@ -15,3 +15,19 @@ export interface AgencyUser {
     role: Role.AgencyAdmin | Role.Agent | Role.MarketingEmployee;
     agencyId: number;
 }
+
+export interface TravellerUser {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    role: Role.Tourist;
+}
+
+export interface TravellerAdmin {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    role: Role.TravellerAdmin;
+}

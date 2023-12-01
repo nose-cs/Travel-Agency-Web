@@ -3,24 +3,34 @@ import {AgencyUser, Role} from "../../models/agencyUser";
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-create-agency-user',
-  templateUrl: './create-agency-user.component.html',
-  styleUrls: ['./create-agency-user.component.css']
+  selector: 'app-create-edit-user',
+  templateUrl: './create-edit-user.component.html',
+  styleUrls: ['./create-edit-user.component.css']
 })
-export class CreateAgencyUserComponent {
-  roles: {role: Role.AgencyAdmin | Role.MarketingEmployee | Role.Agent; name: string} [] | undefined
+export class CreateEditUserComponent {
+  roles: {role: Role; name: string} [] | undefined;
   id: number = 0;
   inputName: string | undefined;
-  inputRole: {role: Role.AgencyAdmin | Role.MarketingEmployee | Role.Agent; name: string} | undefined;
+  inputRole: {role: Role; name: string} | undefined;
   inputEmail: string | undefined;
   inputPassword: string | undefined;
+  inputAgencyId: number | undefined;
+
+  currentUserRole: string | null = localStorage.getItem('role');
 
   errorLabel: string = '';
 
   constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
+    if (config.data['roles']) {
+      this.roles = config.data['roles'];
+    }
+
+    if (localStorage.getItem('role') == 'AgencyAdmin') {
+      this.inputAgencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+    }
+
     if (config.data['agencyUser']) {
       const agencyUser: AgencyUser = config.data['agencyUser'];
-
       this.id = agencyUser?.id;
       this.inputName = agencyUser?.name;
       this.inputRole = this.getRole(agencyUser?.role);
@@ -28,16 +38,8 @@ export class CreateAgencyUserComponent {
     }
   }
 
-  getRole(role: Role | undefined) {
-    return this.roles?.find(r => r.role == role);
-  }
-
-  ngOnInit() {
-    this.roles = [
-      {role: Role.AgencyAdmin, name: "Admin"},
-      {role: Role.Agent, name: "Agent"},
-      {role: Role.MarketingEmployee, name: "Marketing"},
-    ];
+  getRole(role: Role) {
+    return this.roles!.find(r => r.role === role);
   }
 
   onOk() {
@@ -51,27 +53,18 @@ export class CreateAgencyUserComponent {
       return;
     }
 
-    const agencyIdString = localStorage.getItem('agencyId');
-
-    if (!agencyIdString) {
-      this.errorLabel = "Error with your credentials. Please login again";
-      return;
-    }
-
-    const agencyId = Number.parseInt(agencyIdString);
-
     const agencyUser = {
-      agencyId: agencyId,
+      id: this.id,
       name: this.inputName,
       role: this.inputRole.role,
       email: this.inputEmail,
       password: this.inputPassword
     } as AgencyUser;
 
-    this.config.data['execute'](agencyUser).subscribe(
+    this.config.data['execute'](agencyUser, this.inputAgencyId).subscribe(
       () => { this.ref.close(true); },
       (error: any) => {
-        if (error.error.errors) {
+        if (error?.error?.errors) {
           let err = '';
 
           for (let errs of Object.values(error.error.errors)) {
@@ -89,4 +82,5 @@ export class CreateAgencyUserComponent {
     );
   }
 
+  protected readonly Role = Role;
 }

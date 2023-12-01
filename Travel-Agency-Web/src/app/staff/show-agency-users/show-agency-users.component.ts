@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import {SharedService} from "../../shared.service";
-import {Offer} from "../../models/offer";
-import {CreateEditOffersComponent} from "../create-edit-offers/create-edit-offers.component";
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import {AgencyUser, Role} from "../../models/agencyUser";
-import {CreateAgencyUserComponent} from "../create-agency-user/create-agency-user.component";
+import {CreateEditUserComponent} from "../create-edit-user/create-edit-user.component";
 
 @Component({
   selector: 'app-show-agency-users',
@@ -14,20 +12,18 @@ import {CreateAgencyUserComponent} from "../create-agency-user/create-agency-use
   providers: [ ConfirmationService ]
 })
 export class ShowAgencyUsersComponent {
-  constructor(private service: SharedService, private dialogService: DialogService, private confirmationService: ConfirmationService, private config: DynamicDialogConfig) { }
+  constructor(private service: SharedService, private dialogService: DialogService, private confirmationService: ConfirmationService, private config: DynamicDialogConfig) {
+    this.roles = this.config.data['roles'];
+  }
 
   AgencyUserList: AgencyUser[] = [];
-  roles: {role: Role.AgencyAdmin | Role.MarketingEmployee | Role.Agent; name: string} [] | undefined
+  roles: {role: Role; name: string} [] | undefined
+  currentUserRole: string | null = localStorage.getItem('role');
 
   ref: DynamicDialogRef | undefined;
 
   ngOnInit() {
     this.refreshTable();
-    this.roles = [
-      {role: Role.AgencyAdmin, name: "Admin"},
-      {role: Role.Agent, name: "Agent"},
-      {role: Role.MarketingEmployee, name: "Marketing"},
-    ];
   }
 
   refreshTable() {
@@ -41,9 +37,10 @@ export class ShowAgencyUsersComponent {
   }
 
   editAgencyUser(agencyUser: AgencyUser) {
-    this.ref = this.dialogService.open(CreateAgencyUserComponent, {
+    this.ref = this.dialogService.open(CreateEditUserComponent, {
       data: {
         agencyUser: agencyUser,
+        roles: this.roles,
         execute: (agencyUser: AgencyUser) => this.config.data['editAgencyUser'](agencyUser)
       },
       header: 'Edit ' + agencyUser.name + ' info',

@@ -2,9 +2,10 @@
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-      <th pSortableColumn="name">Name <p-sortIcon field="price"></p-sortIcon></th>
-      <th pSortableColumn="email">Email <p-sortIcon field="productName"></p-sortIcon></th>
-      <th pSortableColumn="role">Role<p-sortIcon field="title"></p-sortIcon></th>
+      <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+      <th pSortableColumn="role">Role<p-sortIcon field="role"></p-sortIcon></th>
+      <th *ngIf="currentUserRole == 'TravellerAdmin'" pSortableColumn="agency">Agency<p-sortIcon field="agency"></p-sortIcon></th>
       <th><label style="margin-left: 8px;">Actions</label></th>
     </tr>
   </ng-template>
@@ -14,6 +15,7 @@
       <td>{{agencyUser.name}}</td>
       <td>{{agencyUser.email}}</td>
       <td>{{getRole(agencyUser.role)}}</td>
+      <td *ngIf="currentUserRole == 'TravellerAdmin'">{{agencyUser.agencyId}}</td>
       <td>
         <table>
           <tr>

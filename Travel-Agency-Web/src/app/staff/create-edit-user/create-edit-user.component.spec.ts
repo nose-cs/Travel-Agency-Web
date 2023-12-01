@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAgencyUserComponent } from './create-agency-user.component';
+import { CreateEditUserComponent } from './create-edit-user.component';
 
 describe('CreateAgencyUserComponent', () => {
-  let component: CreateAgencyUserComponent;
-  let fixture: ComponentFixture<CreateAgencyUserComponent>;
+  let component: CreateEditUserComponent;
+  let fixture: ComponentFixture<CreateEditUserComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateAgencyUserComponent]
+      declarations: [CreateEditUserComponent]
     });
-    fixture = TestBed.createComponent(CreateAgencyUserComponent);
+    fixture = TestBed.createComponent(CreateEditUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -46,7 +46,7 @@ import { HomeComponent } from './home/home.component';
 import { OfferFilterComponent } from './offer-filter/offer-filter.component';
 import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-staff-offers.component';
 import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.component';
-import { CreateAgencyUserComponent } from './staff/create-agency-user/create-agency-user.component';
+import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-user.component';
 import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 
 
@@ -67,7 +67,7 @@ import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-
     ShowStaffHotelOffersComponent,
     OfferFilterComponent,
     AgencyAdminComponent,
-    CreateAgencyUserComponent,
+    CreateEditUserComponent,
     ShowAgencyUsersComponent
   ],
   imports: [

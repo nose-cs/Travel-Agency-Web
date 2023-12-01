@@ -181,10 +181,6 @@ export class SharedService {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
   }
 
-  getAgencyUsers(id: number): Observable<AgencyUser[]>{
-    return this.http.get<AgencyUser[]>(this.APIUrl + '/Agency/' + id + '/employees');
-  }
-
   getIdHotelOffers(id: number): Observable<Offer[]>{
     return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }
@@ -193,8 +189,20 @@ export class SharedService {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);
   }
 
-  createAgencyUser(agencyUser: AgencyUser): Observable<void> {
-    console.log(agencyUser)
-    return this.http.post<void>(this.APIUrl + `/Agency/${agencyUser.agencyId}/register`, agencyUser);
+
+  getAgencyUsers(id: number): Observable<AgencyUser[]>{
+    return this.http.get<AgencyUser[]>(this.APIUrl + '/Agency/' + id + '/employees');
+  }
+
+  createAgencyUser(agencyUser: AgencyUser, agencyId: number): Observable<void> {
+    return this.http.post<void>(this.APIUrl + `/Agency/${agencyId}/register`, agencyUser);
+  }
+
+  editAgencyUser(agencyUser: AgencyUser, agencyId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Agency/${agencyId}/employees/${agencyUser.id}`, agencyUser);
+  }
+
+  deleteAgencyUser(agencyId: number, userId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}/employees/${userId}`);
   }
 }
