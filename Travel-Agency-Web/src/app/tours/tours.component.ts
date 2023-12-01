@@ -26,6 +26,7 @@ export class ToursComponent {
         console.log(this.TourList);
       });
   }
+  
 
   onFilter(data: Tour[]) {
     // Asigna los resultados del filtro a la variable
@@ -36,7 +37,13 @@ export class ToursComponent {
     console.log(hotelId);
     this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: hotelId } });
   }
-
+  
+  getDayOfWeek(day: number): string {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const date = new Date(0);
+    date.setDate(day);
+    return daysOfWeek[date.getDay()];
+  }
   openHotel(id: number) {
     console.log(id);
   }
