@@ -46,6 +46,7 @@ import { ShowStaffHotelOffersComponent } from './staff/show-staff-offers/show-st
 import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
+import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
 
 
 @NgModule({
@@ -65,8 +66,8 @@ import { ToursComponent } from './tours/tours.component';
     OfferFilterComponent,
     FlightsComponent,
     FlightFilteringComponent,
-    ToursComponent
-  
+    ToursComponent,
+    TourFilteringComponent
   ],
   imports: [
     BrowserModule,

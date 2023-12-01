@@ -1,12 +1,10 @@
 <div class="formgrid grid">
- 
   <div class="field col">
     <span class="p-float-label">
-      <input pInputNumber id="flightNumber" [(ngModel)]="flNumber" />
+      <p-inputNumber inputId="flightNumber" id="flightNumber" [(ngModel)]="flNumber"></p-inputNumber>
       <label htmlFor="flNumber">Flight Number</label>
     </span>
   </div>
-
   <div class="field col">
     <span class="p-float-label">
       <input pInputText id="source" [(ngModel)]="source" />
@@ -15,14 +13,16 @@
   </div>
   <div class="field col">
     <span class="p-float-label">
-      <p-input inputId="destination" id="destination" [(ngModel)]="destination"/>
+      <input pInputText id="destination" [(ngModel)]="destination"/>
       <label htmlFor="destination">Destination</label>
     </span>
-    </div>
+  </div>
+  <div class="field col">
     <span class="p-float-label">
-      <p-input inputId="airline" id="airline" [(ngModel)]="airline"/>
+      <input pInputText id="airline" [(ngModel)]="airline"/>
       <label htmlFor="airline">Airline</label>
     </span>
+  </div>
   <div class="field col">
     <button (click)="onSubmit()" class="p-button p-button-primary">Search</button>
   </div>

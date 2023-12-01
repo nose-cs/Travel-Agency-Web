@@ -22,6 +22,8 @@ export class ToursComponent {
   refreshTourList() {
       this.service.getTours().subscribe(data => {
         this.TourList = data;
+        console.log(data);
+        console.log(this.TourList);
       });
   }
 
@@ -49,5 +51,8 @@ export class ToursComponent {
   }
   getAddres(place: Place) {
     return place.address + ', ' + place.city + ', ' + place.country;
+  }
+  getDurationString(days: number) {
+    return days > 0 ? 'Duration: ' + days + ' Days' : 'Single Day';
   }
 }

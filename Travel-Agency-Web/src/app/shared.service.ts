@@ -13,6 +13,7 @@ import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
+import { TourFilter } from './models/tourFilter';
 
 
 @Injectable({
@@ -70,6 +71,17 @@ export class SharedService {
     if(filter.SourcePlace) params = params.append('source', filter.SourcePlace.toString())
     if(filter.airline) params = params.append('airline', filter.airline.toString())
     return this.http.get<Flight[]>(this.APIUrl + '/Flight/Get', {params});
+  }
+  getToursWithFilter(filter: TourFilter){
+    let params = new HttpParams();
+    if(filter.destinationPlace) params = params.append('destination', filter.destinationPlace)
+    if(filter.sourcePlace) params = params.append('source', filter.sourcePlace)
+    if(filter.duration) params = params.append('duration', filter.duration.toString())
+    if(filter.startTime) params = params.append( 'startTime', filter.startTime.toString())
+    if(filter.endTime) params = params.append( 'endTime', filter.endTime.toString())
+    if(filter.startDay) params = params.append( 'startDay', filter.startDay.toString())
+    if(filter.id) params = params.append('id', filter.id.toString())
+    return this.http.get<Tour[]>(this.APIUrl + '/Tour/Get', {params})
   }
 
   getHotelOffersWithFilter(filter : OfferFilter) {

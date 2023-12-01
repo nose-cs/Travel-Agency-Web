@@ -1,7 +1,7 @@
 export interface Hotel {
     id: number;
     name: string;
-    place: Place;
+    address: Place;
     category: Category;
 }
 
