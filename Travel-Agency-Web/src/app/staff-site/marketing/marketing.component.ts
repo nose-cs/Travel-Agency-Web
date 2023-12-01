@@ -11,6 +11,7 @@ import { GroupBy, SaleRequest, SaleResponse } from '../../models/salesStatistics
 import { UIChart } from 'primeng/chart';
 import { group } from '@angular/animations';
 import { OfferFilter } from '../../models/offerFilter';
+import { Document, ExportType } from '../../models/document';
 
 @Component({
   selector: 'app-marketing',
@@ -45,6 +46,7 @@ export class MarketingComponent {
   moneySales: Record<string, number[]> = {};
 
   serviceSales: Record<string, Function> = {};
+  serviceSalesDoc: Record<string, Function> = {};
 
   //Offer Sales
   dataOfferSales: Record<string, any> = {};
@@ -56,6 +58,7 @@ export class MarketingComponent {
   moneyOfferSales: Record<string, number[]> = {};
 
   serviceOfferSales: Record<string, Function> = {};
+  serviceOfferSalesDoc: Record<string, Function> = {};
 
   ngOnInit() {
     for (let model of this.OffersControlItems) {
@@ -76,22 +79,32 @@ export class MarketingComponent {
       this.totalOfferSales[model] = [];
       this.moneyOfferSales[model] = [];
 
+      const epdf = ExportType.PDF;
+
       switch (model) {
         case 'Hotel Offers':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getHotelSales(request);
+          this.serviceSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getHotelSales(request, exportTo);
           this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getHotelOfferSales(request);
+          this.serviceOfferSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getHotelOfferSales(request, exportTo);
           break;
         case 'Flight Offers':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getFlightSales(request);
+          this.serviceSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getFlightSales(request, exportTo);
           this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getFlightOfferSales(request);
+          this.serviceOfferSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getFlightOfferSales(request, exportTo);
           break;
         case 'Tour Offers':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getTourSales(request);
+          this.serviceSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getTourSales(request, exportTo);
           this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getTourOfferSales(request);
+          this.serviceOfferSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getTourOfferSales(request, exportTo);
           break;
         case 'Packages':
           this.serviceSales[model] = (request: SaleRequest) => this.service.getPackageSales(request);
+          this.serviceSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getPackageSales(request, exportTo);
           this.serviceOfferSales[model] = (request: SaleRequest) => this.service.getPackageOfferSales(request);
+          this.serviceOfferSalesDoc[model] = (request: SaleRequest, exportTo: string) => this.service.getPackageOfferSales(request, exportTo);
           break;
       }
 
@@ -339,5 +352,36 @@ export class MarketingComponent {
         break;
     }
 
+  }
+
+  downloadDoc(model: string, exportTo: string) {
+    switch (this.selectedChart[model].value)
+    {
+      case 1:
+        this.serviceSalesDoc[model]({ start: this.inputStartSales[model], end: this.inputEndSales[model], groupBy: this.selectedGroup[model].value }, exportTo).subscribe(
+          (doc: Document) => {
+            const link = document.createElement('a');
+            link.href = 'data:' + doc.contentType + ';base64,' + doc.contentBase64;
+            link.download = doc.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        );
+        break;
+
+      case 2:
+        this.serviceOfferSalesDoc[model]({ start: this.inputStartSales[model], end: this.inputEndSales[model] }, exportTo).subscribe(
+          (doc: Document) => {
+            const link = document.createElement('a');
+            link.href = 'data:' + doc.contentType + ';base64,' + doc.contentBase64;
+            link.download = doc.name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+        );
+        break;
+    }
   }
 }
