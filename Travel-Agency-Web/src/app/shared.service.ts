@@ -108,11 +108,11 @@ export class SharedService {
     }
 
     if(offerType == 'hotel')
-      return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer/GetHotelsWithFilter', {params} );
+      return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer', {params} );
     if(offerType == 'flight')
-      return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer/GetFlightsWithFilter', {params} );
+      return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer', {params} );
     if(offerType == 'tour')
-      return this.http.get<Offer[]>(this.APIUrl + '/TourOffer/GetToursWithFilter', {params} );
+      return this.http.get<Offer[]>(this.APIUrl + '/TourOffer', {params} );
 
     return;
   }
