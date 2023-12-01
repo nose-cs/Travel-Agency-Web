@@ -15,28 +15,40 @@ export class ShowHotelOffersComponent implements OnInit {
 
   constructor(private service: SharedService, private route: ActivatedRoute ) { }
 
-  hotelID!: number;
-
-  HotelOffersList: Offer[] = [];
+  offerID!: number; 
+  offerType!: string;
+  OffersList: Offer[] = [];
 
 
   ngOnInit() {
-    this.hotelID = +this.route.snapshot.queryParamMap.get('hotelId')!;
-    console.log(this.hotelID);
+    this.offerID = +this.route.snapshot.queryParamMap.get('offerId')!;
+    this.offerType = this.route.snapshot.queryParamMap.get('offerType')!;
+    console.log(this.offerID)
     this.refreshHotelOffersList();
   }
 
   onFilter(data: Offer[]) {
     // Asigna los resultados del filtro a la variable
-    this.HotelOffersList = data;
+    this.OffersList = data;
   }
   
 
   refreshHotelOffersList() {
-    this.service.getIdHotelOffers(this.hotelID).subscribe(data => {
-      this.HotelOffersList = data;
-      console.log(data);
+    if(this.offerType == 'hotel'){
+    this.service.getIdHotelOffers(this.offerID).subscribe(data => {
+      this.OffersList = data;
     });
+  }
+    if(this.offerType == 'flight'){
+      this.service.getIdFlightOffers(this.offerID).subscribe(data => {
+        this.OffersList = data;
+      });
+    }
+    if(this.offerType == 'tour'){
+      this.service.getIdTourOffers(this.offerID).subscribe(data => {
+        this.OffersList = data;
+      })
+    }
 }
 
   openOffer(id: number) {

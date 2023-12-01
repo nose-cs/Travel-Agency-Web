@@ -1,0 +1,29 @@
+<div class="formgrid grid">
+  <div class="field col">
+    <span class="p-float-label">
+      <p-inputNumber inputId="flightNumber" id="flightNumber" [(ngModel)]="flNumber"></p-inputNumber>
+      <label htmlFor="flNumber">Flight Number</label>
+    </span>
+  </div>
+  <div class="field col">
+    <span class="p-float-label">
+      <input pInputText id="source" [(ngModel)]="source" />
+      <label htmlFor="source">Source Place</label>
+    </span>
+  </div>
+  <div class="field col">
+    <span class="p-float-label">
+      <input pInputText id="destination" [(ngModel)]="destination"/>
+      <label htmlFor="destination">Destination</label>
+    </span>
+  </div>
+  <div class="field col">
+    <span class="p-float-label">
+      <input pInputText id="airline" [(ngModel)]="airline"/>
+      <label htmlFor="airline">Airline</label>
+    </span>
+  </div>
+  <div class="field col">
+    <button (click)="onSubmit()" class="p-button p-button-primary">Search</button>
+  </div>
+  </div>
