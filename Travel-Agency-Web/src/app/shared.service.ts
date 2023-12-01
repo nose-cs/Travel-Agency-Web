@@ -19,7 +19,7 @@ import { AgencyUser } from "./models/agencyUser";
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
   getHotelOffers(): Observable<Offer[]> {
@@ -79,7 +79,7 @@ export class SharedService {
     if(filter.endTime) params = params.append( 'endTime', filter.endTime.toString())
     if(filter.startDay) params = params.append( 'startDay', filter.startDay.toString())
     if(filter.id) params = params.append('id', filter.id.toString())
-    return this.http.get<Tour[]>(this.APIUrl + '/Tour/Get', {params})
+    return this.http.get<Tour[]>(this.APIUrl + '/Tour', {params})
   }
 
   getOffersWithFilter(filter : OfferFilter, offerType: string) {
