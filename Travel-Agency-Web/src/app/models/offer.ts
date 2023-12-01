@@ -10,5 +10,6 @@ export class Offer {
   agencyId = 0;
   productName: string | undefined;
   productId = 0;
+  imageId: number | undefined;
 }
 

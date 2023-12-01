@@ -16,7 +16,6 @@ import { Flight } from './models/flight';
 })
 export class SharedService {
   readonly APIUrl = 'https://localhost:3571/api';
-  readonly PhotoUrl = '';
   constructor(private http: HttpClient) { }
 
   getHotelOffers(): Observable<Offer[]> {
@@ -191,5 +190,20 @@ export class SharedService {
 
   login(user: Login): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);
+  }
+
+  uploadImage(file: File): Observable<number> {
+    let formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.http.post<number>(this.APIUrl + '/File', formData);
+  }
+
+  deleteImage(id: number): Observable<any> {
+    return this.http.delete<any>(this.APIUrl + '/File/' + id);
+  }
+
+  getImage(id: number): Observable<import('./models/file').File> {
+    return this.http.get<import('./models/file').File>(this.APIUrl + '/File/' + id);
   }
 }
