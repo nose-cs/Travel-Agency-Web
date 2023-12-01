@@ -113,7 +113,9 @@ export class SharedService {
       return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer/GetFlightsWithFilter', {params} );
     if(offerType == 'tour')
       return this.http.get<Offer[]>(this.APIUrl + '/TourOffer/GetToursWithFilter', {params} );
-}
+
+    return;
+  }
 
   createHotelOffer(offer: Offer): Observable<void> {
     return this.http.post<void>(this.APIUrl + '/HotelOffer', offer);
