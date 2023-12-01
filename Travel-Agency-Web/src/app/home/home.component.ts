@@ -3,6 +3,7 @@ import { Hotel } from '../models/hotel';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { Offer } from '../models/offer';
+import { Flight } from '../models/flight';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { Offer } from '../models/offer';
 export class HomeComponent {
 
   hotels: Hotel[] = [];
+  flights: Flight[] = [];
   packages: Offer[] = [];
 
   responsiveOptions: any[] | undefined;
@@ -21,6 +23,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.service.getHotelMostSolds().subscribe(data => { this.hotels = data });
+    this.service.getFlightMostSolds().subscribe(data => { this.flights = data });
     this.service.getPackageMostSolds().subscribe(data => { this.packages = data });
 
     this.responsiveOptions = [
@@ -42,7 +45,13 @@ export class HomeComponent {
     ];
   }
 
-  openOfferList(hotelId: number) {
-    this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: hotelId } });
+  openHotelOfferList(id: number) {
+    this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: id } });
+  }
+  openFlightOfferList(id: number) {
+    this.router.navigate(['ShowHotelOffers'], { queryParams: { hotelId: id } });
+  }
+  openTourOfferList(id: number) {
+    
   }
 }

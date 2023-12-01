@@ -23,7 +23,7 @@
                 <label htmlFor="endSales">End</label>
               </span>
             </div>
-            <div class="col-6">
+            <div class="col-5">
               <table>
                 <tr>
                   <td>
@@ -37,6 +37,18 @@
                       <p-dropdown [options]="groups" [(ngModel)]="selectedGroup[ofi]" (onChange)="onChangeRequest(ofi)" optionLabel="name" inputId="float-label"></p-dropdown>
                       <label for="float-label">Group by</label>
                     </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-1">
+              <table>
+                <tr>
+                  <td>
+                    <p-button (click)="downloadDoc(ofi, 'PDF')" icon="pi pi-file-pdf" [rounded]="true" [text]="true" [raised]="true"></p-button>
+                  </td>
+                  <td>
+                    <p-button (click)="downloadDoc(ofi, 'EXCEL')" icon="pi pi-file-excel" [rounded]="true" [text]="true" [raised]="true"></p-button>
                   </td>
                 </tr>
               </table>
