@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HotelFilter } from 'src/app/models/hotelFilter'; 
 import { SharedService } from 'src/app/shared.service';
@@ -17,21 +17,16 @@ export class HotelfilteringComponent {
   constructor(private http: HttpClient, private service: SharedService) {}
   
   // Usa un evento para enviar los resultados del filtro al componente padre
-  @Output() filterResults = new EventEmitter<Hotel[]>();
+  @Output() filter = new EventEmitter<HotelFilter>();
 
 
-onSubmit() {
-  const filter = new HotelFilter();
-  filter.hotelName = this.name;
-  filter.address = this.address;
-  filter.Category = this.category;
+  onSubmit() {
+    const filter = new HotelFilter();
+    filter.hotelName = this.name;
+    filter.address = this.address;
+    filter.Category = this.category;
 
-  // Llama al servicio con el filtro y emite el evento con los resultados
-  this.service.getHotels(filter).subscribe(data => {
-    console.log(data)
-    this.filterResults.emit(data);
-    console.log(data);
-  });
-}
+    this.filter.emit(filter);
+  }
 
 }

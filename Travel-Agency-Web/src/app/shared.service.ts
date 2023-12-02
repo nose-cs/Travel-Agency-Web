@@ -14,12 +14,14 @@ import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
+import { ChangePasswordRequest } from './models/changePasswordRequest';
+import { PaginationResponse } from './models/PaginationResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5235/api';
+  readonly APIUrl = 'https://localhost:3571/api';
   constructor(private http: HttpClient) { }
 
   //Products with Filter
@@ -29,15 +31,28 @@ export class SharedService {
         params = params.append('productId', filter.productId.toString());
       }
       if(filter.hotelName){
-        params = params.append('name', filter.hotelName.toString() )
+        params = params.append('name', filter.hotelName.toString());
       }
       if (filter.address) {
         params = params.append('address', filter.address.toString());
       }
       if(filter.Category){
-        params = params.append('category', filter.Category.toString())
+        params = params.append('category', filter.Category.toString());
       }
-    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel', {params});
+      if (filter.pageIndex) {
+        params = params.append('pageIndex', filter.pageIndex);
+      }
+      if (filter.pageSize) {
+        params = params.append('pageSize', filter.pageSize);
+      }
+      if (filter.orderBy) {
+        params = params.append('orderBy', filter.orderBy);
+      }
+      if (filter.descending) {
+        params = params.append('descending', filter.descending);
+      }
+
+      return this.http.get<PaginationResponse<Hotel>>(this.APIUrl + '/Hotel', {params});
   }
 
   getFlights(filter: FlightFilter){
@@ -46,8 +61,22 @@ export class SharedService {
     if(filter.flightNumber) params = params.append('flightNumber', filter.flightNumber.toString())
     if(filter.destinationPlace) params = params.append('destination', filter.destinationPlace.toString())
     if(filter.sourcePlace) params = params.append('source', filter.sourcePlace.toString())
-    if(filter.airline) params = params.append('airline', filter.airline.toString())
-    return this.http.get<Flight[]>(this.APIUrl + '/Flight', {params});
+    if (filter.airline) params = params.append('airline', filter.airline.toString())
+
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+
+    return this.http.get<PaginationResponse<Flight>>(this.APIUrl + '/Flight', {params});
   }
   getTours(filter: TourFilter){
     let params = new HttpParams();
@@ -57,13 +86,27 @@ export class SharedService {
     if(filter.startTime) params = params.append( 'startTime', filter.startTime.toString())
     if(filter.endTime) params = params.append( 'endTime', filter.endTime.toString())
     if(filter.startDay) params = params.append( 'startDay', filter.startDay.toString())
-    if(filter.id) params = params.append('id', filter.id.toString())
-    return this.http.get<Tour[]>(this.APIUrl + '/Tour', {params})
+    if (filter.id) params = params.append('id', filter.id.toString())
+
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+
+    return this.http.get<PaginationResponse<Tour>>(this.APIUrl + '/Tour', {params})
   }
 
 
   //Offers with Filter
-  getOffersWithFilter(filter : OfferFilter, offerType: string) {
+  getOffersWithFilter(filter: OfferFilter, offerType: string): Observable<PaginationResponse<Offer>> {
     let params = new HttpParams();
 
     if (filter.productId) {
@@ -87,16 +130,29 @@ export class SharedService {
     if(filter.endDate){
       params = params.append('endDate', filter.endDate.toString());
     }
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
 
     if(offerType == 'hotel')
-      return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer', {params} );
+      return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/HotelOffer', {params} );
     if(offerType == 'flight')
-      return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer', {params} );
+      return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/FlightOffer', {params} );
     if(offerType == 'tour')
-      return this.http.get<Offer[]>(this.APIUrl + '/TourOffer', {params} );
+      return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/TourOffer', {params} );
     if(offerType == 'package')
-    return this.http.get<Offer[]>(this.APIUrl + '/Package', {params} );
-    return;
+      return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/Package', {params} );
+
+    throw new Error("Offer Type not valid");
   }
 
   //Hotel Offer CRUD
@@ -263,18 +319,6 @@ export class SharedService {
   }
 
 
-  //Offers by Id
-  getIdHotelOffers(id: number): Observable<Offer[]>{
-    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
-  }
-  getIdFlightOffers(id: number): Observable<Offer[]>{
-    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers');
-  }
-  getIdTourOffers(id: number): Observable<Offer[]>{
-    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers');
-  }
-
-
   // identity
   login(user: Login): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);
@@ -282,6 +326,10 @@ export class SharedService {
 
   register(user: Register): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
+  }
+
+  changePassword(changeRequest: ChangePasswordRequest): Observable<JwtAuth> {
+    return this.http.post<JwtAuth>(this.APIUrl + '/Identity/changePassword', changeRequest);
   }
 
 

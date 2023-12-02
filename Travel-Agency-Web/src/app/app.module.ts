@@ -24,6 +24,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TabViewModule } from 'primeng/tabview';
+import { PaginatorModule } from 'primeng/paginator';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -52,6 +57,7 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
 import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
+import { UserSiteComponent } from './user-site/user-site.component';
 
 
 @NgModule({
@@ -75,6 +81,7 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
+    UserSiteComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +111,12 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     DropdownModule,
     CarouselModule,
     FileUploadModule,
-    ToastModule
+    ToastModule,
+    FieldsetModule,
+    CheckboxModule,
+    RadioButtonModule,
+    TabViewModule,
+    PaginatorModule
   ],
   providers: [SharedService,
     {

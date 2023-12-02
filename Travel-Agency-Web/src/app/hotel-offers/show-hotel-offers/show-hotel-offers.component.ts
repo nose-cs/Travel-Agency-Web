@@ -4,6 +4,7 @@ import { Offer } from '../../models/offer';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { OfferFilter } from 'src/app/models/offerFilter';
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-show-hotel-offers',
@@ -16,16 +17,25 @@ export class ShowHotelOffersComponent implements OnInit {
 
   constructor(private service: SharedService, private route: ActivatedRoute ) { }
 
-  offerID!: number; 
+  productId!: number; 
   offerType!: string;
   OffersList: Offer[] = [];
   showDetails: boolean = false;
 
+  first: number = 0;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  total: number = 0;
+
+  filter: OfferFilter = new OfferFilter();
+
   ngOnInit() {
-    this.offerID = +this.route.snapshot.queryParamMap.get('offerId')!;
+    this.productId = +this.route.snapshot.queryParamMap.get('offerId')!;
     this.offerType = this.route.snapshot.queryParamMap.get('offerType')!;
-    console.log(this.offerID)
-    this.refreshHotelOffersList();
+
+    this.filter.productId = this.productId;
+
+    this.refreshList();
   }
   
 
@@ -33,31 +43,30 @@ export class ShowHotelOffersComponent implements OnInit {
     this.showDetails = true
   }
 
-  onFilter(data: Offer[]) {
-    // Asigna los resultados del filtro a la variable
-    this.OffersList = data;
+  onPageChange(event: PaginatorState) {
+    this.first = event.first!;
+    this.pageSize = event.rows!;
+    this.pageIndex = event.page! + 1;
+    this.refreshList();
   }
-  
 
-  refreshHotelOffersList() {
-    if(this.offerType == 'hotel'){
-    this.service.getIdHotelOffers(this.offerID).subscribe(data => {
-      this.OffersList = data;
+  refreshList() {
+    this.filter.pageIndex = this.pageIndex;
+    this.filter.pageSize = this.pageSize;
+
+    this.service.getOffersWithFilter(this.filter, this.offerType).subscribe(paginator => {
+      this.OffersList = paginator.items;
+      this.total = paginator.totalCollectionSize;
     });
   }
-    if(this.offerType == 'flight'){
-      this.service.getIdFlightOffers(this.offerID).subscribe(data => {
-        this.OffersList = data;
-      });
-    }
-    if(this.offerType == 'tour'){
-      this.service.getIdTourOffers(this.offerID).subscribe(data => {
-        this.OffersList = data;
-      })
-    }
-    if(this.offerType == 'package'){
-    }
-}
+
+  onFilter(newfilter: OfferFilter) {
+    this.filter = newfilter;
+    this.filter.productId = this.productId;
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
+  }
 
   openOffer(id: number) {
     console.log(id);

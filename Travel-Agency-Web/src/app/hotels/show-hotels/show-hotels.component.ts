@@ -3,7 +3,7 @@ import { Hotel, Place } from 'src/app/models/hotel';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
 import { HotelFilter } from '../../models/hotelFilter';
-
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-show-hotels',
@@ -23,23 +23,44 @@ export class ShowHotelsComponent {
 
   HotelList: Hotel[] = [];
 
+  first: number = 0;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  total: number = 0;
+
+  filter: HotelFilter = new HotelFilter();
+
   ngOnInit(): void {
-      this.refreshHotelList();
+    this.refreshHotelList();
+  }
+
+  onPageChange(event: PaginatorState) {
+    this.first = event.first!;
+    this.pageSize = event.rows!;
+    this.pageIndex = event.page! + 1;
+    this.refreshHotelList();
   }
 
   showDialog() {
     this.showDetails = true;
-}
-
-  refreshHotelList() {
-    this.service.getHotels(new HotelFilter()).subscribe(data => {
-        this.HotelList = data;
-      });
   }
 
-  onFilter(data: Hotel[]) {
-    // Asigna los resultados del filtro a la variable
-    this.HotelList = data;
+  refreshHotelList() {
+    this.filter.pageIndex = this.pageIndex;
+    this.filter.pageSize = this.pageSize;
+
+    this.service.getHotels(this.filter).subscribe(paginator => {
+      this.HotelList = paginator.items;
+
+      this.total = paginator.totalCollectionSize;
+    });
+  }
+
+  onFilter(newfilter: HotelFilter) {
+    this.filter = newfilter;
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshHotelList();
   }
 
   openOfferList(hotelId: number) {
