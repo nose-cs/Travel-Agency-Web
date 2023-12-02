@@ -26,10 +26,10 @@
   </span>
   </div>
 </div>
-<div class="field grid" style="margin-top: 22px;" >
+<div class="field grid" style="margin-top: 22px;" *ngIf="currentUserRole == 'TravellerAdmin'">
   <div class="col" *ngIf="inputRole?.role && inputRole?.role !== Role.TravellerAdmin">
     <span class="p-float-label">
-      <p-inputNumber inputId="integeronly" [disabled]="currentUserRole != 'TravellerAdmin'" [(ngModel)]="inputAgencyId"></p-inputNumber>
+      <p-inputNumber inputId="integeronly" [(ngModel)]="inputAgencyId"></p-inputNumber>
         <label htmlFor="email">Agency</label>
     </span>
   </div>

@@ -13,7 +13,7 @@ import { Document, ExportType } from './models/document';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
 import { TourFilter } from './models/tourFilter';
-import { AgencyUser } from "./models/agencyUser";
+import {AgencyUser, TravellerAdmin} from "./models/agencyUser";
 
 @Injectable({
   providedIn: 'root'
@@ -318,5 +318,9 @@ export class SharedService {
 
   deleteAgencyUser(agencyId: number, userId: number) : Observable<void> {
     return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}/employees/${userId}`);
+  }
+
+  getAllAgencyUsers(): Observable<AgencyUser[]>{
+    return this.http.get<AgencyUser[]>(this.APIUrl + '/Admin/AgenciesUsers');
   }
 }
