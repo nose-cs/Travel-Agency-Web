@@ -40,7 +40,7 @@ onSubmit() {
   filter.sourcePlace = this.source;
   filter.destinationPlace = this.destination
   filter.duration = this.duration;
-  filter.startDay = this.startDay.day
+  if(this.startDay) filter.startDay = this.startDay.day
   // Llama al servicio con el filtro y emite el evento con los resultados
 
   this.service.getTours(filter).subscribe(data => {

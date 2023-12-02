@@ -19,7 +19,7 @@ import { AgencyUser } from "./models/agencyUser";
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
   //Products with Filter
