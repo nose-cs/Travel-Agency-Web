@@ -34,9 +34,11 @@
               <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png"/>
               <div class="text-2xl font-bold"></div>
               <div style="display: flex" >
-                <ng-container *ngFor="let item of [].constructor(product.category); let i = index">
-                  <i class="pi pi-fw pi-star-fill" style="color:#FFFF00; font-size:1.5rem"></i>
-                </ng-container>
+                <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                  <div class="text-2xl font-bold">{{product.sourceInfo.place.city}} - {{product.destinationInfo.place.city}}</div>
+                  <div class="text-1xl">From {{getDayOfWeek(product.sourceInfo.day)}} to {{getDayOfWeek(product.destinationInfo.day)}}</div>
+                  <div class="text-1xl">{{getDurationString(product.duration)}}</div>
+                </div>
               </div>
               <div class="text-1xl"></div>
             </div>

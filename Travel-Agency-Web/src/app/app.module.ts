@@ -11,8 +11,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationInterceptor } from './interceptor';
-import { FlightOffersComponent } from './flight-offers/flight-offers.component';
-import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
@@ -51,7 +49,6 @@ import { AgencyAdminComponent } from './staff-site/agency-admin/agency-admin.com
 import { CreateEditUserComponent } from './staff/create-edit-user/create-edit-user.component';
 import { ShowAgencyUsersComponent } from './staff/show-agency-users/show-agency-users.component';
 import { FlightsComponent } from './flights/flights.component';
-import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-admin.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
 import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
@@ -80,10 +77,8 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
-    OfferFilterComponent,
-    FlightsComponent,
-    HomeComponent,
-    TravellerAdminComponent
+    PackagesComponent
+
   ],
   imports: [
     BrowserModule,

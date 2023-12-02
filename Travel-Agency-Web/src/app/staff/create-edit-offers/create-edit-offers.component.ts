@@ -56,18 +56,18 @@ export class CreateEditOffersComponent {
         this.inputEndDate = new Date(offer.endDate.toString());
       }
 
-      if (offer.productId && offer.productName)
-        this.setSelectedModel(offer.productId, offer.productName);
+      if (offer.productId)
+        this.setSelectedModel(offer.productId);
 
       if (offer.imageId)
         this.imageId = offer.imageId;
     }
   }
 
-  async setSelectedModel(productId: number, productName: string) {
-    this.suggestions = await this.config.data['filter'](productName);
+  async setSelectedModel(productId: number) {
+    this.suggestions = await this.config.data['filter']('', productId);
 
-    this.selectedModel = this.suggestions.find(sugg => sugg.id == productId);
+    this.selectedModel = this.suggestions[0];
   }
 
   async searchModel(event: any) {

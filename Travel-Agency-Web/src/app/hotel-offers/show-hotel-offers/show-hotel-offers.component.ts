@@ -3,6 +3,7 @@ import { SharedService } from 'src/app/shared.service';
 import { Offer } from '../../models/offer';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { OfferFilter } from 'src/app/models/offerFilter';
 
 @Component({
   selector: 'app-show-hotel-offers',
@@ -18,13 +19,18 @@ export class ShowHotelOffersComponent implements OnInit {
   offerID!: number; 
   offerType!: string;
   OffersList: Offer[] = [];
-
+  showDetails: boolean = false;
 
   ngOnInit() {
     this.offerID = +this.route.snapshot.queryParamMap.get('offerId')!;
     this.offerType = this.route.snapshot.queryParamMap.get('offerType')!;
     console.log(this.offerID)
     this.refreshHotelOffersList();
+  }
+  
+
+  showDialog(){
+    this.showDetails = true
   }
 
   onFilter(data: Offer[]) {
@@ -48,6 +54,8 @@ export class ShowHotelOffersComponent implements OnInit {
       this.service.getIdTourOffers(this.offerID).subscribe(data => {
         this.OffersList = data;
       })
+    }
+    if(this.offerType == 'package'){
     }
 }
 
