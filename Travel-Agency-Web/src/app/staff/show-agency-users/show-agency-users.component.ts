@@ -57,7 +57,7 @@ export class ShowAgencyUsersComponent {
     });
   }
 
-  deleteOffer(agencyUser: AgencyUser) {
+  deleteAgencyUser(agencyUser: AgencyUser) {
     this.confirmationService.confirm({
       message: 'Do you want to delete the user ' + agencyUser.name + '?',
       header: 'Delete Confirmation',

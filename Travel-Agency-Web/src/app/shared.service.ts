@@ -14,6 +14,7 @@ import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
 import { TourFilter } from './models/tourFilter';
 import {AgencyUser, TravellerAdmin} from "./models/agencyUser";
+import {Agency} from "./models/agency";
 
 @Injectable({
   providedIn: 'root'
@@ -322,5 +323,22 @@ export class SharedService {
 
   getAllAgencyUsers(): Observable<AgencyUser[]>{
     return this.http.get<AgencyUser[]>(this.APIUrl + '/Admin/AgenciesUsers');
+  }
+
+  // Agency CRUD
+  getAgency() : Observable<Agency[]> {
+    return this.http.get<Agency[]>(this.APIUrl + `/Agency`);
+  }
+
+  createAgency(agency: Agency): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Agency', agency);
+  }
+
+  editAgency(agency: Agency, agencyId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Agency/${agencyId}`, agency);
+  }
+
+  deleteAgency(agencyId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}`);
   }
 }

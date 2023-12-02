@@ -1,0 +1,48 @@
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="name" [(ngModel)]="inputName"/>
+      <label htmlFor="name">Name</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="fax" [(ngModel)]="inputFax"/>
+      <label htmlFor="fax">Fax</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="email" [(ngModel)]="inputEmail"/>
+      <label htmlFor="email">Email</label>
+    </span>
+  </div>
+</div>
+
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="address" [(ngModel)]="inputAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="city" [(ngModel)]="inputCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="country" [(ngModel)]="inputCountry"/>
+      <label htmlFor="country">Country</label>
+    </span>
+  </div>
+</div>
+
+<label style="color: rgba(255,0,0,1)">{{ errorLabel }}</label>
+
+<div class="card flex justify-content-end" style="margin-bottom: auto">
+  <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [style]="{ position: 'end' }"
+            (click)="onOk()"></p-button>
+</div>
