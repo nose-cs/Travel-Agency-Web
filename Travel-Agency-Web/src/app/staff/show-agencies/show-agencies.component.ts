@@ -19,6 +19,8 @@ export class ShowAgenciesComponent {
 
   ref: DynamicDialogRef | undefined;
 
+  errorLabel: string | undefined;
+
   ngOnInit() {
     this.refreshTable();
   }
@@ -51,12 +53,28 @@ export class ShowAgenciesComponent {
 
   deleteAgency(agency: Agency) {
     this.confirmationService.confirm({
-      message: 'Do you want to delete the user ' + agency.name + '?',
+      message: 'Do you want to delete the agency ' + agency.name + '? This action will delete all offers related with the agency.',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.config.data['deleteAgency'](agency.id).subscribe(() => {
-          this.refreshTable();
+          this.refreshTable(),
+            (error: any) => {
+              if (!error?.error?.errors) {
+                let err = '';
+
+                for (let errs of Object.values(error.error.errors)) {
+                  for (let e of <Array<string>>errs) {
+                    err += e + '\n';
+                  }
+                }
+
+                this.errorLabel = err;
+              } else
+                this.errorLabel = error.error;
+            },
+            () => {
+            }
         });
       }
     });

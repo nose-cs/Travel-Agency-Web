@@ -9,11 +9,11 @@ import { Hotel } from './models/hotel';
 import { HotelFilter } from './models/hotelFilter';
 import { OfferFilter } from './models/offerFilter';
 import { SaleRequest, SaleResponse } from './models/salesStatistics';
-import { Document, ExportType } from './models/document';
+import { Document } from './models/document';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
 import { TourFilter } from './models/tourFilter';
-import {AgencyUser, TravellerAdmin} from "./models/agencyUser";
+import {AgencyUser} from "./models/agencyUser";
 import {Agency} from "./models/agency";
 
 @Injectable({
@@ -23,7 +23,7 @@ export class SharedService {
   readonly APIUrl = 'http://localhost:5235/api';
   constructor(private http: HttpClient) { }
 
-  //Products with Filter
+  // Hotel CRUD
   getHotels(filter : HotelFilter) {
     let params = new HttpParams();
       if (filter.productId) {
@@ -41,6 +41,19 @@ export class SharedService {
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel', {params});
   }
 
+  createHotel(hotel: Hotel): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Hotel', hotel);
+  }
+
+  editHotel(hotel: Hotel, hotelId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Hotel/${hotelId}`, hotel);
+  }
+
+  deleteHotel(hotelId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Agency/${hotelId}`);
+  }
+
+  //Products with Filter
   getFlights(filter: FlightFilter){
     let params = new HttpParams();
     if (filter.id) params = params.append('id', filter.id.toString())
@@ -324,6 +337,7 @@ export class SharedService {
   getAllAgencyUsers(): Observable<AgencyUser[]>{
     return this.http.get<AgencyUser[]>(this.APIUrl + '/Admin/AgenciesUsers');
   }
+
 
   // Agency CRUD
   getAgency() : Observable<Agency[]> {
