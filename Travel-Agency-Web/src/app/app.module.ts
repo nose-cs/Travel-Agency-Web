@@ -52,6 +52,7 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
 import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
+import { PackagesComponent } from './packages/packages.component';
 
 
 @NgModule({
@@ -74,7 +75,9 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     TourFilteringComponent,
     AgencyAdminComponent,
     CreateEditUserComponent,
-    ShowAgencyUsersComponent
+    ShowAgencyUsersComponent,
+    PackagesComponent
+    
   ],
   imports: [
     BrowserModule,

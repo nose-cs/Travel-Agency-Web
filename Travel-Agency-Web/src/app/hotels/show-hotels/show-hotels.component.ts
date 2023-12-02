@@ -18,12 +18,18 @@ export class ShowHotelsComponent {
   name!: string;
   address!: string;
   category!: number;
+  showDetails: boolean = false
+
 
   HotelList: Hotel[] = [];
 
   ngOnInit(): void {
       this.refreshHotelList();
   }
+
+  showDialog() {
+    this.showDetails = true;
+}
 
   refreshHotelList() {
     this.service.getHotels(new HotelFilter()).subscribe(data => {

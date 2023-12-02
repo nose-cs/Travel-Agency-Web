@@ -3,6 +3,7 @@ export interface Hotel {
     name: string;
     address: Place;
     category: Category;
+    image: File;
 }
 
 export enum Category {

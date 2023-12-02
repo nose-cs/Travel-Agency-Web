@@ -94,7 +94,8 @@ export class SharedService {
       return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer', {params} );
     if(offerType == 'tour')
       return this.http.get<Offer[]>(this.APIUrl + '/TourOffer', {params} );
-
+    if(offerType == 'package')
+    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer', {params} );
     return;
   }
 
