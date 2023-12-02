@@ -58,7 +58,7 @@ export class SharedService {
     if(filter.endTime) params = params.append( 'endTime', filter.endTime.toString())
     if(filter.startDay) params = params.append( 'startDay', filter.startDay.toString())
     if(filter.id) params = params.append('id', filter.id.toString())
-    return this.http.get<Tour[]>(this.APIUrl + '/Tour/Get', {params})
+    return this.http.get<Tour[]>(this.APIUrl + '/Tour', {params})
   }
 
 
@@ -95,7 +95,7 @@ export class SharedService {
     if(offerType == 'tour')
       return this.http.get<Offer[]>(this.APIUrl + '/TourOffer', {params} );
     if(offerType == 'package')
-    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer', {params} );
+    return this.http.get<Offer[]>(this.APIUrl + '/Package', {params} );
     return;
   }
 
@@ -255,11 +255,11 @@ export class SharedService {
     if (exportTo)
       params = params.append('export', exportTo);
 
-    return this.http.get<SaleResponse[] | Document>(this.APIUrl + '/PackageOffer/getSales', { params });
+    return this.http.get<SaleResponse[] | Document>(this.APIUrl + '/Package/getSales', { params });
   }
 
   getPackageMostSolds(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer/getMostSolds');
+    return this.http.get<Offer[]>(this.APIUrl + '/Package/getMostSolds');
   }
 
 
@@ -267,11 +267,11 @@ export class SharedService {
   getIdHotelOffers(id: number): Observable<Offer[]>{
     return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }
-  getIdFlightOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers'); 
+  getIdFlightOffers(id: number): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers');
   }
-  getIdTourOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers'); 
+  getIdTourOffers(id: number): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers');
   }
 
 

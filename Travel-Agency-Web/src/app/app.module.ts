@@ -60,8 +60,6 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
-    FlightOffersComponent,
-    ShowFlightOffersComponent,
     HotelsComponent,
     ShowHotelsComponent,
     HotelfilteringComponent,
@@ -77,8 +75,6 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
-    PackagesComponent
-
   ],
   imports: [
     BrowserModule,
