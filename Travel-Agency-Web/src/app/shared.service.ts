@@ -19,7 +19,7 @@ import { AgencyUser } from "./models/agencyUser";
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5000/api';
+  readonly APIUrl = 'http://localhost:5235/api';
   constructor(private http: HttpClient) { }
 
   //Products with Filter
@@ -95,7 +95,7 @@ export class SharedService {
     if(offerType == 'tour')
       return this.http.get<Offer[]>(this.APIUrl + '/TourOffer', {params} );
     if(offerType == 'package')
-    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer', {params} );
+    return this.http.get<Offer[]>(this.APIUrl + '/Package', {params} );
     return;
   }
 
@@ -255,11 +255,11 @@ export class SharedService {
     if (exportTo)
       params = params.append('export', exportTo);
 
-    return this.http.get<SaleResponse[] | Document>(this.APIUrl + '/PackageOffer/getSales', { params });
+    return this.http.get<SaleResponse[] | Document>(this.APIUrl + '/Package/getSales', { params });
   }
 
   getPackageMostSolds(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer/getMostSolds');
+    return this.http.get<Offer[]>(this.APIUrl + '/Package/getMostSolds');
   }
 
 
@@ -267,11 +267,11 @@ export class SharedService {
   getIdHotelOffers(id: number): Observable<Offer[]>{
     return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }
-  getIdFlightOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers'); 
+  getIdFlightOffers(id: number): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers');
   }
-  getIdTourOffers(id: number): Observable<Offer[]>{ 
-    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers'); 
+  getIdTourOffers(id: number): Observable<Offer[]>{
+    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers');
   }
 
 
