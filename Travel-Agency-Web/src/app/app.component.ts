@@ -14,7 +14,7 @@ import { MenuItem } from 'primeng/api';
 export class AppComponent {
   title = 'Travel-Agency-Web';
 
-  constructor(private service: SharedService, private router: Router) { }
+  constructor(private service: SharedService, public router: Router) { }
 
   menuItems: MenuItem[] | undefined;
   activeMenuItem: MenuItem | undefined;
@@ -28,7 +28,7 @@ export class AppComponent {
   errorLabel: string = '';
 
   inputName: string = '';
-  inputNationality: string = '';
+  inputCountry: string = '';
   inputEmail: string = '';
   inputPassword: string = '';
 
@@ -88,7 +88,7 @@ export class AppComponent {
     let registerDto = new Register();
 
     registerDto.name = this.inputName;
-    registerDto.nationality = this.inputNationality;
+    registerDto.country = this.inputCountry;
     registerDto.email = this.inputEmail;
     registerDto.password = this.inputPassword;
 
@@ -176,7 +176,7 @@ export class AppComponent {
 
   dismissDialogRegister() {
     this.inputName = '';
-    this.inputNationality = '';
+    this.inputCountry = '';
     this.inputEmail = '';
     this.inputPassword = '';
     this.errorLabel = '';
