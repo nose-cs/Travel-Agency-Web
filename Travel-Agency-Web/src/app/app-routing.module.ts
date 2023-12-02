@@ -18,10 +18,11 @@ const routes: Routes = [
   { path: 'HotelOffers', component: HotelOffersComponent },
   { path: 'Hotels', component: HotelsComponent},
   { path: 'HotelFiltering', component: HotelfilteringComponent},
-  {path: 'ShowHotelOffers', component: ShowHotelOffersComponent},
-  {path: 'OfferFilter', component: HotelfilteringComponent},
-  {path: 'Flights', component: FlightsComponent},
-  {path: 'Tours', component: ToursComponent}
+  { path: 'ShowHotelOffers', component: ShowHotelOffersComponent},
+  { path: 'OfferFilter', component: HotelfilteringComponent},
+  { path: 'Flights', component: FlightsComponent},
+  { path: 'Tours', component: ToursComponent },
+  { path: 'UserSite', component: UserSiteComponent }
 ];
 
 @NgModule({

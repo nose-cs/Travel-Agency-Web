@@ -31,7 +31,7 @@ export class TourFilteringComponent {
            {day: Day.Saturday, name: 'Saturday'} ]
   
   // Usa un evento para enviar los resultados del filtro al componente padre
-  @Output() filterResults = new EventEmitter<Tour[]>();
+  @Output() filterResults = new EventEmitter<TourFilter>();
 
 
 onSubmit() {
@@ -40,11 +40,8 @@ onSubmit() {
   filter.sourcePlace = this.source;
   filter.destinationPlace = this.destination
   filter.duration = this.duration;
-  if(this.startDay) filter.startDay = this.startDay.day
-  // Llama al servicio con el filtro y emite el evento con los resultados
+  if (this.startDay) filter.startDay = this.startDay.day;
 
-  this.service.getTours(filter).subscribe(data => {
-    this.filterResults.emit(data);
-  });
+  this.filterResults.emit(filter);
 }
 }

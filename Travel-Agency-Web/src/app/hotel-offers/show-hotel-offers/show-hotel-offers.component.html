@@ -1,7 +1,10 @@
-<app-offer-filter [idProduct]="offerID" [offerType]= "offerType" (filterResults)="onFilter($event)"></app-offer-filter>
+<app-offer-filter (filterResults)="onFilter($event)"></app-offer-filter>
 <div class="card" style="margin-top: 90px;">
   <p-dataView #dv [value]="OffersList" [layout]="layout">
     <ng-template pTemplate="header">
+      <div class="card flex justify-content-start" style="position: absolute">
+        <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+      </div>
       <div class="flex justify-content-end">
         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
       </div>
@@ -58,4 +61,7 @@
       </div>
     </ng-template>
   </p-dataView>
+</div>
+<div class="card flex justify-content-center">
+  <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
 </div>

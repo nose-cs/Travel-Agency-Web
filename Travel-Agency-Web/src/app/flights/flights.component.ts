@@ -3,6 +3,7 @@ import { Place, Hotel } from '../models/hotel';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { Flight, FlightFilter } from '../models/flight';
+import { PaginatorState } from 'primeng/paginator';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
@@ -19,20 +20,40 @@ export class FlightsComponent {
 
   FlightList: Flight[] = [];
 
+  first: number = 0;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  total: number = 0;
+
+  filter: FlightFilter = new FlightFilter();
+
   ngOnInit(): void {
-      this.refreshHotelList();
+      this.refreshList();
   }
 
-  refreshHotelList() {
-      this.service.getFlights(new FlightFilter()).subscribe(data => {
-        this.FlightList = data;
-      });
+  onPageChange(event: PaginatorState) {
+    this.first = event.first!;
+    this.pageSize = event.rows!;
+    this.pageIndex = event.page! + 1;
+    this.refreshList();
   }
 
-  onFilter(data: Flight[]) {
-    // Asigna los resultados del filtro a la variable
-    console.log(data)
-    this.FlightList = data;
+  refreshList() {
+    this.filter.pageIndex = this.pageIndex;
+    this.filter.pageSize = this.pageSize;
+
+    this.service.getFlights(this.filter).subscribe(paginator => {
+      this.FlightList = paginator.items;
+
+      this.total = paginator.totalCollectionSize;
+    });
+  }
+
+  onFilter(newfilter: FlightFilter) {
+    this.filter = newfilter;
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
   }
 
   openOfferList(flightId: number) {

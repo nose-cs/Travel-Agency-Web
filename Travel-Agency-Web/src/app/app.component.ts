@@ -58,7 +58,7 @@ export class AppComponent {
     const token = localStorage.getItem('jwtToken');
 
     try {
-      if (token) {
+      if (token && token != null) {
         const parts = token.split('.');
         const payload = parts[1];
         const decoded = atob(payload);
@@ -74,11 +74,17 @@ export class AppComponent {
 
           localStorage.setItem('role', this.role!);
           localStorage.setItem('agencyId', data.agencyId);
+          localStorage.setItem('name', data.name);
+          localStorage.setItem('country', data.country);
+          localStorage.setItem('email', data.email);
         }
         else {
           localStorage.setItem('jwtToken', null!);
           localStorage.setItem('role', null!);
           localStorage.setItem('agencyId', null!);
+          localStorage.setItem('name', null!);
+          localStorage.setItem('country', null!);
+          localStorage.setItem('email', null!);
         }
       }
     }
