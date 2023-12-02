@@ -11,8 +11,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationInterceptor } from './interceptor';
-import { FlightOffersComponent } from './flight-offers/flight-offers.component';
-import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
@@ -63,8 +61,6 @@ import { PackagesComponent } from './packages/packages.component';
     HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
-    FlightOffersComponent,
-    ShowFlightOffersComponent,
     HotelsComponent,
     ShowHotelsComponent,
     HotelfilteringComponent,

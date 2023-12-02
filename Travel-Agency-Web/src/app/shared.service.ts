@@ -22,29 +22,8 @@ export class SharedService {
   readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
-  getHotelOffers(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.APIUrl + '/HotelOffer');
-  }
-  getHotelOffer(id: number): Observable<Offer> {
-    return this.http.get<Offer>(this.APIUrl + '/HotelOffer/' + id);
-  }
-  deleteHotelOffer(id: number): Observable<void> {
-    return this.http.delete<void>(this.APIUrl + '/HotelOffer/' + id);
-  }
-
-  getFlightOffers(): Observable<Offer[]> {
-    return this.http.get<Offer[]>(this.APIUrl + '/FlightOffer');
-  }
-  getHotels():Observable<Hotel[]>{
-    return this.getHotelsWithFilter({} as HotelFilter);
-  }
-  getFlights(): Observable<Flight[]>{
-    return this.http.get<Flight[]>(this.APIUrl + '/Flight')
-  }
-  getTours():Observable<Tour[]>{
-    return this.http.get<Tour[]>(this.APIUrl + '/Tour')
-  }
-  getHotelsWithFilter(filter : HotelFilter) {
+  //Products with Filter
+  getHotels(filter : HotelFilter) {
     let params = new HttpParams();
       if (filter.productId) {
         params = params.append('productId', filter.productId.toString());
@@ -61,16 +40,16 @@ export class SharedService {
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel', {params});
   }
 
-  getFlightsWithFilter(filter: FlightFilter){
+  getFlights(filter: FlightFilter){
     let params = new HttpParams();
-    console.log(filter.flightNumber)
+    if (filter.id) params = params.append('id', filter.id.toString())
     if(filter.flightNumber) params = params.append('flightNumber', filter.flightNumber.toString())
-    if(filter.DestinationPlace) params = params.append('destination', filter.DestinationPlace.toString())
-    if(filter.SourcePlace) params = params.append('source', filter.SourcePlace.toString())
+    if(filter.destinationPlace) params = params.append('destination', filter.destinationPlace.toString())
+    if(filter.sourcePlace) params = params.append('source', filter.sourcePlace.toString())
     if(filter.airline) params = params.append('airline', filter.airline.toString())
-    return this.http.get<Flight[]>(this.APIUrl + '/Flight/Get', {params});
+    return this.http.get<Flight[]>(this.APIUrl + '/Flight', {params});
   }
-  getToursWithFilter(filter: TourFilter){
+  getTours(filter: TourFilter){
     let params = new HttpParams();
     if(filter.destinationPlace) params = params.append('destination', filter.destinationPlace)
     if(filter.sourcePlace) params = params.append('source', filter.sourcePlace)
@@ -82,6 +61,8 @@ export class SharedService {
     return this.http.get<Tour[]>(this.APIUrl + '/Tour', {params})
   }
 
+
+  //Offers with Filter
   getOffersWithFilter(filter : OfferFilter, offerType: string) {
     let params = new HttpParams();
 
@@ -118,6 +99,7 @@ export class SharedService {
     return;
   }
 
+  //Hotel Offer CRUD
   createHotelOffer(offer: Offer): Observable<void> {
     return this.http.post<void>(this.APIUrl + '/HotelOffer', offer);
   }
@@ -125,8 +107,39 @@ export class SharedService {
   editHotelOffer(offer: Offer): Observable<void> {
     return this.http.put<void>(this.APIUrl + '/HotelOffer', offer);
   }
-  
 
+  deleteHotelOffer(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/HotelOffer/' + id);
+  }
+
+  //Flight Offer CRUD
+  createFlightOffer(offer: Offer): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/FlightOffer', offer);
+  }
+
+  editFlightOffer(offer: Offer): Observable<void> {
+    return this.http.put<void>(this.APIUrl + '/FlightOffer', offer);
+  }
+
+  deleteFlightOffer(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/FlightOffer/' + id);
+  }
+
+  //Tour Offer CRUD
+  createTourOffer(offer: Offer): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/TourOffer', offer);
+  }
+
+  editTourOffer(offer: Offer): Observable<void> {
+    return this.http.put<void>(this.APIUrl + '/TourOffer', offer);
+  }
+
+  deleteTourOffer(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/TourOffer/' + id);
+  }
+
+
+  //Hotel Statistics
   getHotelSales(request: SaleRequest, exportTo?: string): Observable<SaleResponse[] | Document> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -156,6 +169,8 @@ export class SharedService {
     return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/getMostSolds');
   }
 
+
+   //Flight Statistics
   getFlightSales(request: SaleRequest, exportTo?: string): Observable<SaleResponse[] | Document> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -185,6 +200,8 @@ export class SharedService {
     return this.http.get<Flight[]>(this.APIUrl + '/Flight/getMostSolds');
   }
 
+
+   //Tour Statistics
   getTourSales(request: SaleRequest, exportTo?: string): Observable<SaleResponse[] | Document> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -199,10 +216,6 @@ export class SharedService {
     return this.http.get<SaleResponse[] | Document>(this.APIUrl + '/TourReservation/getSales', { params });
   }
 
-  //getTourMostSolds(): Observable<Flight[]> {
-  //  return this.http.get<Tour[]>(this.APIUrl + '/Tour/getMostSolds');
-  //}
-
   getTourOfferSales(request: SaleRequest, exportTo?: string): Observable<SaleResponse[] | Document> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -214,6 +227,12 @@ export class SharedService {
     return this.http.get<SaleResponse[] | Document>(this.APIUrl + '/TourOffer/getSales', { params });
   }
 
+  getTourMostSolds(): Observable<Tour[]> {
+    return this.http.get<Tour[]>(this.APIUrl + '/Tour/getMostSolds');
+  }
+
+
+   //Package Statistics
   getPackageSales(request: SaleRequest, exportTo?: string): Observable<SaleResponse[] | Document> {
     let params = new HttpParams();
     params = params.append('start', request.start.toDateString());
@@ -243,10 +262,8 @@ export class SharedService {
     return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer/getMostSolds');
   }
 
-  register(user: Register): Observable<JwtAuth> {
-    return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
-  }
 
+  //Offers by Id
   getIdHotelOffers(id: number): Observable<Offer[]>{
     return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
   }
@@ -257,10 +274,18 @@ export class SharedService {
     return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers'); 
   }
 
+
+  // identity
   login(user: Login): Observable<JwtAuth> {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/login', user);
   }
 
+  register(user: Register): Observable<JwtAuth> {
+    return this.http.post<JwtAuth>(this.APIUrl + '/Identity/register', user);
+  }
+
+
+  //Image CRUD
   uploadImage(file: File): Observable<number> {
     let formData = new FormData();
     formData.append('file', file, file.name);
@@ -277,6 +302,8 @@ export class SharedService {
   }
 
 
+
+  //Agency User CRUD
   getAgencyUsers(id: number): Observable<AgencyUser[]>{
     return this.http.get<AgencyUser[]>(this.APIUrl + '/Agency/' + id + '/employees');
   }

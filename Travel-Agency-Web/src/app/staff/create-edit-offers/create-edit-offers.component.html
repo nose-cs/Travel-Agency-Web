@@ -2,8 +2,8 @@
 <div class="field grid" style="margin-top: 22px; margin-left: 1px;">
   <span class="p-float-label">
     <p-autoComplete [(ngModel)]="selectedModel" field="name" [suggestions]="suggestions" (completeMethod)="searchModel($event)" inputId="selectModel">
-      <ng-template let-hotel pTemplate="item">
-        {{ hotel.name }}
+      <ng-template let-product pTemplate="item">
+        {{ product.name }}
       </ng-template>
     </p-autoComplete>
     <label for="selectModel">Select Product</label>
