@@ -3,6 +3,7 @@ import { Tour } from '../models/tour';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { Place } from '../models/hotel';
+import { TourFilter } from '../models/tourFilter';
 @Component({
   selector: 'app-tours',
   templateUrl: './tours.component.html',
@@ -20,7 +21,7 @@ export class ToursComponent {
   }
 
   refreshTourList() {
-      this.service.getTours().subscribe(data => {
+    this.service.getTours(new TourFilter()).subscribe(data => {
         this.TourList = data;
         console.log(data);
         console.log(this.TourList);

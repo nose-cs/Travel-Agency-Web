@@ -43,7 +43,7 @@ onSubmit() {
   filter.startDay = this.startDay.day
   // Llama al servicio con el filtro y emite el evento con los resultados
 
-  this.service.getToursWithFilter(filter).subscribe(data => {
+  this.service.getTours(filter).subscribe(data => {
     this.filterResults.emit(data);
   });
 }

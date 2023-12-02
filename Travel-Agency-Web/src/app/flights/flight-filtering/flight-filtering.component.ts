@@ -24,14 +24,14 @@ export class FlightFilteringComponent {
 onSubmit() {
   const filter = new FlightFilter();
   filter.flightNumber = this.flNumber;
-  filter.SourcePlace = this.source;
-  filter.DestinationPlace = this.destination
+  filter.sourcePlace = this.source;
+  filter.destinationPlace = this.destination
   filter.airline = this.airline;
   console.log(filter.flightNumber)
   // Llama al servicio con el filtro y emite el evento con los resultados
   console.log(filter.flightNumber)
 
-  this.service.getFlightsWithFilter(filter).subscribe(data => {
+  this.service.getFlights(filter).subscribe(data => {
     this.filterResults.emit(data);
   });
 }

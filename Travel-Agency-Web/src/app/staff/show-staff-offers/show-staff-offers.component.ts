@@ -12,7 +12,7 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class ShowStaffHotelOffersComponent {
 
-  constructor(private service: SharedService, private dialogService: DialogService, private confirmationService: ConfirmationService, private config: DynamicDialogConfig) { }
+  constructor(private service: SharedService, private dialogService: DialogService, private confirmationService: ConfirmationService, public config: DynamicDialogConfig) { }
 
   OfferList: Offer[] = [];
 
