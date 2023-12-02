@@ -1,36 +1,63 @@
+      <div class="formgrid grid">
+      <div class="field col">
+        <span class="p-float-label">
+          <p-inputNumber inputId="startPrice" id="startPrice" [(ngModel)]="startPrice"></p-inputNumber>
+          <label htmlFor="category">Start Price</label>
+        </span>
+      </div>
+      <div class="field col">
+      <span class="p-float-label">
+        <p-inputNumber inputId="endPrice" id="endPrice" [(ngModel)]="endPrice"></p-inputNumber>
+        <label htmlFor="category">End Price</label>
+      </span>
+    </div>
+    <div class="field col">
+      <span class="p-float-label">
+        <p-inputNumber inputId="capacity" id="capacity" [(ngModel)]="capacity"></p-inputNumber>
+        <label htmlFor="category">Capacity</label>
+      </span>
+    </div>
+    <div class="field col">
+        <span class="p-float-label">
+          <p-calendar [(ngModel)]="startDate"></p-calendar>
+          <label htmlFor="startDate">Start Date</label>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="p-float-label">
+          <p-calendar [(ngModel)]="endDate"></p-calendar>
+          <label htmlFor="endDate">End Date</label>
+        </span>
+      </div>
+      <div class="field col">
+        <button (click)="onSubmit()" class="p-button p-button-primary">Search</button>
+      </div>
+    </div>
+  <!--
 
-<form #filterForm="ngForm" (ngSubmit)="onSubmit(filterForm.value)" class="p-fluid">
-    <div class="p-field">
-      
-      <span class="p-float-label">
-        <input type="text" id="startPrice" name="startPrice" ngModel class="p-inputtext p-component" />
-        <i class="pi pi-hotel p-input-overlay"></i>
-        <label for="startPrice">Start Price</label>
-      </span>
-    </div>
-    <div class="p-field">
-      <span class="p-float-label">
-        <input type="text" id="endPrice" name="endPrice" ngModel class="p-inputtext p-component" />
-        <label for="endPrice">End Price</label>
-      </span>
-    </div>
-    <div class="p-field">
-      <span class="p-float-label">
-        <input type="number" id="capacity" name="capacity" ngModel class="p-inputtext p-component" min="1" />
-        <label for="capacity">Capacity</label>
-      </span>
-    </div>
-    <div class="p-field">
+        <div class="formgrid grid">
+      <div class="field col">
         <span class="p-float-label">
-          <input type="number" id="startDate" name="startDate" ngModel class="p-inputtext p-component" />
-          <label for="startDate">Start Date</label>
+          <input pInputText id="hotelName" [(ngModel)]="name" style="width: 100%"/>
+          <label htmlFor="hotelName">Hotel Name</label>
         </span>
       </div>
-      <div class="p-field">
+      <div class="field col">
         <span class="p-float-label">
-          <input type="number" id="endDate" name="endDate" ngModel class="p-inputtext p-component" />
-          <label for="endDate">End Date</label>
+          <input pInputText id="address" [(ngModel)]="address" style="width: 30vw"/>
+          <label htmlFor="address">Address</label>
         </span>
       </div>
-    <button type="submit" class="p-button p-button-primary">Search</button>
-  </form>
+      <div class="field col">
+        <span class="p-float-label">
+          <p-inputNumber inputId="category" id="category" [(ngModel)]="category"></p-inputNumber>
+          <label htmlFor="category">Category</label>
+        </span>
+      </div>
+      <div class="field col">
+        <button (click)="onSubmit()" class="p-button p-button-primary">Search</button>
+      </div>
+    </div>
+  
+
+  -->

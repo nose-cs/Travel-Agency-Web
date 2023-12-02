@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Hotel, Place } from 'src/app/models/hotel';
 import { SharedService } from 'src/app/shared.service';
 import { Router } from '@angular/router';
+import { HotelFilter } from '../../models/hotelFilter';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class ShowHotelsComponent {
   name!: string;
   address!: string;
   category!: number;
+  showDetails: boolean = false
+
 
   HotelList: Hotel[] = [];
 
@@ -24,8 +27,12 @@ export class ShowHotelsComponent {
       this.refreshHotelList();
   }
 
+  showDialog() {
+    this.showDetails = true;
+}
+
   refreshHotelList() {
-      this.service.getHotels().subscribe(data => {
+    this.service.getHotels(new HotelFilter()).subscribe(data => {
         this.HotelList = data;
       });
   }

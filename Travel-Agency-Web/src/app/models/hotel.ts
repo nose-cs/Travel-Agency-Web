@@ -1,8 +1,11 @@
+import {File} from "./file";
+
 export interface Hotel {
     id: number;
     name: string;
     address: Place;
     category: Category;
+    image: File;
 }
 
 export enum Category {

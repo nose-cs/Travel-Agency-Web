@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Place, Hotel } from '../models/hotel';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
-import { Flight } from '../models/flight';
+import { Flight, FlightFilter } from '../models/flight';
 @Component({
   selector: 'app-flights',
   templateUrl: './flights.component.html',
@@ -24,7 +24,7 @@ export class FlightsComponent {
   }
 
   refreshHotelList() {
-      this.service.getFlights().subscribe(data => {
+      this.service.getFlights(new FlightFilter()).subscribe(data => {
         this.FlightList = data;
       });
   }

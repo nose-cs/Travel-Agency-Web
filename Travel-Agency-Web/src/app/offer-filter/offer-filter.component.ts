@@ -3,6 +3,7 @@ import { OfferFilter } from '../models/offerFilter';
 import { HttpClient } from '@angular/common/http';
 import { SharedService } from '../shared.service';
 import { Offer } from '../models/offer';
+import { HotelFilter } from '../models/hotelFilter';
 
 
 @Component({
@@ -13,9 +14,11 @@ import { Offer } from '../models/offer';
 
 export class OfferFilterComponent {
 
-  name!: string;
-  address!: string;
-  category!: string;
+  startPrice!:number;
+  endPrice!:number;
+  capacity!:number
+  startDate!:Date
+  endDate!:Date
 
   constructor(private http: HttpClient, private service: SharedService) {}
   
@@ -26,9 +29,12 @@ export class OfferFilterComponent {
   @Input() offerType!: string;
 
 
-onSubmit(filter: OfferFilter) {
+onSubmit() {
+  const filter = new OfferFilter;
   // Llama al servicio con el filtro y emite el evento con los resultados
-  filter.productId = this.idProduct;
+  filter.startPrice = this.startPrice;
+  filter.endPrice = this.endPrice;
+  filter.capacity = this.capacity;
   this.service.getOffersWithFilter(filter, this.offerType)!.subscribe(data => {
   this.filterResults.emit(data);
   });
