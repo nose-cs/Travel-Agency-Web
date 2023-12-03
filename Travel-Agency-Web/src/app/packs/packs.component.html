@@ -1,3 +1,4 @@
+<app-offer-filter (filterResults)="onFilter($event)"></app-offer-filter>
 <div class="card" style="margin-top: 90px;">
   <p-dataView #dv [value]="OfferList" [layout]="layout">
     <ng-template pTemplate="header">
