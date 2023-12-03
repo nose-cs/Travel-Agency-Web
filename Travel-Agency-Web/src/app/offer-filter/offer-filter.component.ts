@@ -32,18 +32,6 @@ export class OfferFilterComponent {
     filter.endPrice = this.endPrice;
     filter.capacity = this.capacity;
 
-onSubmit() {
-  const filter = new OfferFilter;
-  // Llama al servicio con el filtro y emite el evento con los resultados
-  filter.startPrice = this.startPrice;
-  filter.endPrice = this.endPrice;
-  filter.capacity = this.capacity;
-  filter.startDate = this.startDate;
-  filter.endDate = this.endDate;
-  this.service.getOffersWithFilter(filter, this.offerType)!.subscribe(data => {
-  this.filterResults.emit(data);
-  });
-}
     this.filterResults.emit(filter);
   }
 }

@@ -12,7 +12,5 @@ export class Offer {
   productId = 0;
   imageId: number | undefined;
   duration = 0;
-  ToursIds: number[]| undefined;
-  FacilitiesId: number[]| undefined;
 }
 

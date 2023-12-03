@@ -7,7 +7,7 @@
       <th>Id</th>
       <th>Price</th>
       <th style="width:25%">{{ this.config.data['offerName'] }}</th>
-      <th style="width:25%">Title</th>
+      <th *ngIf="this.config.data['offerName'] != 'Package'" style="width:25%">Title</th>
       <th>Start</th>
       <th>End</th>
       <th><label style="margin-left: 8px;">Actions</label></th>
@@ -17,7 +17,7 @@
     <tr>
       <td>{{offer.id}}</td>
       <td>{{offer.price | currency: 'USD'}}</td>
-      <td>{{offer.productName}}</td>
+      <td *ngIf="this.config.data['offerName'] != 'Package'">{{offer.productName}}</td>
       <td>{{offer.title}}</td>
       <td>{{offer.startDate | date}}</td>
       <td>{{offer.endDate | date}}</td>

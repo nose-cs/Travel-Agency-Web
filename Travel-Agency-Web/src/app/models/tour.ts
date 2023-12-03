@@ -6,7 +6,7 @@ export interface Tour{
     duration: number
     sourceInfo: TourInfo
     destinationInfo: TourInfo
-
+    image: File;
 }
 
 export interface TourInfo{

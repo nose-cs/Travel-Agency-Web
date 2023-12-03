@@ -4,6 +4,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SharedService } from '../../shared.service';
 import { FileUpload, FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 import { MessageService } from 'primeng/api';
+import { Tour } from '../../models/tour';
+import { Package, PackageFacility } from '../../models/package';
+import { TourFilter } from '../../models/tourFilter';
 
 @Component({
   selector: 'app-create-edit-offers',
@@ -36,6 +39,14 @@ export class CreateEditOffersComponent {
 
   errorLabel: string = '';
 
+  sourceTours: Tour[] = [];
+  targetTours: Tour[] = [];
+  queryTour: string = '';
+
+  sourcePFacilities: PackageFacility[] = [];
+  targetPFacilities: PackageFacility[] = [];
+  queryFacility: string = '';
+
   constructor(private service: SharedService, public ref: DynamicDialogRef, public config: DynamicDialogConfig, private messageService: MessageService)
   {
     if (config.data['offer']) {
@@ -61,6 +72,25 @@ export class CreateEditOffersComponent {
 
       if (offer.imageId)
         this.imageId = offer.imageId;
+
+      if (this.config.data['offerName'] == 'Package') {
+        this.service.getPackageTours(offer.id).subscribe(
+          tours => {
+            this.targetTours = tours;
+            this.searchTours(this.queryTour);
+          }
+        );
+        this.service.getPackageFacilities(offer.id).subscribe(
+          pfs => {
+            this.targetPFacilities = pfs;
+            this.searchFacilities(this.queryFacility);
+          }
+        );
+      }
+    }
+
+    else if (this.config.data['offerName'] == 'Package') {
+      this.searchTours(this.queryTour);
     }
   }
 
@@ -72,6 +102,14 @@ export class CreateEditOffersComponent {
 
   async searchModel(event: any) {
     this.suggestions = await this.config.data['filter'](event.query);
+  }
+
+  async searchTours(query: string) {
+    this.sourceTours = await this.config.data['filter'](query, this.targetTours);
+  }
+
+  async searchFacilities(query: string) {
+    this.sourcePFacilities = await this.config.data['filterFacility'](query, this.targetPFacilities);
   }
 
   onOk() {
@@ -86,32 +124,86 @@ export class CreateEditOffersComponent {
     offer.endDate = this.inputEndDate;
     offer.imageId = this.imageId;
 
-    if (this.selectedModel)
-      offer.productId = this.selectedModel.id;
-    else {
-      this.errorLabel = "Please select a product";
-      return;
-    }
+    if (this.config.data['offerName'] != 'Package') {
+      if (this.selectedModel)
+        offer.productId = this.selectedModel.id;
+      else {
+        this.errorLabel = "Please select a product";
+        return;
+      }
 
-    this.config.data['execute'](offer).subscribe(
-      () => { this.ref.close(true); },
-      (error: any) => {
-        if (error.error.errors) {
-          let err = '';
+      this.config.data['execute'](offer).subscribe(
+        () => { this.ref.close(true); },
+        (error: any) => {
+          if (error.error.errors) {
+            let err = '';
 
-          for (let errs of Object.values(error.error.errors)) {
-            for (let e of <Array<string>>errs) {
-              err += e + '\n';
+            for (let errs of Object.values(error.error.errors)) {
+              for (let e of <Array<string>>errs) {
+                err += e + '\n';
+              }
             }
-          }
 
-          this.errorLabel = err;
+            this.errorLabel = err;
+          }
+          else
+            this.errorLabel = error.error;
+        },
+        () => { }
+      );
+    }
+    else
+    {
+      if (!this.targetTours || this.targetTours.length == 0)
+      {
+        this.errorLabel = "Please select some tours";
+        return;
+      }
+
+      const pack = new Package();
+
+      pack.id = this.id;
+      pack.title = this.inputTitle;
+      pack.capacity = this.inputCapacity!;
+      pack.price = this.inputPrice;
+      pack.description = this.inputDescription;
+      pack.startDate = this.inputStartDate;
+      pack.endDate = this.inputEndDate;
+      pack.imageId = this.imageId;
+
+      pack.ToursIds = this.targetTours.map(tour => tour.id);
+
+      for (let pf of this.targetPFacilities) {
+        if (pf.price == undefined || pf.price < 0) {
+          this.errorLabel = "Please enter a valid price in facilities";
+          return;
         }
-        else
-          this.errorLabel = error.error;
-      },
-      () => { }
-    );
+      }
+
+      pack.FacilitiesIds = this.targetPFacilities.map(pf => pf.facility!.id!);
+      pack.FacilitiesPrices = this.targetPFacilities.map(pf => pf.price!);
+
+      this.config.data['execute'](pack).subscribe(
+        () => { this.ref.close(true); },
+        (error: any) => {
+          if (error.error.errors) {
+            let err = '';
+
+            for (let errs of Object.values(error.error.errors)) {
+              for (let e of <Array<string>>errs) {
+                err += e + '\n';
+              }
+            }
+
+            this.errorLabel = err;
+          }
+          else
+            this.errorLabel = error.error;
+        },
+        () => { }
+      );
+    }
+    
   }
 
   myUploader(event: FileUploadHandlerEvent) {
@@ -154,5 +246,9 @@ export class CreateEditOffersComponent {
         this.imagePath = undefined;
       }
     );
+  }
+
+  getDurationString(days: number) {
+    return days > 0 ? 'Duration: ' + days + ' Days' : 'Single Day';
   }
 }

@@ -1,5 +1,5 @@
 
-<div class="field grid" style="margin-top: 22px; margin-left: 1px;">
+<div *ngIf="this.config.data['offerName'] != 'Package'" class="field grid" style="margin-top: 22px; margin-left: 1px;">
   <span class="p-float-label">
     <p-autoComplete [(ngModel)]="selectedModel" field="name" [suggestions]="suggestions" (completeMethod)="searchModel($event)" inputId="selectModel">
       <ng-template let-product pTemplate="item">
@@ -10,17 +10,17 @@
   </span>
 </div>
 
-<div class="formgrid grid" style="margin-top: 24px; margin-left: 1px;">
-  <span class="p-float-label">
-    <input pInputText id="title" [(ngModel)]="inputTitle" style="width: 41vw;"/>
+<div class="formgrid grid" style="margin-top: 24px; margin-left: 1px; width: 100%;">
+  <span class="p-float-label" style="width: 100%;">
+    <input pInputText id="title" [(ngModel)]="inputTitle" style="width: 100%;"/>
     <label htmlFor="title">Title</label>
   </span>
 </div>
 
-<div class="formgrid grid" style="margin-top: 24px;">
+<div class="formgrid grid" style="margin-top: 28px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }" appendTo="body"></p-calendar>
+      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }"></p-calendar>
       <label htmlFor="startDate">Start Date</label>
     </span>
   </div>
@@ -35,7 +35,7 @@
 <div class="formgrid grid" style="margin-top: 10px;">
   <div class="field col">
     <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }" appendTo="body"></p-calendar>
+      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }"></p-calendar>
       <label htmlFor="endDate">End Date</label>
     </span>
   </div>
@@ -47,12 +47,64 @@
   </div>
 </div>
 
-<div class="field grid" style="margin-top: 22px; margin-left: 1px;">
-  <span class="p-float-label">
-    <textarea id="description" [(ngModel)]="inputDescription" rows="5" [style]="{ width: '41vw' }" pInputTextarea></textarea>
+<div class="field grid" style="margin-top: 22px; margin-left: 1px; width: 100%;">
+  <span class="p-float-label" style="width: 100%;">
+    <textarea id="description" [(ngModel)]="inputDescription" rows="5" [style]="{ width: '100%' }" pInputTextarea></textarea>
     <label for="description">Description</label>
   </span>
 </div>
+
+<p-card *ngIf="this.config.data['offerName'] == 'Package'">
+  <div class="formgrid grid" style="margin-bottom: 25px;">
+    <span class="p-float-label">
+      <input pInputText id="searchTour" [(ngModel)]="queryTour" (ngModelChange)="searchTours(queryTour)"/>
+      <label htmlFor="searchTour">Search Tour by Source</label>
+    </span>
+  </div>
+
+    <p-pickList baseZIndex="2000" [source]="sourceTours" [target]="targetTours" sourceHeader="Tours" targetHeader="Selected" [dragdrop]="true" [responsive]="true"
+                [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+      <ng-template let-tour pTemplate="item">
+        <div class="flex flex-wrap p-2 align-items-center gap-3">
+          <img class="w-4rem shadow-2 flex-shrink-0 border-round" [src]="'../../../assets/' + 'Images/(1)abc.png'" [alt]="'image'" />
+          <div class="flex-1 flex flex-column gap-2">
+            <span class="font-bold">{{ tour.sourceInfo.place.city }} - {{ tour.destinationInfo.place.city }}</span>
+            <div class="flex align-items-center gap-2">
+              <span>{{ getDurationString(tour.duration) }}</span>
+            </div>
+          </div>
+          <span class="font-bold text-900">{{ tour.id }}</span>
+        </div>
+      </ng-template>
+    </p-pickList>
+  
+</p-card>
+<br/>
+<p-card *ngIf="this.config.data['offerName'] == 'Package'">
+  <div class="formgrid grid" style="margin-bottom: 25px;">
+    <span class="p-float-label">
+      <input pInputText id="searchFacility" [(ngModel)]="queryFacility" (ngModelChange)="searchFacilities(queryFacility)" />
+      <label htmlFor="searchFacility">Search by Name</label>
+    </span>
+  </div>
+
+  <p-pickList baseZIndex="2000" [source]="sourcePFacilities" [target]="targetPFacilities" sourceHeader="Facilities" targetHeader="Selected" [dragdrop]="true" [responsive]="true"
+              [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+    <ng-template let-pf pTemplate="item">
+      <div class="flex flex-wrap p-2 align-items-center gap-3">
+        <div class="flex-1 flex flex-column gap-2">
+          <span class="font-bold">{{ pf.facility.name }}</span>
+          <div class="flex align-items-center gap-2">
+            <span>{{ pf.facility.description }}</span>
+          </div>
+          <p-inputNumber [(ngModel)]="pf.price" mode="currency" currency="USD" locale="en-US" placeholder="Price"></p-inputNumber>
+        </div>
+        <span class="font-bold text-900">{{ pf.facility.id }}</span>
+      </div>
+    </ng-template>
+  </p-pickList>
+
+</p-card>
 
 <div class="formgrid grid" style="margin-top: 10px;">
   <div class="field col">
