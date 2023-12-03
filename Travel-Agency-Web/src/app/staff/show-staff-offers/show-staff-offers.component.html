@@ -1,12 +1,15 @@
+<div class="card flex justify-content-start">
+  <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+</div>
 <p-table [value]="OfferList" styleClass="p-datatable-striped" [tableStyle]="{'width': '100%'}">
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
-      <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-      <th pSortableColumn="productName" style="width:25%">{{ this.config.data['offerName'] }} <p-sortIcon field="productName"></p-sortIcon></th>
-      <th pSortableColumn="title" style="width:25%">Title <p-sortIcon field="title"></p-sortIcon></th>
-      <th pSortableColumn="startDate">Start <p-sortIcon field="startDate"></p-sortIcon></th>
-      <th pSortableColumn="endDate">End <p-sortIcon field="endDate"></p-sortIcon></th>
+      <th>Id</th>
+      <th>Price</th>
+      <th style="width:25%">{{ this.config.data['offerName'] }}</th>
+      <th style="width:25%">Title</th>
+      <th>Start</th>
+      <th>End</th>
       <th><label style="margin-left: 8px;">Actions</label></th>
     </tr>
   </ng-template>
@@ -33,5 +36,8 @@
     </tr>
   </ng-template>
 </p-table>
+<div class="card flex justify-content-center">
+  <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total"></p-paginator>
+</div>
 
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

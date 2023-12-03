@@ -14,7 +14,7 @@ import { MenuItem } from 'primeng/api';
 export class AppComponent {
   title = 'Travel-Agency-Web';
 
-  constructor(private service: SharedService, private router: Router) { }
+  constructor(private service: SharedService, public router: Router) { }
 
   menuItems: MenuItem[] | undefined;
   activeMenuItem: MenuItem | undefined;
@@ -28,7 +28,7 @@ export class AppComponent {
   errorLabel: string = '';
 
   inputName: string = '';
-  inputNationality: string = '';
+  inputCountry: string = '';
   inputEmail: string = '';
   inputPassword: string = '';
 
@@ -58,7 +58,7 @@ export class AppComponent {
     const token = localStorage.getItem('jwtToken');
 
     try {
-      if (token) {
+      if (token && token != null) {
         const parts = token.split('.');
         const payload = parts[1];
         const decoded = atob(payload);
@@ -74,11 +74,17 @@ export class AppComponent {
 
           localStorage.setItem('role', this.role!);
           localStorage.setItem('agencyId', data.agencyId);
+          localStorage.setItem('name', data.name);
+          localStorage.setItem('country', data.country);
+          localStorage.setItem('email', data.email);
         }
         else {
           localStorage.setItem('jwtToken', null!);
           localStorage.setItem('role', null!);
           localStorage.setItem('agencyId', null!);
+          localStorage.setItem('name', null!);
+          localStorage.setItem('country', null!);
+          localStorage.setItem('email', null!);
         }
       }
     }
@@ -89,7 +95,7 @@ export class AppComponent {
     let registerDto = new Register();
 
     registerDto.name = this.inputName;
-    registerDto.nationality = this.inputNationality;
+    registerDto.country = this.inputCountry;
     registerDto.email = this.inputEmail;
     registerDto.password = this.inputPassword;
 
@@ -177,7 +183,7 @@ export class AppComponent {
 
   dismissDialogRegister() {
     this.inputName = '';
-    this.inputNationality = '';
+    this.inputCountry = '';
     this.inputEmail = '';
     this.inputPassword = '';
     this.errorLabel = '';

@@ -14,7 +14,7 @@
     <table *ngIf="username; else login">
       <tr>
         <td>
-          Hello <a href="#">{{username}}</a>!
+          Hello <label style="color: #0040ff" (click)="router.navigate(['/UserSite'])">{{username}}</label>!
         </td>
         <td>
           <label style="margin-left: 28px; margin-right: 10px;">|</label>
@@ -73,8 +73,8 @@
         </div>
         <div class="field grid" style="margin-top: 22px;">
           <span class="p-float-label">
-            <input pInputText id="nationality" [(ngModel)]="inputNationality" style="width: 280px;" />
-            <label htmlFor="nationality">Nationality</label>
+            <input pInputText id="nationality" [(ngModel)]="inputCountry" style="width: 280px;" />
+            <label htmlFor="nationality">Country</label>
           </span>
         </div>
         <div class="field grid" style="margin-top: 22px;">

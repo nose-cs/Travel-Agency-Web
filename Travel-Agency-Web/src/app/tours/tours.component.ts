@@ -4,6 +4,7 @@ import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { Place } from '../models/hotel';
 import { TourFilter } from '../models/tourFilter';
+import { PaginatorState } from 'primeng/paginator';
 @Component({
   selector: 'app-tours',
   templateUrl: './tours.component.html',
@@ -16,22 +17,40 @@ export class ToursComponent {
 
   TourList: Tour[] = [];
 
+  first: number = 0;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  total: number = 0;
+
+  filter: TourFilter = new TourFilter();
+
   ngOnInit(): void {
-      this.refreshTourList();
+      this.refreshList();
   }
 
-  refreshTourList() {
-    this.service.getTours(new TourFilter()).subscribe(data => {
-        this.TourList = data;
-        console.log(data);
-        console.log(this.TourList);
-      });
+  onPageChange(event: PaginatorState) {
+    this.first = event.first!;
+    this.pageSize = event.rows!;
+    this.pageIndex = event.page! + 1;
+    this.refreshList();
   }
-  
 
-  onFilter(data: Tour[]) {
-    // Asigna los resultados del filtro a la variable
-    this.TourList = data;
+  refreshList() {
+    this.filter.pageIndex = this.pageIndex;
+    this.filter.pageSize = this.pageSize;
+
+    this.service.getTours(this.filter).subscribe(paginator => {
+      this.TourList = paginator.items;
+
+      this.total = paginator.totalCollectionSize;
+    });
+  }
+
+  onFilter(newfilter: TourFilter) {
+    this.filter = newfilter;
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
   }
 
   openOfferList(tourId: number) {

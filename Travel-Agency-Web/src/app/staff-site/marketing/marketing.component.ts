@@ -280,12 +280,15 @@ export class MarketingComponent {
                   else
                     filter.hotelName = query;
 
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
                   let suggestions: { id: number, name: string }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
                     this.service.getHotels(filter).subscribe(
-                      (hotels: Hotel[]) => {
-                        for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name + " - " + hotel.address.city }; })) {
+                      hotels => {
+                        for (let sugg of hotels.items.map(hotel => { return { id: hotel.id, name: hotel.name + " - " + hotel.address.city }; })) {
                           suggestions.push(sugg);
                         }
 
@@ -311,13 +314,14 @@ export class MarketingComponent {
             break;
 
           case "Manage":
-            const agencyFilter = new OfferFilter();
-            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
 
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Hotel',
-                getOfferList: this.service.getOffersWithFilter(agencyFilter, 'hotel'),
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'hotel');
+                },
                 editOffer: (offer: Offer) => this.service.editHotelOffer(offer),
                 deleteOffer: (id: number) => this.service.deleteHotelOffer(id),
 
@@ -329,12 +333,15 @@ export class MarketingComponent {
                     else
                       filter.hotelName = query;
 
+                    filter.pageIndex = 1;
+                    filter.pageSize = 30;
+
                     let suggestions: { id: number, name: string }[] = [];
 
                     let promise = new Promise<void>((resolve, reject) => {
                       this.service.getHotels(filter).subscribe(
-                        (hotels: Hotel[]) => {
-                          for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name + ' - ' + hotel.address.city }; })) {
+                        hotels => {
+                          for (let sugg of hotels.items.map(hotel => { return { id: hotel.id, name: hotel.name + ' - ' + hotel.address.city }; })) {
                             suggestions.push(sugg);
                           }
 
@@ -380,12 +387,15 @@ export class MarketingComponent {
                   else
                     filter.flightNumber = +query ? +query : -1;
 
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
                   let suggestions: { id: number, name: string }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
                     this.service.getFlights(filter).subscribe(
-                      (flights: Flight[]) => {
-                        for (let sugg of flights.map(flight => { return { id: flight.id, name: flight.flightNumber + " - " + flight.airline }; })) {
+                      flights => {
+                        for (let sugg of flights.items.map(flight => { return { id: flight.id, name: flight.flightNumber + " - " + flight.airline }; })) {
                           suggestions.push(sugg);
                         }
 
@@ -411,13 +421,14 @@ export class MarketingComponent {
             break;
 
           case "Manage":
-            const agencyFilter = new OfferFilter();
-            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
-
+            
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Flight',
-                getOfferList: this.service.getOffersWithFilter(agencyFilter, 'flight'),
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'flight');
+                },
                 editOffer: (offer: Offer) => this.service.editFlightOffer(offer),
                 deleteOffer: (id: number) => this.service.deleteFlightOffer(id),
 
@@ -429,12 +440,15 @@ export class MarketingComponent {
                   else
                     filter.flightNumber = +query ? +query : -1;
 
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
                   let suggestions: { id: number, name: string }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
                     this.service.getFlights(filter).subscribe(
-                      (flights: Flight[]) => {
-                        for (let sugg of flights.map(flight => { return { id: flight.id, name: flight.flightNumber + ' - ' + flight.airline }; })) {
+                      flights => {
+                        for (let sugg of flights.items.map(flight => { return { id: flight.id, name: flight.flightNumber + ' - ' + flight.airline }; })) {
                           suggestions.push(sugg);
                         }
 
@@ -480,12 +494,15 @@ export class MarketingComponent {
                   else
                     filter.sourcePlace = query;
 
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
                   let suggestions: { id: number, name: string }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
                     this.service.getTours(filter).subscribe(
-                      (tours: Tour[]) => {
-                        for (let sugg of tours.map(tour => { return { id: tour.id, name: tour.sourceInfo.place.city + " - " + tour.destinationInfo.place.city }; })) {
+                      tours => {
+                        for (let sugg of tours.items.map(tour => { return { id: tour.id, name: tour.sourceInfo.place.city + " - " + tour.destinationInfo.place.city }; })) {
                           suggestions.push(sugg);
                         }
 
@@ -517,7 +534,10 @@ export class MarketingComponent {
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Tour',
-                getOfferList: this.service.getOffersWithFilter(agencyFilter, 'tour'),
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'tour');
+                },
                 editOffer: (offer: Offer) => this.service.editTourOffer(offer),
                 deleteOffer: (id: number) => this.service.deleteTourOffer(id),
 
@@ -529,12 +549,15 @@ export class MarketingComponent {
                   else
                     filter.sourcePlace = query;
 
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
                   let suggestions: { id: number, name: string }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
                     this.service.getTours(filter).subscribe(
-                      (tours: Tour[]) => {
-                        for (let sugg of tours.map(tour => { return { id: tour.id, name: tour.sourceInfo.place.city + ' - ' + tour.destinationInfo.place.city }; })) {
+                      tours => {
+                        for (let sugg of tours.items.map(tour => { return { id: tour.id, name: tour.sourceInfo.place.city + ' - ' + tour.destinationInfo.place.city }; })) {
                           suggestions.push(sugg);
                         }
 

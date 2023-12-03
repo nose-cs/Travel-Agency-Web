@@ -2,8 +2,11 @@
 <div class="card" style="margin-top: 40px;">
     <p-dataView [value]="FlightList" [layout]="layout">
       <ng-template pTemplate="header">
+        <div class="card flex justify-content-start" style="position: absolute">
+          <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        </div>
         <div class="flex justify-content-end">
-          <p-dataViewLayoutOptions/>
+          <p-dataViewLayoutOptions />
         </div>
       </ng-template>
       <ng-template let-product pTemplate="listItem">
@@ -42,3 +45,6 @@
       </ng-template>
     </p-dataView>
   </div>
+<div class="card flex justify-content-center">
+  <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+</div>
