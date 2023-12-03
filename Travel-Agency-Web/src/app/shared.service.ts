@@ -17,6 +17,7 @@ import { AgencyUser } from "./models/agencyUser";
 import { ChangePasswordRequest } from './models/changePasswordRequest';
 import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
+import {Agency} from "./models/agency";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class SharedService {
   readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
-  //Products with Filter
+  // Hotel CRUD
   getHotels(filter : HotelFilter) {
     let params = new HttpParams();
       if (filter.productId) {
@@ -56,6 +57,19 @@ export class SharedService {
       return this.http.get<PaginationResponse<Hotel>>(this.APIUrl + '/Hotel', {params});
   }
 
+  createHotel(hotel: Hotel): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Hotel', hotel);
+  }
+
+  editHotel(hotel: Hotel, hotelId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Hotel/${hotelId}`, hotel);
+  }
+
+  deleteHotel(hotelId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Hotel/${hotelId}`);
+  }
+
+  // Flight CRUD
   getFlights(filter: FlightFilter){
     let params = new HttpParams();
     if (filter.id) params = params.append('id', filter.id.toString())
@@ -79,6 +93,26 @@ export class SharedService {
 
     return this.http.get<PaginationResponse<Flight>>(this.APIUrl + '/Flight', {params});
   }
+
+  createFlight(flight: Flight): Observable<void> {
+    const f = {
+      source: flight.sourcePlaceInfo,
+      destination: flight.destinationPlaceInfo,
+      flightNumber: flight.flightNumber,
+      airline: flight.airline
+    }
+    return this.http.post<void>(this.APIUrl + '/Flight', f);
+  }
+
+  editFlight(flight: Flight, flightId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Flight/${flightId}`, flight);
+  }
+
+  deleteFlight(flightId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Flight/${flightId}`);
+  }
+
+  //Tour CRUD
   getTours(filter: TourFilter){
     let params = new HttpParams();
     if(filter.destinationPlace) params = params.append('destination', filter.destinationPlace)
@@ -105,6 +139,17 @@ export class SharedService {
     return this.http.get<PaginationResponse<Tour>>(this.APIUrl + '/Tour', {params})
   }
 
+  createTour(tour: Tour): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Tour', tour);
+  }
+
+  editTour(tour: Tour, tourId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Tour/${tourId}`, tour);
+  }
+
+  deleteTour(tourId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Tour/${tourId}`);
+  }
   getPackageTours(packageId: number) {
     let params = new HttpParams();
     params = params.append('packageId', packageId);
@@ -197,7 +242,6 @@ export class SharedService {
 
     throw new Error("Offer Type not valid");
   }
-      
 
   //Hotel Offer CRUD
   createHotelOffer(offer: Offer): Observable<void> {
@@ -422,5 +466,27 @@ export class SharedService {
 
   deleteAgencyUser(agencyId: number, userId: number) : Observable<void> {
     return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}/employees/${userId}`);
+  }
+
+  getAllAgencyUsers(): Observable<AgencyUser[]>{
+    return this.http.get<AgencyUser[]>(this.APIUrl + '/Admin/AgenciesUsers');
+  }
+
+
+  // Agency CRUD
+  getAgency() : Observable<Agency[]> {
+    return this.http.get<Agency[]>(this.APIUrl + `/Agency`);
+  }
+
+  createAgency(agency: Agency): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Agency', agency);
+  }
+
+  editAgency(agency: Agency, agencyId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Agency/${agencyId}`, agency);
+  }
+
+  deleteAgency(agencyId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}`);
   }
 }

@@ -63,7 +63,14 @@ import { PackageDetailsComponent } from './packages/package-details/package-deta
 import { MessageService } from 'primeng/api';
 import { UserSiteComponent } from './user-site/user-site.component';
 import { TourHotelsComponent } from './tours/tour-hotels/tour-hotels.component';
-
+import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-admin.component';
+import { CreateEditAgencyComponent } from './staff/create-edit-agency/create-edit-agency.component';
+import { ShowAgenciesComponent } from './staff/show-agencies/show-agencies.component';
+import { CreateEditHotelComponent } from './staff/create-edit-hotel/create-edit-hotel.component';
+import { CreateEditFlightComponent } from './staff/create-edit-flight/create-edit-flight.component';
+import { CreateEditTourComponent } from './staff/create-edit-tour/create-edit-tour.component';
+import { ShowFlightsComponent } from './staff/show-flights/show-flights.component';
+import { ShowToursComponent } from './staff/show-tours/show-tours.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +96,16 @@ import { TourHotelsComponent } from './tours/tour-hotels/tour-hotels.component';
     PackagesComponent,
     PackageDetailsComponent,
     UserSiteComponent,
-    TourHotelsComponent
+    TourHotelsComponent,
+    UserSiteComponent,
+    TravellerAdminComponent,
+    CreateEditAgencyComponent,
+    ShowAgenciesComponent,
+    CreateEditHotelComponent,
+    CreateEditFlightComponent,
+    CreateEditTourComponent,
+    ShowFlightsComponent,
+    ShowToursComponent,
   ],
   imports: [
     BrowserModule,

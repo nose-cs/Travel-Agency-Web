@@ -1,26 +1,27 @@
-import { DayTemplateContext } from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-day-template-context";
-import { Place } from "./hotel";
-import { Time } from "@angular/common";
-export interface Tour{
-    id: number
-    duration: number
-    sourceInfo: TourInfo
-    destinationInfo: TourInfo
-    image: File;
+import {Place} from "./hotel";
+import {File} from "./file";
+
+export interface Tour {
+  id: number
+  duration: number
+  sourceInfo: TourInfo
+  destinationInfo: TourInfo
+  imageId: number;
+  image: File;
 }
 
-export interface TourInfo{
-    place: Place
-    day: Day
-    time: Time
+export interface TourInfo {
+  place: Place
+  day: Day
+  time: Date
 }
 
-export enum Day{
-    Sunday,
-    Monday,
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday
+export enum Day {
+  Sunday,
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday
 }

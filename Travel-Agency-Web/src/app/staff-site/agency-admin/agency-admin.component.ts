@@ -22,7 +22,7 @@ export class AgencyAdminComponent {
           case "Create":
             this.ref = this.dialogService.open(CreateEditUserComponent, {
               data: {
-                agencyUser: {} as AgencyUser,
+                agencyUser: {agencyId: Number.parseInt(localStorage.getItem('agencyId')!)} as AgencyUser,
                 roles: [ {role: Role.AgencyAdmin, name: "Admin"},
                           {role: Role.Agent, name: "Agent"},
                           {role: Role.MarketingEmployee, name: "Marketing"}],
@@ -42,7 +42,7 @@ export class AgencyAdminComponent {
               data: {
                 getUserList: this.service.getAgencyUsers(agencyId),
                 editAgencyUser: (agencyUser: AgencyUser) => this.service.editAgencyUser(agencyUser, agencyId),
-                deleteAgencyUser: (id: number) => this.service.deleteAgencyUser(agencyId, id),
+                deleteAgencyUser: (id: number, agencyId: number) => this.service.deleteAgencyUser(agencyId, id),
                 roles: [
                   {role: Role.AgencyAdmin, name: "Admin"},
                   {role: Role.Agent, name: "Agent"},
