@@ -1,5 +1,4 @@
 import {Place} from "./hotel";
-import {Time} from "@angular/common";
 import {File} from "./file";
 
 export interface Tour {
@@ -14,7 +13,7 @@ export interface Tour {
 export interface TourInfo {
   place: Place
   day: Day
-  time: Time
+  time: Date
 }
 
 export enum Day {

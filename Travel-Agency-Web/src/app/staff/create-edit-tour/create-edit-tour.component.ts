@@ -3,14 +3,14 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SharedService} from '../../shared.service';
 import {FileUpload, FileUploadHandlerEvent} from 'primeng/fileupload';
 import {MessageService} from 'primeng/api';
-import {Time} from "@angular/common";
+import {DatePipe} from "@angular/common";
 import {Day, Tour} from "../../models/tour";
 
 @Component({
   selector: 'app-create-edit-tour',
   templateUrl: './create-edit-tour.component.html',
   styleUrls: ['./create-edit-tour.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DatePipe]
 })
 export class CreateEditTourComponent {
   @ViewChild(FileUpload) fileUpload!: FileUpload;
@@ -28,9 +28,9 @@ export class CreateEditTourComponent {
   inputDestinationCountry: string | undefined;
   inputDuration: number | undefined;
   inputSourceDay: { day: Day, name: string } | undefined;
-  inputSourceTime: Time | undefined;
+  inputSourceTime: Date | undefined;
   inputDestinationDay: { day: Day, name: string } | undefined;
-  inputDestinationTime: Time | undefined;
+  inputDestinationTime: Date | undefined;
 
   imageId: number | undefined;
   imageName: string | undefined;
@@ -41,7 +41,7 @@ export class CreateEditTourComponent {
   errorLabel: string = '';
 
   constructor(private service: SharedService, public ref: DynamicDialogRef, public config: DynamicDialogConfig,
-              private messageService: MessageService) {
+              private messageService: MessageService, private datePipe: DatePipe) {
 
     this.days = [{day: Day.Sunday, name: 'Sunday'},
       {day: Day.Monday, name: 'Monday'},
@@ -79,7 +79,10 @@ export class CreateEditTourComponent {
   }
 
   onOk() {
-    const tour = {
+    const sourceTime = this.datePipe.transform(this.inputSourceTime, 'hh:mm:ss');
+    const destinationTime = this.datePipe.transform(this.inputDestinationTime, 'hh:mm:ss');
+
+    const tour= {
       id: this.id,
       duration: this.inputDuration,
       sourceInfo: {
@@ -89,7 +92,7 @@ export class CreateEditTourComponent {
           country: this.inputSourceCountry
         },
         day: this.inputSourceDay?.day,
-        time: this.inputSourceTime
+        time: sourceTime
       },
       destinationInfo: {
         place: {
@@ -98,10 +101,10 @@ export class CreateEditTourComponent {
           country: this.inputDestinationCountry
         },
         day: this.inputDestinationDay?.day,
-        time: this.inputDestinationTime
+        time: destinationTime
       },
       imageId: this.imageId
-    } as Tour
+    }
 
     this.config.data['execute'](tour).subscribe(
       () => {
