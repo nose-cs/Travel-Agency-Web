@@ -1,3 +1,5 @@
+import { Tour } from "./tour";
+
 export class pack{
     id = 0;
     title: string | undefined;
@@ -13,4 +15,10 @@ export class pack{
     imageId: number | undefined;
     name: string| undefined
     duration: string| undefined
+    tours: Tour[] | undefined;
+    facilities: Facility[] | undefined;
+}
+
+export class Facility{
+    
 }
