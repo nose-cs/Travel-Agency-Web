@@ -95,6 +95,17 @@ export class SharedService {
     return this.http.get<Tour[]>(this.APIUrl + '/Tour', {params})
   }
 
+  createTour(tour: Tour): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Tour', tour);
+  }
+
+  editTour(tour: Tour, tourId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Tour/${tourId}`, tour);
+  }
+
+  deleteTour(tourId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Tour/${tourId}`);
+  }
 
   //Offers with Filter
   getOffersWithFilter(filter : OfferFilter, offerType: string) {
