@@ -1,1 +1,102 @@
-<p>create-edit-tour works!</p>
+<div class="formgrid grid" style="margin-top: 24px; margin-left: 1px;">
+
+  <div class="col">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="categories"
+        [(ngModel)]="inputCategory" placeholder="Select a Category"></p-dropdown>
+      <label htmlFor="role">Category</label>
+    </span>
+  </div>
+
+  <div class="field col">
+    <span class="p-float-label">
+      <p-inputNumber inputId="capacity" [(ngModel)]="inputDuration" [style]="{ width: '20vw' }"> </p-inputNumber>
+      <label htmlFor="capacity">Duration</label>
+    </span>
+  </div>
+</div>
+
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceAddress" [(ngModel)]="inputAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceCity" [(ngModel)]="inputCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceCountry" [(ngModel)]="inputCountry"/>
+      <label htmlFor="country">Country</label>
+    </span>
+  </div>
+
+  <div class="col">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="categories"
+        [(ngModel)]="inputCategory" placeholder="Select a Category"></p-dropdown>
+      <label htmlFor="role">Day</label>
+    </span>
+  </div>
+</div>
+
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationAddress" [(ngModel)]="inputAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationCity" [(ngModel)]="inputCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationCountry" [(ngModel)]="inputCountry"/>
+      <label htmlFor="country">Country</label>
+    </span>
+  </div>
+
+
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText disabled [(ngModel)]="inputCity"/>
+      <label htmlFor="role">Day</label>
+    </span>
+  </div>
+</div>
+
+<div class="formgrid grid" style="margin-top: 10px;">
+  <div class="field col">
+    <p-fileUpload [disabled]="disableUpload" mode="basic" accept="image/*" [maxFileSize]="1000000" [auto]="true"
+                  [customUpload]="true" (uploadHandler)="myUploader($event)"
+                  [chooseLabel]="imageId ? 'Change Image' : 'Upload Image'"></p-fileUpload>
+  </div>
+  <div class="field col">
+    <p-button *ngIf="imageId" (click)="ViewImage()" icon="pi pi-eye" [rounded]="true" [text]="true"></p-button>
+  </div>
+</div>
+
+<img *ngIf="viewImage" [alt]="imageName" class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+     [src]="'../../../assets/' + imagePath"/>
+
+<label style="color: #ff0000">{{ errorLabel }}</label>
+
+<div class="card flex justify-content-end">
+  <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [style]="{ position: 'end' }"
+            (click)="onOk()"></p-button>
+</div>
+
+<p-toast position="center" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>

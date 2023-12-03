@@ -50,10 +50,10 @@ export class SharedService {
   }
 
   deleteHotel(hotelId: number) : Observable<void> {
-    return this.http.delete<void>(this.APIUrl + `/Agency/${hotelId}`);
+    return this.http.delete<void>(this.APIUrl + `/Hotel/${hotelId}`);
   }
 
-  //Products with Filter
+  // Flight CRUD
   getFlights(filter: FlightFilter){
     let params = new HttpParams();
     if (filter.id) params = params.append('id', filter.id.toString())
@@ -63,6 +63,26 @@ export class SharedService {
     if(filter.airline) params = params.append('airline', filter.airline.toString())
     return this.http.get<Flight[]>(this.APIUrl + '/Flight', {params});
   }
+
+  createFlight(flight: Flight): Observable<void> {
+    const f = {
+      source: flight.sourcePlaceInfo,
+      destination: flight.destinationPlaceInfo,
+      flightNumber: flight.flightNumber,
+      airline: flight.airline
+    }
+    return this.http.post<void>(this.APIUrl + '/Flight', f);
+  }
+
+  editFlight(flight: Flight, flightId: number): Observable<void> {
+    return this.http.put<void>(this.APIUrl + `/Flight/${flightId}`, flight);
+  }
+
+  deleteFlight(flightId: number) : Observable<void> {
+    return this.http.delete<void>(this.APIUrl + `/Flight/${flightId}`);
+  }
+
+  //Tour CRUD
   getTours(filter: TourFilter){
     let params = new HttpParams();
     if(filter.destinationPlace) params = params.append('destination', filter.destinationPlace)
