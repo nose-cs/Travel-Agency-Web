@@ -1,4 +1,5 @@
 export class OfferFilter{
+  title: string | undefined;
   productId: number | undefined;
   agencyId: number | undefined;
   startDate: Date | undefined;
