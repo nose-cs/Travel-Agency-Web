@@ -11,5 +11,8 @@ export class Offer {
   productName: string | undefined;
   productId = 0;
   imageId: number | undefined;
+  duration = 0;
+  ToursIds: number[]| undefined;
+  FacilitiesId: number[]| undefined;
 }
 

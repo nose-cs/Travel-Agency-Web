@@ -3,6 +3,8 @@ import { Tour } from '../models/tour';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { Place } from '../models/hotel';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TourHotelsComponent } from './tour-hotels/tour-hotels.component';
 import { TourFilter } from '../models/tourFilter';
 import { PaginatorState } from 'primeng/paginator';
 @Component({
@@ -13,9 +15,10 @@ import { PaginatorState } from 'primeng/paginator';
 export class ToursComponent {
   layout: 'list' | 'grid' = 'list';
 
-  constructor(private service: SharedService, private router: Router) { }
+  constructor(private service: SharedService, private router: Router, public dialogService: DialogService) { }
 
   TourList: Tour[] = [];
+  ref: DynamicDialogRef| undefined;
 
   first: number = 0;
   pageIndex: number = 1;
@@ -64,9 +67,12 @@ export class ToursComponent {
     date.setDate(day);
     return daysOfWeek[date.getDay()];
   }
-  openHotel(id: number) {
+  openHotelList(id: number) {
     console.log(id);
   }
+  show(id: number){
+      this.ref = this.dialogService.open(TourHotelsComponent, { data: {id: id},  header: 'Hotels' })
+    }
 
   openAgency(id: number) {
     console.log(id);

@@ -14,6 +14,7 @@ import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
+import { pack } from './models/package';
 import { ChangePasswordRequest } from './models/changePasswordRequest';
 import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
@@ -195,6 +196,10 @@ export class SharedService {
 
     throw new Error("Offer Type not valid");
   }
+  getPackageTours(id: number){
+      return this.http.get<Tour[]>(this.APIUrl + '/Package/getTours')
+  }
+      
 
   //Hotel Offer CRUD
   createHotelOffer(offer: Offer): Observable<void> {
