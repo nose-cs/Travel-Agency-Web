@@ -95,7 +95,6 @@ import { ShowToursComponent } from './staff/show-tours/show-tours.component';
     ShowAgencyUsersComponent,
     //PackagesComponent,
     //PackageDetailsComponent,
-    UserSiteComponent
     UserSiteComponent,
     TravellerAdminComponent,
     CreateEditAgencyComponent,
