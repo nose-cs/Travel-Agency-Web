@@ -23,7 +23,7 @@ import {Agency} from "./models/agency";
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5235/api';
+  readonly APIUrl = 'https://localhost:3571/api';
   constructor(private http: HttpClient) { }
 
   // Hotel CRUD
@@ -155,6 +155,10 @@ export class SharedService {
     params = params.append('packageId', packageId);
 
     return this.http.get<Tour[]>(this.APIUrl + '/Package/getTours', { params })
+  }
+
+  getTourHotels(TourId: number){
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/' + TourId + '/fromTour');
   }
 
   getPackageFacilities(packageId: number) {
