@@ -29,6 +29,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { PaginatorModule } from 'primeng/paginator';
+import { PickListModule } from 'primeng/picklist';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -116,7 +117,8 @@ import { UserSiteComponent } from './user-site/user-site.component';
     CheckboxModule,
     RadioButtonModule,
     TabViewModule,
-    PaginatorModule
+    PaginatorModule,
+    PickListModule
   ],
   providers: [SharedService,
     {
