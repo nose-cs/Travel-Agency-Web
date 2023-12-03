@@ -157,6 +157,10 @@ export class SharedService {
     return this.http.get<Tour[]>(this.APIUrl + '/Package/getTours', { params })
   }
 
+  getTourHotels(TourId: number){
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/' + TourId + '/fromTour');
+  }
+
   getPackageFacilities(packageId: number) {
     let params = new HttpParams();
     params = params.append('packageId', packageId);
