@@ -3,7 +3,20 @@
   <p-dataView #dv [value]="OffersList" [layout]="layout">
     <ng-template pTemplate="header">
       <div class="card flex justify-content-start" style="position: absolute">
-        <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        <table>
+          <tr>
+            <td>
+              <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+            </td>
+            <td>
+              <span class="p-float-label">
+                <p-dropdown id="orderby" [options]="orders" (onChange)="changeOrder()"
+                            [(ngModel)]="inputOrder"></p-dropdown>
+                <label htmlFor="orderby">Order By</label>
+              </span>
+            </td>
+          </tr>
+        </table>
       </div>
       <div class="flex justify-content-end">
         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>

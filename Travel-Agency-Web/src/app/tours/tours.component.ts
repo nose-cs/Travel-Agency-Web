@@ -25,6 +25,9 @@ export class ToursComponent {
   pageSize: number = 10;
   total: number = 0;
 
+  orders: string[] = ["Lastest", "Oldest", "Bigger Duration", "Smaller Duration", "Week-start", "Week-end"];
+  inputOrder: string = this.orders[0];
+
   filter: TourFilter = new TourFilter();
 
   ngOnInit(): void {
@@ -41,6 +44,33 @@ export class ToursComponent {
   refreshList() {
     this.filter.pageIndex = this.pageIndex;
     this.filter.pageSize = this.pageSize;
+
+    switch (this.inputOrder) {
+      case "Lastest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = true;
+        break;
+      case "Oldest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = false;
+        break;
+      case "Bigger Duration":
+        this.filter.orderBy = "Duration";
+        this.filter.descending = true;
+        break;
+      case "Smaller Duration":
+        this.filter.orderBy = "Duration";
+        this.filter.descending = false;
+        break;
+      case "Week-end":
+        this.filter.orderBy = "SourceDay";
+        this.filter.descending = true;
+        break;
+      case "Week-start":
+        this.filter.orderBy = "SourceDay";
+        this.filter.descending = false;
+        break;
+    }
 
     this.service.getTours(this.filter).subscribe(paginator => {
       this.TourList = paginator.items;
@@ -87,5 +117,11 @@ export class ToursComponent {
   }
   getDurationString(days: number) {
     return days > 0 ? 'Duration: ' + days + ' Days' : 'Single Day';
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
   }
 }

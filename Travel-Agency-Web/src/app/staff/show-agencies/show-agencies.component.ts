@@ -4,6 +4,9 @@ import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dyna
 import {ConfirmationService} from 'primeng/api';
 import {Agency} from "../../models/agency";
 import {CreateEditAgencyComponent} from "../create-edit-agency/create-edit-agency.component";
+import { Pagination } from '../../models/pagination';
+import { PaginatorState } from 'primeng/paginator';
+import { PaginationResponse } from '../../models/PaginationResponse';
 
 @Component({
   selector: 'app-show-agencies',
@@ -21,14 +24,61 @@ export class ShowAgenciesComponent {
 
   errorLabel: string | undefined;
 
+  first: number = 0;
+  pageIndex: number = 1;
+  pageSize: number = 10;
+  total: number = 0;
+
+  orders: string[] = ["Lastest", "Oldest", "Name A-Z", "Name Z-A", "Email A-Z", "Email Z-A"];
+  inputOrder: string = this.orders[0];
+
   ngOnInit() {
     this.refreshTable();
   }
 
+  onPageChange(event: PaginatorState) {
+    this.first = event.first!;
+    this.pageSize = event.rows!;
+    this.pageIndex = event.page! + 1;
+    this.refreshTable();
+  }
+
   refreshTable() {
-    this.config.data['getAgencyList'].subscribe(
-      (result: Agency[]) => {
-        this.AgencyList = result;
+    const filter = new Pagination();
+    filter.pageIndex = this.pageIndex;
+    filter.pageSize = this.pageSize;
+
+    switch (this.inputOrder) {
+      case "Lastest":
+        filter.orderBy = "Id";
+        filter.descending = true;
+        break;
+      case "Oldest":
+        filter.orderBy = "Id";
+        filter.descending = false;
+        break;
+      case "Name Z-A":
+        filter.orderBy = "Name";
+        filter.descending = true;
+        break;
+      case "Name A-Z":
+        filter.orderBy = "Name";
+        filter.descending = false;
+        break;
+      case "Email Z-A":
+        filter.orderBy = "Email";
+        filter.descending = true;
+        break;
+      case "Email A-Z":
+        filter.orderBy = "Email";
+        filter.descending = false;
+        break;
+    }
+
+    this.config.data['getAgencyList'](filter).subscribe(
+      (paginator: PaginationResponse<Agency>) => {
+        this.AgencyList = paginator.items;
+        this.total = paginator.totalCollectionSize;
       }
     );
   }
@@ -78,5 +128,11 @@ export class ShowAgenciesComponent {
         });
       }
     });
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshTable();
   }
 }

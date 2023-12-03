@@ -27,6 +27,9 @@ export class ShowHotelOffersComponent implements OnInit {
   pageSize: number = 10;
   total: number = 0;
 
+  orders: string[] = ["Lastest", "Oldest", "Bigger Price", "Smaller Price"];
+  inputOrder: string = this.orders[0];
+
   filter: OfferFilter = new OfferFilter();
 
   ngOnInit() {
@@ -54,6 +57,25 @@ export class ShowHotelOffersComponent implements OnInit {
     this.filter.pageIndex = this.pageIndex;
     this.filter.pageSize = this.pageSize;
 
+    switch (this.inputOrder) {
+      case "Lastest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = true;
+        break;
+      case "Oldest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = false;
+        break;
+      case "Bigger Price":
+        this.filter.orderBy = "Price";
+        this.filter.descending = true;
+        break;
+      case "Smaller Price":
+        this.filter.orderBy = "Price";
+        this.filter.descending = false;
+        break;
+    }
+
     this.service.getOffersWithFilter(this.filter, this.offerType).subscribe(paginator => {
       this.OffersList = paginator.items;
       this.total = paginator.totalCollectionSize;
@@ -78,5 +100,11 @@ export class ShowHotelOffersComponent implements OnInit {
 
   openAgency(id: number) {
     console.log(id);
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
   }
 }

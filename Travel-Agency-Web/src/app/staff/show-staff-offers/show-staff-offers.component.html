@@ -1,5 +1,18 @@
-<div class="card flex justify-content-start">
-  <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+<div class="card flex justify-content-start" style="margin-top: 10px">
+  <table>
+    <tr>
+      <td>
+        <p-paginator [style]="{ backgroundColor: 'transparent' }" (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize" [totalRecords]="total" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+      </td>
+      <td>
+        <span class="p-float-label">
+          <p-dropdown id="orderby" [options]="orders" (onChange)="changeOrder()"
+                      [(ngModel)]="inputOrder"></p-dropdown>
+          <label htmlFor="orderby">Order By</label>
+        </span>
+      </td>
+    </tr>
+  </table>
 </div>
 <p-table [value]="OfferList" styleClass="p-datatable-striped" [tableStyle]="{'width': '100%'}">
   <ng-template pTemplate="header">

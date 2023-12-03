@@ -1,13 +1,22 @@
 
 <div *ngIf="this.config.data['offerName'] != 'Package'" class="field grid" style="margin-top: 22px; margin-left: 1px;">
-  <span class="p-float-label">
-    <p-autoComplete [(ngModel)]="selectedModel" field="name" [suggestions]="suggestions" (completeMethod)="searchModel($event)" inputId="selectModel">
-      <ng-template let-product pTemplate="item">
-        {{ product.name }}
-      </ng-template>
-    </p-autoComplete>
-    <label for="selectModel">Select Product</label>
-  </span>
+  <table>
+    <tr>
+      <td>
+        <span class="p-float-label">
+          <p-autoComplete [(ngModel)]="selectedModel" field="name" [suggestions]="suggestions" (completeMethod)="searchModel($event)" inputId="selectModel">
+            <ng-template let-product pTemplate="item">
+              {{ product.name }}
+            </ng-template>
+          </p-autoComplete>
+          <label for="selectModel">Select Product</label>
+        </span>
+      </td>
+      <td>
+        <p-button icon="pi pi-plus-circle" size="large" [text]="true" (click)="addNewProduct()" [rounded]="true" severity="secondary"></p-button>
+      </td>
+    </tr>
+  </table>
 </div>
 
 <div class="formgrid grid" style="margin-top: 24px; margin-left: 1px; width: 100%;">
@@ -19,10 +28,12 @@
 
 <div class="formgrid grid" style="margin-top: 28px;">
   <div class="field col">
-    <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputStartDate" [showTime]="true" id="startDate" [style]="{ width: '20vw' }"></p-calendar>
-      <label htmlFor="startDate">Start Date</label>
-    </span>
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="inputStartDate" [disabled]="true" pInputText placeholder="Start Date" [style]="{ width: '17vw' }"/>
+      <span class="p-inputgroup-addon" (click)="openCalendarDialog('StartDate')">
+        <i class="pi pi-pencil"></i>
+      </span>
+    </div>
   </div>
   <div class="field col">
     <span class="p-float-label">
@@ -34,10 +45,12 @@
 
 <div class="formgrid grid" style="margin-top: 10px;">
   <div class="field col">
-    <span class="p-float-label">
-      <p-calendar [(ngModel)]="inputEndDate" [showTime]="true" id="endDate" [style]="{ width: '20vw' }"></p-calendar>
-      <label htmlFor="endDate">End Date</label>
-    </span>
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="inputEndDate" [disabled]="true" pInputText placeholder="End Date" [style]="{ width: '17vw' }"/>
+      <span class="p-inputgroup-addon" (click)="openCalendarDialog('EndDate')">
+        <i class="pi pi-pencil"></i>
+      </span>
+    </div>
   </div>
   <div class="field col">
     <span class="p-float-label">

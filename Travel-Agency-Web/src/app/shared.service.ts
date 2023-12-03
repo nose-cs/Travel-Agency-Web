@@ -18,6 +18,7 @@ import { ChangePasswordRequest } from './models/changePasswordRequest';
 import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
 import {Agency} from "./models/agency";
+import { Pagination } from './models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -449,8 +450,23 @@ export class SharedService {
 
 
   //Agency User CRUD
-  getAgencyUsers(id: number): Observable<AgencyUser[]>{
-    return this.http.get<AgencyUser[]>(this.APIUrl + '/Agency/' + id + '/employees');
+  getAgencyUsers(id: number, filter: Pagination): Observable<PaginationResponse<AgencyUser>>{
+    let params = new HttpParams();
+
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+
+    return this.http.get<PaginationResponse<AgencyUser>>(this.APIUrl + '/Agency/' + id + '/employees', {params});
   }
 
   createAgencyUser(agencyUser: AgencyUser, agencyId: number): Observable<void> {
@@ -465,14 +481,44 @@ export class SharedService {
     return this.http.delete<void>(this.APIUrl + `/Agency/${agencyId}/employees/${userId}`);
   }
 
-  getAllAgencyUsers(): Observable<AgencyUser[]>{
-    return this.http.get<AgencyUser[]>(this.APIUrl + '/Admin/AgenciesUsers');
+  getAllAgencyUsers(filter: Pagination): Observable<PaginationResponse<AgencyUser>>{
+    let params = new HttpParams();
+
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+
+    return this.http.get<PaginationResponse<AgencyUser>>(this.APIUrl + '/Admin/AgenciesUsers', {params});
   }
 
 
   // Agency CRUD
-  getAgency() : Observable<Agency[]> {
-    return this.http.get<Agency[]>(this.APIUrl + `/Agency`);
+  getAgencies(filter: Pagination): Observable<PaginationResponse<Agency>> {
+    let params = new HttpParams();
+
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+
+    return this.http.get<PaginationResponse<Agency>>(this.APIUrl + '/Agency', {params});
   }
 
   createAgency(agency: Agency): Observable<void> {
