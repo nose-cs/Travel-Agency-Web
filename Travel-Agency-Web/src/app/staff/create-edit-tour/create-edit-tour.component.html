@@ -26,7 +26,8 @@
       <p-dropdown
         [options]="days"
         optionLabel="name"
-        [(ngModel)]="inputSourceDay"></p-dropdown>
+        [(ngModel)]="inputSourceDay"
+        placeholder="Select a day"></p-dropdown>
       <label htmlFor="role">Day</label>
     </span>
   </div>
@@ -71,16 +72,7 @@
 </div>
 
 <div class="field grid" style="margin-top: 22px;">
-  <div class="col">
-    <span class="p-float-label">
-      <p-dropdown
-        [options]="[]"
-        [(ngModel)]="inputDestinationDay" placeholder="Select a Category"></p-dropdown>
-      <label htmlFor="role">Day</label>
-    </span>
-  </div>
-
-  <div class="field col">
+<div class="field col">
     <div class="ui-g-12 ui-md-4">
       <p-calendar [(ngModel)]="inputDestinationTime" [timeOnly]="true" placeholder="Time"></p-calendar>
     </div>
