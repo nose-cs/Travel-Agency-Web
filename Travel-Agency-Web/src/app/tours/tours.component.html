@@ -25,22 +25,22 @@
       <ng-template let-product pTemplate="listItem">
         <div class="col-12">
           <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-            <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" src="../../assets/noimage.png"/>
+            <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'../../../assets/' + product.image.filePath"/>
             <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
               <div class="flex flex-column align-items-center sm:align-items-start gap-3">
                 <div class="text-2xl font-bold">{{product.sourceInfo.place.city}} - {{product.destinationInfo.place.city}}</div>
-                
+
                 <p-toast></p-toast>
-                <p-button *ngIf="product.duration" (click)="show(product)" icon="pi pi-info-circle" label="Show Hotels"></p-button>
+                <p-button *ngIf="product.duration" (click)="show(product.id)" icon="pi pi-info-circle" label="Show Hotels"></p-button>
               </div>
               <div class="flex flex-column align-items-center sm:align-items-start gap-3">
                 <div class="text-1xl">From {{getDayOfWeek(product.sourceInfo.day)}} to {{getDayOfWeek(product.destinationInfo.day)}}</div>
               </div>
               <div class="flex flex-column align-items-center sm:align-items-start gap-3">
                 <div class="text-1xl">{{getDurationString(product.duration)}}</div>
-                
+
               </div>
-              
+
               <div class="flex flex-column align-items-center sm:align-items-start gap-3 sm:gap-2">
                 <p-button label="See Offers" styleClass="md:align-self-end mb-2" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
               </div>
@@ -52,7 +52,7 @@
         <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
           <div class="p-4 border-1 surface-border surface-card border-round">
             <div class="flex flex-column align-items-center gap-3 py-5">
-              <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png"/>
+              <img class="w-9 shadow-2 border-round" [src]="'../../../assets/' + product.image.filePath"/>
               <div class="text-2xl font-bold"></div>
               <div style="display: flex" >
                 <div class="flex flex-column align-items-center sm:align-items-start gap-3">
@@ -64,7 +64,7 @@
               <div class="text-1xl"></div>
             </div>
               <p-button label="See Offers" [rounded]="true" (click)="openOfferList(product.id)"></p-button>
-  
+
           </div>
         </div>
       </ng-template>
