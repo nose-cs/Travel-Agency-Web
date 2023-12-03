@@ -15,6 +15,7 @@ import { Document, ExportType } from '../../models/document';
 import { Flight, FlightFilter } from '../../models/flight';
 import { TourFilter } from '../../models/tourFilter';
 import { Tour } from '../../models/tour';
+import { FacilityFilter, Package, PackageFacility } from '../../models/package';
 
 @Component({
   selector: 'app-marketing',
@@ -270,6 +271,7 @@ export class MarketingComponent {
 
             this.ref = this.dialogService.open(CreateEditOffersComponent, {
               data: {
+                offerName: 'Hotel',
                 offer: offer,
                 execute: (hotelOffer: Offer) => this.service.createHotelOffer(hotelOffer),
                 filter: async (query: string, productId: number | undefined) => {
@@ -307,8 +309,7 @@ export class MarketingComponent {
                 }
               },
               header: 'Create a Hotel offer',
-              contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
+              contentStyle: { overflow: 'visible' },
               maximizable: false
             });
             break;
@@ -360,7 +361,6 @@ export class MarketingComponent {
                 }
               },
               contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
               width: '80%',
               maximizable: true
             });
@@ -377,6 +377,7 @@ export class MarketingComponent {
 
             this.ref = this.dialogService.open(CreateEditOffersComponent, {
               data: {
+                offerName: 'Flight',
                 offer: offer,
                 execute: (flightOffer: Offer) => this.service.createFlightOffer(flightOffer),
                 filter: async (query: string, productId: number | undefined) => {
@@ -414,8 +415,7 @@ export class MarketingComponent {
                 }
               },
               header: 'Create a Flight offer',
-              contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
+              contentStyle: { overflow: 'visible' },
               maximizable: false
             });
             break;
@@ -467,7 +467,6 @@ export class MarketingComponent {
                 }
               },
               contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
               width: '80%',
               maximizable: true
             });
@@ -484,6 +483,7 @@ export class MarketingComponent {
 
             this.ref = this.dialogService.open(CreateEditOffersComponent, {
               data: {
+                offerName: 'Tour',
                 offer: offer,
                 execute: (tourOffer: Offer) => this.service.createTourOffer(tourOffer),
                 filter: async (query: string, productId: number | undefined) => {
@@ -521,16 +521,13 @@ export class MarketingComponent {
                 }
               },
               header: 'Create a Tour offer',
-              contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
+              contentStyle: { overflow: 'visible' },
               maximizable: false
             });
             break;
 
           case "Manage":
-            const agencyFilter = new OfferFilter();
-            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
-
+            
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Tour',
@@ -576,7 +573,241 @@ export class MarketingComponent {
                 }
               },
               contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
+              width: '80%',
+              maximizable: true
+            });
+            break;
+        }
+
+        break;
+
+      case "Packages":
+
+        switch (action) {
+          case "Create":
+            const pack = new Package();
+
+            this.ref = this.dialogService.open(CreateEditOffersComponent, {
+              data: {
+                offerName: 'Package',
+                offer: pack,
+                execute: (pack: Package) => this.service.createPackage(pack),
+                filter: async (query: string) => {
+                  const filter = new TourFilter();
+                  filter.sourcePlace = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: Tour[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+                    this.service.getTours(filter).subscribe(
+                      tours => {
+                        suggestions = tours.items;
+
+                        resolve();
+                      },
+                      (error) => {
+                        reject(error);
+                      }
+                    );
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                },
+
+                filterFacility: async (query: string, skip: PackageFacility[]) => {
+                  const filter = new FacilityFilter();
+                  filter.name = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: PackageFacility[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+
+                    const recFun = () => {
+                      this.service.getFacilities(filter).subscribe(
+                        fs => {
+                          if (fs.items.length == 0) {
+                            resolve();
+                            return;
+                          }
+
+                          for (const f of fs.items) {
+                            var found = false;
+
+                            for (const sk of skip) {
+                              if (sk.facility!.id == f.id) {
+                                found = true;
+                                break;
+                              }
+                            }
+
+                            if (found == false)
+                              suggestions.push({ facility: f, price: undefined, packageId: undefined });
+                          }
+
+                          if (suggestions.length < 20) {
+                            filter.pageIndex! += 1;
+                            recFun();
+                            return;
+                          }
+
+                          resolve();
+                        },
+                        (error) => {
+                          reject(error);
+                        }
+                      );
+                    }
+
+                    recFun();
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                }
+              },
+              header: 'Create a Package',
+              contentStyle: { overflow: 'auto' },
+              width: '80%',
+              maximizable: false
+            });
+            break;
+
+          case "Manage":
+            
+            this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
+              data: {
+                offerName: 'Package',
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'package');
+                },
+                editOffer: (pack: Package) => this.service.editPackage(pack),
+                deleteOffer: (id: number) => this.service.deletePackage(id),
+
+                productFilter: async (query: string, skip: Tour[]) => {
+                  const filter = new TourFilter();
+                  filter.sourcePlace = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: Tour[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+
+                    const recFun = () => {
+                      this.service.getTours(filter).subscribe(
+                        tours => {
+                          if (tours.items.length == 0) {
+                            resolve();
+                            return;
+                          }
+
+                          for (const tour of tours.items) {
+                              var found = false;
+
+                            for (const sk of skip) {
+                              if (sk.id == tour.id) {
+                                found = true;
+                                break;
+                              }
+                            }
+
+                            if(found == false)
+                              suggestions.push(tour);
+                          }
+
+                          if (suggestions.length < 20) {
+                            filter.pageIndex! += 1;
+                            recFun();
+                            return;
+                          }
+
+                          resolve();
+                        },
+                        (error) => {
+                          reject(error);
+                        }
+                      );
+                    }
+
+                    recFun();
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                },
+
+                filterFacility: async (query: string, skip: PackageFacility[]) => {
+                  const filter = new FacilityFilter();
+                  filter.name = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: PackageFacility[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+
+                    const recFun = () => {
+                      this.service.getFacilities(filter).subscribe(
+                        fs => {
+                          if (fs.items.length == 0) {
+                            resolve();
+                            return;
+                          }
+
+                          for (const f of fs.items) {
+                            var found = false;
+
+                            for (const sk of skip) {
+                              if (sk.facility!.id == f.id) {
+                                found = true;
+                                break;
+                              }
+                            }
+
+                            if (found == false)
+                              suggestions.push({ facility: f, price: undefined, packageId: undefined });
+                          }
+
+                          if (suggestions.length < 20) {
+                            filter.pageIndex! += 1;
+                            recFun();
+                            return;
+                          }
+
+                          resolve();
+                        },
+                        (error) => {
+                          reject(error);
+                        }
+                      );
+                    }
+
+                    recFun();
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                }
+              },
+              contentStyle: { overflow: 'auto' },
               width: '80%',
               maximizable: true
             });

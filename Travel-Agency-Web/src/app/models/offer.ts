@@ -11,5 +11,6 @@ export class Offer {
   productName: string | undefined;
   productId = 0;
   imageId: number | undefined;
+  duration = 0;
 }
 

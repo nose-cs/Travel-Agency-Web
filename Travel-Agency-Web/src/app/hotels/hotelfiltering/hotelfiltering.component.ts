@@ -28,5 +28,4 @@ export class HotelfilteringComponent {
 
     this.filter.emit(filter);
   }
-
 }

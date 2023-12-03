@@ -53,14 +53,16 @@ export class ShowStaffHotelOffersComponent {
   editOffer(offer: Offer) {
     this.ref = this.dialogService.open(CreateEditOffersComponent, {
       data: {
+        offerName: this.config.data['offerName'],
         offer: offer,
-        execute: (offer: Offer) => this.config.data['editOffer'](offer),
-        filter: this.config.data['productFilter']
+        execute: this.config.data['editOffer'],
+        filter: this.config.data['productFilter'],
+        filterFacility: this.config.data['filterFacility']
       },
       header: 'Edit ' + this.config.data['offerName'] + ' offer',
-      contentStyle: { overflow: 'auto' },
-      baseZIndex: 10000,
-      maximizable: false
+      contentStyle: { overflow: this.config.data['offerName'] == 'Package' ? 'auto' : 'visible' },
+      width: this.config.data['offerName'] == 'Package' ? '80%' : undefined,
+      maximizable: this.config.data['offerName'] == 'Package'
     });
 
     this.ref.onClose.subscribe((reload : any) =>

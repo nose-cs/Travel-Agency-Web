@@ -16,13 +16,14 @@ import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
 import { ChangePasswordRequest } from './models/changePasswordRequest';
 import { PaginationResponse } from './models/PaginationResponse';
+import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
 import {Agency} from "./models/agency";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5235/api';
+  readonly APIUrl = 'https://localhost:3571/api';
   constructor(private http: HttpClient) { }
 
   // Hotel CRUD
@@ -149,6 +150,45 @@ export class SharedService {
   deleteTour(tourId: number) : Observable<void> {
     return this.http.delete<void>(this.APIUrl + `/Tour/${tourId}`);
   }
+  getPackageTours(packageId: number) {
+    let params = new HttpParams();
+    params = params.append('packageId', packageId);
+
+    return this.http.get<Tour[]>(this.APIUrl + '/Package/getTours', { params })
+  }
+
+  getPackageFacilities(packageId: number) {
+    let params = new HttpParams();
+    params = params.append('packageId', packageId);
+
+    return this.http.get<PackageFacility[]>(this.APIUrl + '/Package/getPackageFacilities', { params })
+  }
+
+  getFacilities(filter: FacilityFilter) {
+    let params = new HttpParams();
+
+    if (filter.id)
+      params = params.append('id', filter.id);
+    if (filter.name)
+      params = params.append('name', filter.name);
+    if (filter.description)
+      params = params.append('description', filter.description);
+
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+
+    return this.http.get<PaginationResponse<Facility>>(this.APIUrl + '/Facility', { params })
+  }
 
   //Offers with Filter
   getOffersWithFilter(filter: OfferFilter, offerType: string): Observable<PaginationResponse<Offer>> {
@@ -194,8 +234,8 @@ export class SharedService {
       return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/FlightOffer', {params} );
     if(offerType == 'tour')
       return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/TourOffer', {params} );
-    if(offerType == 'package')
-      return this.http.get<PaginationResponse<Offer>>(this.APIUrl + '/Package', {params} );
+    if (offerType == 'package')
+      return this.http.get<PaginationResponse<Package>>(this.APIUrl + '/Package', { params });
 
     throw new Error("Offer Type not valid");
   }
@@ -239,6 +279,18 @@ export class SharedService {
     return this.http.delete<void>(this.APIUrl + '/TourOffer/' + id);
   }
 
+  //Package CRUD
+  createPackage(pack: Package): Observable<void> {
+    return this.http.post<void>(this.APIUrl + '/Package', pack);
+  }
+
+  editPackage(pack: Package): Observable<void> {
+    return this.http.put<void>(this.APIUrl + '/Package', pack);
+  }
+
+  deletePackage(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/Package/' + id);
+  }
 
   //Hotel Statistics
   getHotelSales(request: SaleRequest, exportTo?: string): Observable<SaleResponse[] | Document> {
@@ -361,18 +413,6 @@ export class SharedService {
 
   getPackageMostSolds(): Observable<Offer[]> {
     return this.http.get<Offer[]>(this.APIUrl + '/Package/getMostSolds');
-  }
-
-
-  //Offers by Id
-  getIdHotelOffers(id: number): Observable<Offer[]>{
-    return this.http.get<Offer[]>(this.APIUrl + '/Hotel/' + id  + '/offers');
-  }
-  getIdFlightOffers(id: number): Observable<Offer[]>{
-    return this.http.get<Offer[]>(this.APIUrl + '/Flight/' + id  + '/offers');
-  }
-  getIdTourOffers(id: number): Observable<Offer[]>{
-    return this.http.get<Offer[]>(this.APIUrl + '/Tour/' + id  + '/offers');
   }
 
 

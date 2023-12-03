@@ -29,6 +29,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { PaginatorModule } from 'primeng/paginator';
+import { PickListModule } from 'primeng/picklist';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -41,7 +42,7 @@ import { MarketingComponent } from './staff-site/marketing/marketing.component';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -57,6 +58,9 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
 import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
+//import { PackagesComponent } from './packages/packages.component';
+//import { PackageDetailsComponent } from './packages/package-details/package-details.component';
+import { MessageService } from 'primeng/api';
 import { UserSiteComponent } from './user-site/user-site.component';
 import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-admin.component';
 import { CreateEditAgencyComponent } from './staff/create-edit-agency/create-edit-agency.component';
@@ -89,6 +93,9 @@ import { ShowToursComponent } from './staff/show-tours/show-tours.component';
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
+    //PackagesComponent,
+    //PackageDetailsComponent,
+    UserSiteComponent
     UserSiteComponent,
     TravellerAdminComponent,
     CreateEditAgencyComponent,
@@ -132,14 +139,17 @@ import { ShowToursComponent } from './staff/show-tours/show-tours.component';
     CheckboxModule,
     RadioButtonModule,
     TabViewModule,
-    PaginatorModule
+    PaginatorModule,
+    PickListModule
   ],
   providers: [SharedService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
       multi: true
-    }
+    },
+    DialogService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
