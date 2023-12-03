@@ -95,7 +95,6 @@ import { PackDetailsComponent } from './packs/pack-details/pack-details.componen
     ShowAgencyUsersComponent,
     UserSiteComponent,
     TourHotelsComponent,
-    UserSiteComponent,
     TravellerAdminComponent,
     CreateEditAgencyComponent,
     ShowAgenciesComponent,
@@ -105,7 +104,7 @@ import { PackDetailsComponent } from './packs/pack-details/pack-details.componen
     ShowFlightsComponent,
     ShowToursComponent,
     PacksComponent,
-    PackDetailsComponent,
+    PackDetailsComponent
   ],
   imports: [
     BrowserModule,
