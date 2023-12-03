@@ -1,0 +1,68 @@
+<div class="formgrid grid" style="margin-top: 24px; margin-left: 1px;">
+  <div class="field col">
+  <span class="p-float-label">
+    <input pInputText id="airline" [(ngModel)]="inputAirline"/>
+    <label htmlFor="title">Airline</label>
+  </span>
+  </div>
+
+  <div class="field col">
+  <span class="p-float-label">
+    <input pInputText id="flightNumber" [(ngModel)]="inputFlightNumber"/>
+    <label htmlFor="title">Flight Number</label>
+  </span>
+  </div>
+</div>
+
+<label>From</label>
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceAddress" [(ngModel)]="inputSourceAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceCity" [(ngModel)]="inputSourceCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceCountry" [(ngModel)]="inputSourceCountry"/>
+      <label htmlFor="country">Country</label>
+    </span>
+  </div>
+</div>
+
+<label>To</label>
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationAddress" [(ngModel)]="inputDestinationAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationCity" [(ngModel)]="inputDestinationCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationCountry" [(ngModel)]="inputDestinationCountry"/>
+      <label htmlFor="country">Country</label>
+    </span>
+  </div>
+</div>
+
+<label style="color: #ff0000">{{ errorLabel }}</label>
+
+<div class="card flex justify-content-end">
+  <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [style]="{ position: 'end' }"
+            (click)="onOk()"></p-button>
+</div>
+
+<p-toast position="center" [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>

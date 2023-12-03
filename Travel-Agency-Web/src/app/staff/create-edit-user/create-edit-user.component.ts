@@ -35,6 +35,7 @@ export class CreateEditUserComponent {
       this.inputName = agencyUser?.name;
       this.inputRole = this.getRole(agencyUser?.role);
       this.inputEmail = agencyUser?.email;
+      this.inputAgencyId = agencyUser?.agencyId;
     }
   }
 
@@ -58,7 +59,8 @@ export class CreateEditUserComponent {
       name: this.inputName,
       role: this.inputRole.role,
       email: this.inputEmail,
-      password: this.inputPassword
+      password: this.inputPassword,
+      agencyId: this.inputAgencyId
     } as AgencyUser;
 
     this.config.data['execute'](agencyUser, this.inputAgencyId).subscribe(

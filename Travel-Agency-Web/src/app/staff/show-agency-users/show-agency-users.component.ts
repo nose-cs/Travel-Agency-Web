@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {SharedService} from "../../shared.service";
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {ConfirmationService} from 'primeng/api';
 import {AgencyUser, Role} from "../../models/agencyUser";
 import {CreateEditUserComponent} from "../create-edit-user/create-edit-user.component";
 
@@ -9,7 +9,7 @@ import {CreateEditUserComponent} from "../create-edit-user/create-edit-user.comp
   selector: 'app-show-agency-users',
   templateUrl: './show-agency-users.component.html',
   styleUrls: ['./show-agency-users.component.css'],
-  providers: [ ConfirmationService ]
+  providers: [ConfirmationService]
 })
 export class ShowAgencyUsersComponent {
   constructor(private service: SharedService, private dialogService: DialogService, private confirmationService: ConfirmationService, private config: DynamicDialogConfig) {
@@ -17,7 +17,7 @@ export class ShowAgencyUsersComponent {
   }
 
   AgencyUserList: AgencyUser[] = [];
-  roles: {role: Role; name: string} [] | undefined
+  roles: { role: Role; name: string } [] | undefined
   currentUserRole: string | null = localStorage.getItem('role');
 
   ref: DynamicDialogRef | undefined;
@@ -28,7 +28,9 @@ export class ShowAgencyUsersComponent {
 
   refreshTable() {
     this.config.data['getUserList'].subscribe(
-      (result: AgencyUser[]) => { this.AgencyUserList = result; }
+      (result: AgencyUser[]) => {
+        this.AgencyUserList = result;
+      }
     );
   }
 
@@ -44,25 +46,26 @@ export class ShowAgencyUsersComponent {
         execute: (agencyUser: AgencyUser) => this.config.data['editAgencyUser'](agencyUser)
       },
       header: 'Edit ' + agencyUser.name + ' info',
-      contentStyle: { overflow: 'auto' },
+      contentStyle: {overflow: 'auto'},
       baseZIndex: 10000,
       maximizable: false
     });
 
-    this.ref.onClose.subscribe((reload : any) =>
-    {
-      if(reload)
+    this.ref.onClose.subscribe((reload: any) => {
+      if (reload)
         this.refreshTable();
     });
   }
 
-  deleteOffer(agencyUser: AgencyUser) {
+  deleteAgencyUser(agencyUser: AgencyUser) {
     this.confirmationService.confirm({
       message: 'Do you want to delete the user ' + agencyUser.name + '?',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.config.data['deleteAgencyUser'](agencyUser.id).subscribe(() => { this.refreshTable(); });
+        this.config.data['deleteAgencyUser'](agencyUser.id, agencyUser.agencyId).subscribe(() => {
+          this.refreshTable();
+        });
       }
     });
   }

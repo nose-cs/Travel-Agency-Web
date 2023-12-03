@@ -1,0 +1,55 @@
+<p-table [value]="AgencyList" styleClass="p-datatable-striped" [tableStyle]="{'width': '100%'}">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="id">Id
+        <p-sortIcon field="id"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">Name
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email">Fax
+        <p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="email">Email
+        <p-sortIcon field="email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="role">Address
+        <p-sortIcon field="role"></p-sortIcon>
+      </th>
+      <th pSortableColumn="role">City
+        <p-sortIcon field="role"></p-sortIcon>
+      </th>
+      <th pSortableColumn="role">Country
+        <p-sortIcon field="role"></p-sortIcon>
+      </th>
+      <th><label style="margin-left: 8px;">Actions</label></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-agency>
+    <tr>
+      <td>{{agency.id}}</td>
+      <td>{{agency.name}}</td>
+      <td>{{agency.fax}}</td>
+      <td>{{agency.email}}</td>
+      <td>{{agency.address.address}}</td>
+      <td>{{agency.address.city}}</td>
+      <td>{{agency.address.country}}</td>
+      <td>
+        <table>
+          <tr>
+            <td>
+              <p-button icon="pi pi-file-edit" [rounded]="true" severity="secondary"
+                        (click)="editAgency(agency)"></p-button>
+            </td>
+            <td>
+              <p-button icon="pi pi-trash" [rounded]="true" severity="danger"
+                        (click)="deleteAgency(agency)"></p-button>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

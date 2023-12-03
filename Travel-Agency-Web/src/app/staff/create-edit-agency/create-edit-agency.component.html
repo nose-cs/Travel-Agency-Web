@@ -7,30 +7,35 @@
   </div>
   <div class="col">
     <span class="p-float-label">
-      <p-dropdown [options]="roles" [(ngModel)]="inputRole" optionLabel="name" placeholder="Select a Role"></p-dropdown>
-      <label htmlFor="role">Role</label>
+      <input pInputText id="fax" [(ngModel)]="inputFax"/>
+      <label htmlFor="fax">Fax</label>
     </span>
   </div>
-</div>
-<div class="field grid" style="margin-top: 22px;">
   <div class="col">
     <span class="p-float-label">
       <input pInputText id="email" [(ngModel)]="inputEmail"/>
       <label htmlFor="email">Email</label>
     </span>
   </div>
-  <div class="col">
-  <span class="p-float-label">
-    <p-password [(ngModel)]="inputPassword" [toggleMask]="true" [feedback]="false"></p-password>
-    <label htmlFor="password">Password</label>
-  </span>
-  </div>
 </div>
-<div class="field grid" style="margin-top: 22px;" *ngIf="currentUserRole == 'TravellerAdmin'">
-  <div class="col" *ngIf="inputRole?.role && inputRole?.role !== Role.TravellerAdmin">
+
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
     <span class="p-float-label">
-      <p-inputNumber inputId="integeronly" [(ngModel)]="inputAgencyId"></p-inputNumber>
-        <label htmlFor="email">Agency</label>
+      <input pInputText id="address" [(ngModel)]="inputAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="city" [(ngModel)]="inputCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="country" [(ngModel)]="inputCountry"/>
+      <label htmlFor="country">Country</label>
     </span>
   </div>
 </div>

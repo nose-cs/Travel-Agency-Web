@@ -5,6 +5,7 @@ export interface Hotel {
     name: string;
     address: Place;
     category: Category;
+    imageId: number;
     image: File;
 }
 
