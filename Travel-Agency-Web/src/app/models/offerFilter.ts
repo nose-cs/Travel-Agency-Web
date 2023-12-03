@@ -2,6 +2,7 @@ import { Pagination } from "./pagination";
 
 export class OfferFilter extends Pagination
 {
+  title: string | undefined;
   productId: number | undefined;
   agencyId: number | undefined;
   startDate: Date | undefined;
@@ -9,4 +10,6 @@ export class OfferFilter extends Pagination
   capacity: number | undefined;
   startPrice: number | undefined;
   endPrice: number | undefined;
+
+  validToday: boolean | undefined;
 }

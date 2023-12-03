@@ -199,6 +199,9 @@ export class SharedService {
   getOffersWithFilter(filter: OfferFilter, offerType: string): Observable<PaginationResponse<Offer>> {
     let params = new HttpParams();
 
+    if (filter.title) {
+      params = params.append('title', filter.title);
+    }
     if (filter.productId) {
       params = params.append('productId', filter.productId.toString());
     }
@@ -231,6 +234,9 @@ export class SharedService {
     }
     if (filter.descending) {
       params = params.append('descending', filter.descending);
+    }
+    if (filter.validToday) {
+      params = params.append('validToday', filter.validToday);
     }
 
     if(offerType == 'hotel')

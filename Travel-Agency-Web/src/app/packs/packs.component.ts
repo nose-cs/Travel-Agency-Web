@@ -36,7 +36,7 @@ export class PacksComponent {
     });
   }
   show(product: Offer){
-    this.ref = this.dialogService.open(PackDetailsComponent, { data: {product: product},  header: 'Package Details' })}
+    this.ref = this.dialogService.open(PackDetailsComponent, { data: {product: product},  header: 'Package Details', width:'70%' })}
 
   ReserveOffer(id: number){}
 }
