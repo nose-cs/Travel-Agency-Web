@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HotelFilter } from 'src/app/models/hotelFilter'; 
 import { SharedService } from 'src/app/shared.service';
@@ -29,3 +29,4 @@ export class HotelfilteringComponent {
     this.filter.emit(filter);
   }
 }
+

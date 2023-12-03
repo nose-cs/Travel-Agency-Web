@@ -58,10 +58,9 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
 import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
-//import { PackagesComponent } from './packages/packages.component';
-//import { PackageDetailsComponent } from './packages/package-details/package-details.component';
 import { MessageService } from 'primeng/api';
 import { UserSiteComponent } from './user-site/user-site.component';
+import { TourHotelsComponent } from './tours/tour-hotels/tour-hotels.component';
 import { TravellerAdminComponent } from './staff-site/traveller-admin/traveller-admin.component';
 import { CreateEditAgencyComponent } from './staff/create-edit-agency/create-edit-agency.component';
 import { ShowAgenciesComponent } from './staff/show-agencies/show-agencies.component';
@@ -72,7 +71,6 @@ import { ShowFlightsComponent } from './staff/show-flights/show-flights.componen
 import { ShowToursComponent } from './staff/show-tours/show-tours.component';
 import { PacksComponent } from './packs/packs.component';
 import { PackDetailsComponent } from './packs/pack-details/pack-details.component';
-
 
 @NgModule({
   declarations: [
@@ -95,8 +93,8 @@ import { PackDetailsComponent } from './packs/pack-details/pack-details.componen
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
-    //PackagesComponent,
-    //PackageDetailsComponent,
+    UserSiteComponent,
+    TourHotelsComponent,
     UserSiteComponent,
     TravellerAdminComponent,
     CreateEditAgencyComponent,
