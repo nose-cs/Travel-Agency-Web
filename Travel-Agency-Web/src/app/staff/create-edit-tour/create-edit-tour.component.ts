@@ -3,8 +3,8 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SharedService} from '../../shared.service';
 import {FileUpload, FileUploadHandlerEvent} from 'primeng/fileupload';
 import {MessageService} from 'primeng/api';
-import {Category, Hotel} from "../../models/hotel";
-
+import {Time} from "@angular/common";
+import {Day, Tour} from "../../models/tour";
 
 @Component({
   selector: 'app-create-edit-tour',
@@ -16,60 +16,94 @@ export class CreateEditTourComponent {
   @ViewChild(FileUpload) fileUpload!: FileUpload;
   disableUpload: boolean = false;
 
-  categories: Category[] | undefined;
-
   viewImage = false;
   editImage = false;
 
   id: number | undefined;
-  inputName: string | undefined;
-  inputAddress: string | undefined;
-  inputCity: string | undefined;
-  inputCountry: string | undefined;
-  inputCategory: Category | undefined;
+  inputSourceAddress: string | undefined;
+  inputSourceCity: string | undefined;
+  inputSourceCountry: string | undefined;
+  inputDestinationAddress: string | undefined;
+  inputDestinationCity: string | undefined;
+  inputDestinationCountry: string | undefined;
   inputDuration: number | undefined;
+  inputSourceDay: { day: Day, name: string } | undefined;
+  inputSourceTime: Time | undefined;
+  inputDestinationDay: { day: Day, name: string } | undefined;
+  inputDestinationTime: Time | undefined;
 
   imageId: number | undefined;
   imageName: string | undefined;
   imagePath: string | undefined;
 
+  days: { day: Day, name: string }[] | undefined
+
   errorLabel: string = '';
 
   constructor(private service: SharedService, public ref: DynamicDialogRef, public config: DynamicDialogConfig,
               private messageService: MessageService) {
-    this.categories = [Category.OneStar, Category.TwoStars, Category.ThreeStars, Category.FourStars, Category.FiveStars]
 
-    if (config.data['hotel']) {
-      const hotel: Hotel = config.data['hotel'];
+    this.days = [{day: Day.Sunday, name: 'Sunday'},
+      {day: Day.Monday, name: 'Monday'},
+      {day: Day.Tuesday, name: 'Tuesday'},
+      {day: Day.Wednesday, name: 'Wednesday'},
+      {day: Day.Thursday, name: 'Thursday'},
+      {day: Day.Friday, name: 'Friday'},
+      {day: Day.Saturday, name: 'Saturday'}]
+
+    if (config.data['tour']) {
+      const tour: Tour = config.data['tour'];
 
       this.editImage = true;
 
-      this.id = hotel.id;
-      this.inputName = hotel.name;
-      this.inputAddress = hotel.address?.address;
-      this.inputCity = hotel.address?.city;
-      this.inputCountry = hotel.address?.country;
-      this.inputCategory = hotel.category;
+      this.id = tour.id;
+      this.inputSourceAddress = tour.sourceInfo?.place?.address;
+      this.inputSourceCity = tour.sourceInfo?.place?.city;
+      this.inputSourceCountry = tour.sourceInfo?.place?.country;
+      this.inputDestinationAddress = tour.destinationInfo?.place?.address;
+      this.inputDestinationCity = tour.destinationInfo?.place?.city;
+      this.inputDestinationCountry = tour.destinationInfo?.place?.country;
+      this.inputDuration = tour.duration;
+      this.inputSourceDay = this.getDayName(tour.sourceInfo?.day);
+      this.inputSourceTime = tour.sourceInfo?.time;
+      this.inputDestinationDay = this.getDayName(tour.destinationInfo?.day);
+      this.inputDestinationTime = tour.destinationInfo?.time;
 
-      if (hotel.image && hotel.image.id)
-        this.imageId = hotel.image.id;
+      if (tour.image && tour.image.id)
+        this.imageId = tour.image.id;
     }
   }
 
-  onOk() {
-    const hotel = {
-      id: this.id,
-      name: this.inputName,
-      address: {
-        address: this.inputAddress,
-        city: this.inputCity,
-        country: this.inputCountry
-      },
-      category: this.inputCategory,
-      imageId: this.imageId
-    }
+  getDayName(day: Day) {
+    return this.days?.find(x => x.day === day);
+  }
 
-    this.config.data['execute'](hotel).subscribe(
+  onOk() {
+    const tour = {
+      id: this.id,
+      duration: this.inputDuration,
+      sourceInfo: {
+        place: {
+          address: this.inputSourceAddress,
+          city: this.inputSourceCity,
+          country: this.inputSourceCountry
+        },
+        day: this.inputSourceDay?.day,
+        time: this.inputSourceTime
+      },
+      destinationInfo: {
+        place: {
+          address: this.inputDestinationAddress,
+          city: this.inputDestinationCity,
+          country: this.inputDestinationCountry
+        },
+        day: this.inputDestinationDay?.day,
+        time: this.inputDestinationTime
+      },
+      imageId: this.imageId
+    } as Tour
+
+    this.config.data['execute'](tour).subscribe(
       () => {
         this.ref.close(true);
       },

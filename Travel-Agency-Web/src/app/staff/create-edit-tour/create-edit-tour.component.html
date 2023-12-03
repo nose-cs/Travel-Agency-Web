@@ -1,12 +1,40 @@
-<div class="formgrid grid" style="margin-top: 24px; margin-left: 1px;">
+<label>Source</label>
+<div class="field grid" style="margin-top: 22px;">
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceAddress" [(ngModel)]="inputSourceAddress"/>
+      <label htmlFor="address">Address</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceCity" [(ngModel)]="inputSourceCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="sourceCountry" [(ngModel)]="inputSourceCountry"/>
+      <label htmlFor="country">Country</label>
+    </span>
+  </div>
+</div>
 
+<div class="field grid" style="margin-top: 22px;">
   <div class="col">
     <span class="p-float-label">
       <p-dropdown
-        [options]="categories"
-        [(ngModel)]="inputCategory" placeholder="Select a Category"></p-dropdown>
-      <label htmlFor="role">Category</label>
+        [options]="days"
+        optionLabel="name"
+        [(ngModel)]="inputSourceDay"></p-dropdown>
+      <label htmlFor="role">Day</label>
     </span>
+  </div>
+
+  <div class="field col">
+    <div class="ui-g-12 ui-md-4">
+      <p-calendar [(ngModel)]="inputSourceTime" [timeOnly]="true" placeholder="Time"></p-calendar>
+    </div>
   </div>
 
   <div class="field col">
@@ -17,32 +45,27 @@
   </div>
 </div>
 
+
+<label>Destination</label>
 <div class="field grid" style="margin-top: 22px;">
   <div class="col">
     <span class="p-float-label">
-      <input pInputText id="sourceAddress" [(ngModel)]="inputAddress"/>
+      <input pInputText id="destinationAddress" [(ngModel)]="inputDestinationAddress"/>
       <label htmlFor="address">Address</label>
-    </span>
-  </div>
-  <div class="col">
-    <span class="p-float-label">
-      <input pInputText id="sourceCity" [(ngModel)]="inputCity"/>
-      <label htmlFor="city">City</label>
-    </span>
-  </div>
-  <div class="col">
-    <span class="p-float-label">
-      <input pInputText id="sourceCountry" [(ngModel)]="inputCountry"/>
-      <label htmlFor="country">Country</label>
     </span>
   </div>
 
   <div class="col">
     <span class="p-float-label">
-      <p-dropdown
-        [options]="categories"
-        [(ngModel)]="inputCategory" placeholder="Select a Category"></p-dropdown>
-      <label htmlFor="role">Day</label>
+      <input pInputText id="destinationCity" [(ngModel)]="inputDestinationCity"/>
+      <label htmlFor="city">City</label>
+    </span>
+  </div>
+
+  <div class="col">
+    <span class="p-float-label">
+      <input pInputText id="destinationCountry" [(ngModel)]="inputDestinationCountry"/>
+      <label htmlFor="country">Country</label>
     </span>
   </div>
 </div>
@@ -50,31 +73,17 @@
 <div class="field grid" style="margin-top: 22px;">
   <div class="col">
     <span class="p-float-label">
-      <input pInputText id="destinationAddress" [(ngModel)]="inputAddress"/>
-      <label htmlFor="address">Address</label>
-    </span>
-  </div>
-
-  <div class="col">
-    <span class="p-float-label">
-      <input pInputText id="destinationCity" [(ngModel)]="inputCity"/>
-      <label htmlFor="city">City</label>
-    </span>
-  </div>
-
-  <div class="col">
-    <span class="p-float-label">
-      <input pInputText id="destinationCountry" [(ngModel)]="inputCountry"/>
-      <label htmlFor="country">Country</label>
-    </span>
-  </div>
-
-
-  <div class="col">
-    <span class="p-float-label">
-      <input pInputText disabled [(ngModel)]="inputCity"/>
+      <p-dropdown
+        [options]="[]"
+        [(ngModel)]="inputDestinationDay" placeholder="Select a Category"></p-dropdown>
       <label htmlFor="role">Day</label>
     </span>
+  </div>
+
+  <div class="field col">
+    <div class="ui-g-12 ui-md-4">
+      <p-calendar [(ngModel)]="inputDestinationTime" [timeOnly]="true" placeholder="Time"></p-calendar>
+    </div>
   </div>
 </div>
 

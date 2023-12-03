@@ -17,6 +17,7 @@ import {ShowToursComponent} from "../../staff/show-tours/show-tours.component";
 import {CreateEditFlightComponent} from "../../staff/create-edit-flight/create-edit-flight.component";
 import {ShowFlightsComponent} from "../../staff/show-flights/show-flights.component";
 import {Flight} from "../../models/flight";
+import {Tour} from "../../models/tour";
 
 @Component({
   selector: 'app-traveller-admin',
@@ -137,8 +138,8 @@ export class TravellerAdminComponent {
       case "Create":
         this.ref = this.dialogService.open(CreateEditTourComponent, {
           data: {
-            tour: {},
-            execute: (hotel: Hotel) => this.service.createHotel(hotel)
+            tour: {} as Tour,
+            execute: (tour: Tour) => this.service.createTour(tour)
           },
           header: 'Create a new tour',
           contentStyle: {overflow: 'auto'},
