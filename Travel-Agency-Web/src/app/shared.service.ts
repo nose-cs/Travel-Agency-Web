@@ -22,7 +22,7 @@ import { Facility, FacilityFilter, Package, PackageFacility } from './models/pac
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
   //Products with Filter
@@ -110,6 +110,9 @@ export class SharedService {
     params = params.append('packageId', packageId);
 
     return this.http.get<Tour[]>(this.APIUrl + '/Package/getTours', { params })
+  }
+  getTourHotels(TourId: number){
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/' + TourId + '/fromTour');
   }
 
   getPackageFacilities(packageId: number) {

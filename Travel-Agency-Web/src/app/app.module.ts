@@ -58,10 +58,11 @@ import { FlightsComponent } from './flights/flights.component';
 import { FlightFilteringComponent } from './flights/flight-filtering/flight-filtering.component';
 import { ToursComponent } from './tours/tours.component';
 import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.component';
-//import { PackagesComponent } from './packages/packages.component';
-//import { PackageDetailsComponent } from './packages/package-details/package-details.component';
+import { PackagesComponent } from './packages/packages.component';
+import { PackageDetailsComponent } from './packages/package-details/package-details.component';
 import { MessageService } from 'primeng/api';
 import { UserSiteComponent } from './user-site/user-site.component';
+import { TourHotelsComponent } from './tours/tour-hotels/tour-hotels.component';
 
 
 @NgModule({
@@ -85,9 +86,10 @@ import { UserSiteComponent } from './user-site/user-site.component';
     AgencyAdminComponent,
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
-    //PackagesComponent,
-    //PackageDetailsComponent,
-    UserSiteComponent
+    PackagesComponent,
+    PackageDetailsComponent,
+    UserSiteComponent,
+    TourHotelsComponent
   ],
   imports: [
     BrowserModule,
