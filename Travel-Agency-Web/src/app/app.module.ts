@@ -70,6 +70,8 @@ import { CreateEditFlightComponent } from './staff/create-edit-flight/create-edi
 import { CreateEditTourComponent } from './staff/create-edit-tour/create-edit-tour.component';
 import { ShowFlightsComponent } from './staff/show-flights/show-flights.component';
 import { ShowToursComponent } from './staff/show-tours/show-tours.component';
+import { PacksComponent } from './packs/packs.component';
+import { PackDetailsComponent } from './packs/pack-details/pack-details.component';
 
 
 @NgModule({
@@ -104,6 +106,8 @@ import { ShowToursComponent } from './staff/show-tours/show-tours.component';
     CreateEditTourComponent,
     ShowFlightsComponent,
     ShowToursComponent,
+    PacksComponent,
+    PackDetailsComponent,
   ],
   imports: [
     BrowserModule,

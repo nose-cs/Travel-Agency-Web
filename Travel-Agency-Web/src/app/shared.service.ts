@@ -23,7 +23,7 @@ import {Agency} from "./models/agency";
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5235/api';
   constructor(private http: HttpClient) { }
 
   // Hotel CRUD
