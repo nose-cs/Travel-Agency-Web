@@ -28,9 +28,7 @@ onSubmit() {
 
   // Llama al servicio con el filtro y emite el evento con los resultados
   this.service.getHotelsWithFilter(filter).subscribe(data => {
-    console.log(data)
     this.filterResults.emit(data);
-    console.log(data);
   });
 }
 

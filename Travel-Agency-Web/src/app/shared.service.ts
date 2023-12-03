@@ -14,6 +14,7 @@ import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
+import { pack } from './models/package';
 
 @Injectable({
   providedIn: 'root'
@@ -114,10 +115,12 @@ export class SharedService {
     if(offerType == 'tour')
       return this.http.get<Offer[]>(this.APIUrl + '/TourOffer', {params} );
     if(offerType == 'package')
-    return this.http.get<Offer[]>(this.APIUrl + '/PackageOffer', {params} );
+    return this.http.get<Offer[]>(this.APIUrl + '/Package', {params} );
     return;
   }
-
+  getPackageTours(id: number){
+      return this.http.get<Tour[]>(this.APIUrl + '/Package/getTours')
+  }
   createHotelOffer(offer: Offer): Observable<void> {
     return this.http.post<void>(this.APIUrl + '/HotelOffer', offer);
   }

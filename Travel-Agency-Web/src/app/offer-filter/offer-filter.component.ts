@@ -35,6 +35,8 @@ onSubmit() {
   filter.startPrice = this.startPrice;
   filter.endPrice = this.endPrice;
   filter.capacity = this.capacity;
+  filter.startDate = this.startDate;
+  filter.endDate = this.endDate;
   this.service.getOffersWithFilter(filter, this.offerType)!.subscribe(data => {
   this.filterResults.emit(data);
   });
