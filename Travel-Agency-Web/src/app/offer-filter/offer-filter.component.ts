@@ -23,11 +23,14 @@ export class OfferFilterComponent {
   constructor(private http: HttpClient, private service: SharedService) {}
   
   // Usa un evento para enviar los resultados del filtro al componente padre
-  @Output() filterResults = new EventEmitter<Offer[]>();
+  @Output() filterResults = new EventEmitter<OfferFilter>();
 
-  @Input() idProduct!: number;
-  @Input() offerType!: string;
+  onSubmit() {
+    const filter = new OfferFilter;
 
+    filter.startPrice = this.startPrice;
+    filter.endPrice = this.endPrice;
+    filter.capacity = this.capacity;
 
 onSubmit() {
   const filter = new OfferFilter;
@@ -41,4 +44,6 @@ onSubmit() {
   this.filterResults.emit(data);
   });
 }
+    this.filterResults.emit(filter);
+  }
 }

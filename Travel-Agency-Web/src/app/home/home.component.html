@@ -5,7 +5,7 @@
       <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
           <div class="mb-3">
-            <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png" />
+            <img class="w-9 shadow-2 border-round" [src]="'../../assets/' + product.image.filePath" />
           </div>
           <div>
             <h4 class="mb-1">{{ product.name }}</h4>
@@ -42,20 +42,16 @@
   </p-card>
 
   <p-card header="Tours" [style]="{ marginTop: '20px' }">
-    <p-carousel [style]="{ margin: '50px' }" [value]="hotels" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
+    <p-carousel [style]="{ margin: '50px' }" [value]="tours" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
       <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
           <div class="mb-3">
             <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png" />
           </div>
           <div>
-            <h4 class="mb-1">{{ product.name }}</h4>
-            <div style="margin: 10px">
-              <ng-container *ngFor="let item of [].constructor(product.category); let i = index">
-                <i class="pi pi-fw pi-star-fill" style="color: #FFE642; font-size: 1.5rem"></i>
-              </ng-container>
-            </div>
-            <div class="text-1xl">{{ product.address.city }}</div>
+            <h4 class="mb-1">{{ product.sourceInfo.place.city }} - {{ product.destinationInfo.place.city }}</h4>
+            
+            <div class="text-1xl">{{getDurationString(product.duration)}}</div>
             <div class="car-buttons mt-5">
               <p-button label="See Offers" [rounded]="true" (click)="openTourOfferList(product.id)"></p-button>
             </div>

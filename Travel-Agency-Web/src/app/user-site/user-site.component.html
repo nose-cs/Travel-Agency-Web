@@ -1,0 +1,118 @@
+<p-fieldset>
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center text-primary">
+      <span class="pi pi-user mr-2"></span>
+      <span class="font-bold text-lg">User Details</span>
+    </div>
+  </ng-template>
+
+  <div class="p-inputgroup">
+    <span style="min-width: 8%" class="p-inputgroup-addon">
+      Name
+    </span>
+    <input pInputText [disabled]="true"  [(ngModel)]="name"/>
+  </div>
+  <div class="p-inputgroup" style="margin-top: 4px">
+    <span style="min-width: 8%" class="p-inputgroup-addon">
+      Email
+    </span>
+    <input pInputText [disabled]="true" [(ngModel)]="email"/>
+  </div>
+  <div class="p-inputgroup" style="margin-top: 4px">
+    <span style="min-width: 8%" class="p-inputgroup-addon">
+      Role
+    </span>
+    <input pInputText [disabled]="true" [(ngModel)]="role"/>
+  </div>
+  <div *ngIf="country != null && country != ''" class="p-inputgroup" style="margin-top: 4px">
+    <span style="min-width: 8%" class="p-inputgroup-addon">
+      Country
+    </span>
+    <input pInputText [disabled]="true" [(ngModel)]="country"/>
+  </div>
+  <div class="p-inputgroup" style="margin-top: 4px">
+    <span style="min-width: 8%" class="p-inputgroup-addon">
+      Password
+    </span>
+    <input pInputText [disabled]="true" [(ngModel)]="password"/>
+    <span (click)="showDialogChangePassword()" class="p-inputgroup-addon">
+      <i class="pi pi-pencil"></i>
+    </span>
+  </div>
+
+</p-fieldset>
+
+<p-dialog header="Header" [(visible)]="visibleDialogChangePassword" [modal]="true" (onHide)="dismissDialogChangePassword()">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">Change Password</span>
+  </ng-template>
+  <br />
+
+  <div class="field grid">
+    <span class="p-float-label">
+      <p-password [(ngModel)]="inputOldPassword" [toggleMask]="true" [feedback]="false"></p-password>
+      <label for="password">Old Password</label>
+    </span>
+  </div>
+
+  <div class="field grid" style="margin-top: 22px;">
+    <span class="p-float-label">
+      <p-password [(ngModel)]="inputNewPassword" [toggleMask]="true" [feedback]="false"></p-password>
+      <label for="password">New Password</label>
+    </span>
+  </div>
+
+  <label style="color: #ff0000">{{ errorLabel }}</label>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="changePasswordFun()" label="Ok" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-fieldset [style]="{ marginTop: '20px'}">
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center text-primary">
+      <span class="pi pi-bookmark mr-2"></span>
+      <span class="font-bold text-lg">Reservations</span>
+    </div>
+  </ng-template>
+
+  <p-tabView>
+    <p-tabPanel header="Current">
+      <p-card>
+        <p-tabView [(activeIndex)]="currentActiveIndex">
+          <p-tabPanel header="Hotels">
+
+          </p-tabPanel>
+          <p-tabPanel header="Flights">
+
+          </p-tabPanel>
+          <p-tabPanel header="Tours">
+
+          </p-tabPanel>
+          <p-tabPanel header="Packages">
+
+          </p-tabPanel>
+        </p-tabView>
+      </p-card>
+    </p-tabPanel>
+    <p-tabPanel header="History">
+      <p-card>
+        <p-tabView  [(activeIndex)]="historyActiveIndex">
+          <p-tabPanel header="Hotels">
+
+          </p-tabPanel>
+          <p-tabPanel header="Flights">
+
+          </p-tabPanel>
+          <p-tabPanel header="Tours">
+
+          </p-tabPanel>
+          <p-tabPanel header="Packages">
+
+          </p-tabPanel>
+        </p-tabView>
+      </p-card>
+    </p-tabPanel>
+  </p-tabView>
+
+</p-fieldset>

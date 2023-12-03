@@ -11,8 +11,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthenticationInterceptor } from './interceptor';
-import { FlightOffersComponent } from './flight-offers/flight-offers.component';
-import { ShowFlightOffersComponent } from './flight-offers/show-flight-offers/show-flight-offers.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataViewModule } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
@@ -26,6 +24,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+import { FieldsetModule } from 'primeng/fieldset';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { TabViewModule } from 'primeng/tabview';
+import { PaginatorModule } from 'primeng/paginator';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -57,6 +60,7 @@ import { TourFilteringComponent } from './tours/tour-filtering/tour-filtering.co
 import { PackagesComponent } from './packages/packages.component';
 import { PackageDetailsComponent } from './packages/package-details/package-details.component';
 import { MessageService } from 'primeng/api';
+import { UserSiteComponent } from './user-site/user-site.component';
 
 
 @NgModule({
@@ -65,8 +69,6 @@ import { MessageService } from 'primeng/api';
     HomeComponent,
     HotelOffersComponent,
     ShowHotelOffersComponent,
-    FlightOffersComponent,
-    ShowFlightOffersComponent,
     HotelsComponent,
     ShowHotelsComponent,
     HotelfilteringComponent,
@@ -83,7 +85,8 @@ import { MessageService } from 'primeng/api';
     CreateEditUserComponent,
     ShowAgencyUsersComponent,
     PackagesComponent,
-    PackageDetailsComponent
+    PackageDetailsComponent,
+    UserSiteComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,12 @@ import { MessageService } from 'primeng/api';
     DropdownModule,
     CarouselModule,
     FileUploadModule,
-    ToastModule
+    ToastModule,
+    FieldsetModule,
+    CheckboxModule,
+    RadioButtonModule,
+    TabViewModule,
+    PaginatorModule
   ],
   providers: [SharedService,
     {

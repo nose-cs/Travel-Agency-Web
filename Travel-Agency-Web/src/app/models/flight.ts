@@ -9,8 +9,15 @@ export interface Flight{
 }
 
 export class FlightFilter{
-    SourcePlace: string|null = null
-    DestinationPlace: string|null = null
-    flightNumber: number|null = null
-    airline:string|null = null
+    id: number | undefined;
+    sourcePlace: string | undefined;
+    destinationPlace: string | undefined;
+    flightNumber: number | undefined;
+  airline: string | undefined;
+
+  pageIndex: number | undefined;
+  pageSize: number | undefined;
+
+  orderBy: string | undefined;
+  descending: boolean | undefined;
 }

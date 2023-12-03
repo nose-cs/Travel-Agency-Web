@@ -12,6 +12,9 @@ import { UIChart } from 'primeng/chart';
 import { group } from '@angular/animations';
 import { OfferFilter } from '../../models/offerFilter';
 import { Document, ExportType } from '../../models/document';
+import { Flight, FlightFilter } from '../../models/flight';
+import { TourFilter } from '../../models/tourFilter';
+import { Tour } from '../../models/tour';
 
 @Component({
   selector: 'app-marketing',
@@ -269,16 +272,23 @@ export class MarketingComponent {
               data: {
                 offer: offer,
                 execute: (hotelOffer: Offer) => this.service.createHotelOffer(hotelOffer),
-                filter: async (query: string) => {
+                filter: async (query: string, productId: number | undefined) => {
                   const filter = new HotelFilter();
-                  filter.hotelName = query;
+
+                  if (productId)
+                    filter.productId = productId;
+                  else
+                    filter.hotelName = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
 
                   let suggestions: { id: number, name: string }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
-                    this.service.getHotelsWithFilter(filter).subscribe(
-                      (hotels: Hotel[]) => {
-                        for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name + " - " + hotel.address.city }; })) {
+                    this.service.getHotels(filter).subscribe(
+                      hotels => {
+                        for (let sugg of hotels.items.map(hotel => { return { id: hotel.id, name: hotel.name + " - " + hotel.address.city }; })) {
                           suggestions.push(sugg);
                         }
 
@@ -304,26 +314,34 @@ export class MarketingComponent {
             break;
 
           case "Manage":
-            const agencyFilter = new OfferFilter();
-            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
 
             this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
               data: {
                 offerName: 'Hotel',
-                getOfferList: this.service.getOffersWithFilter(agencyFilter, 'hotel'),
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'hotel');
+                },
                 editOffer: (offer: Offer) => this.service.editHotelOffer(offer),
                 deleteOffer: (id: number) => this.service.deleteHotelOffer(id),
 
-                productFilter: async (query: string) => {
+                productFilter: async (query: string, productId: number | undefined) => {
                     const filter = new HotelFilter();
-                    filter.hotelName = query;
+
+                    if (productId)
+                      filter.productId = productId;
+                    else
+                      filter.hotelName = query;
+
+                    filter.pageIndex = 1;
+                    filter.pageSize = 30;
 
                     let suggestions: { id: number, name: string }[] = [];
 
                     let promise = new Promise<void>((resolve, reject) => {
-                      this.service.getHotelsWithFilter(filter).subscribe(
-                        (hotels: Hotel[]) => {
-                          for (let sugg of hotels.map(hotel => { return { id: hotel.id, name: hotel.name + ' - ' + hotel.address.city }; })) {
+                      this.service.getHotels(filter).subscribe(
+                        hotels => {
+                          for (let sugg of hotels.items.map(hotel => { return { id: hotel.id, name: hotel.name + ' - ' + hotel.address.city }; })) {
                             suggestions.push(sugg);
                           }
 
@@ -339,7 +357,223 @@ export class MarketingComponent {
                     await promise;
 
                     return suggestions;
+                }
+              },
+              contentStyle: { overflow: 'auto' },
+              baseZIndex: 10000,
+              width: '80%',
+              maximizable: true
+            });
+            break;
+        }
+
+        break;
+
+      case "Flight Offers":
+
+        switch (action) {
+          case "Create":
+            const offer = new Offer();
+
+            this.ref = this.dialogService.open(CreateEditOffersComponent, {
+              data: {
+                offer: offer,
+                execute: (flightOffer: Offer) => this.service.createFlightOffer(flightOffer),
+                filter: async (query: string, productId: number | undefined) => {
+                  const filter = new FlightFilter();
+
+                  if (productId)
+                    filter.id = productId;
+                  else
+                    filter.flightNumber = +query ? +query : -1;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: { id: number, name: string }[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+                    this.service.getFlights(filter).subscribe(
+                      flights => {
+                        for (let sugg of flights.items.map(flight => { return { id: flight.id, name: flight.flightNumber + " - " + flight.airline }; })) {
+                          suggestions.push(sugg);
+                        }
+
+                        resolve();
+                      },
+                      (error) => {
+                        reject(error);
+                      }
+                    );
                   }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                }
+              },
+              header: 'Create a Flight offer',
+              contentStyle: { overflow: 'auto' },
+              baseZIndex: 10000,
+              maximizable: false
+            });
+            break;
+
+          case "Manage":
+            
+            this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
+              data: {
+                offerName: 'Flight',
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'flight');
+                },
+                editOffer: (offer: Offer) => this.service.editFlightOffer(offer),
+                deleteOffer: (id: number) => this.service.deleteFlightOffer(id),
+
+                productFilter: async (query: string, productId: number | undefined) => {
+                  const filter = new FlightFilter();
+
+                  if (productId)
+                    filter.id = productId;
+                  else
+                    filter.flightNumber = +query ? +query : -1;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: { id: number, name: string }[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+                    this.service.getFlights(filter).subscribe(
+                      flights => {
+                        for (let sugg of flights.items.map(flight => { return { id: flight.id, name: flight.flightNumber + ' - ' + flight.airline }; })) {
+                          suggestions.push(sugg);
+                        }
+
+                        resolve();
+                      },
+                      (error) => {
+                        reject(error);
+                      }
+                    );
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                }
+              },
+              contentStyle: { overflow: 'auto' },
+              baseZIndex: 10000,
+              width: '80%',
+              maximizable: true
+            });
+            break;
+        }
+
+        break;
+
+      case "Tour Offers":
+
+        switch (action) {
+          case "Create":
+            const offer = new Offer();
+
+            this.ref = this.dialogService.open(CreateEditOffersComponent, {
+              data: {
+                offer: offer,
+                execute: (tourOffer: Offer) => this.service.createTourOffer(tourOffer),
+                filter: async (query: string, productId: number | undefined) => {
+                  const filter = new TourFilter();
+
+                  if (productId)
+                    filter.id = productId;
+                  else
+                    filter.sourcePlace = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: { id: number, name: string }[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+                    this.service.getTours(filter).subscribe(
+                      tours => {
+                        for (let sugg of tours.items.map(tour => { return { id: tour.id, name: tour.sourceInfo.place.city + " - " + tour.destinationInfo.place.city }; })) {
+                          suggestions.push(sugg);
+                        }
+
+                        resolve();
+                      },
+                      (error) => {
+                        reject(error);
+                      }
+                    );
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                }
+              },
+              header: 'Create a Tour offer',
+              contentStyle: { overflow: 'auto' },
+              baseZIndex: 10000,
+              maximizable: false
+            });
+            break;
+
+          case "Manage":
+            const agencyFilter = new OfferFilter();
+            agencyFilter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+
+            this.ref = this.dialogService.open(ShowStaffHotelOffersComponent, {
+              data: {
+                offerName: 'Tour',
+                getOfferList: (filter: OfferFilter) => {
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+                  return this.service.getOffersWithFilter(filter, 'tour');
+                },
+                editOffer: (offer: Offer) => this.service.editTourOffer(offer),
+                deleteOffer: (id: number) => this.service.deleteTourOffer(id),
+
+                productFilter: async (query: string, productId: number | undefined) => {
+                  const filter = new TourFilter();
+
+                  if (productId)
+                    filter.id = productId;
+                  else
+                    filter.sourcePlace = query;
+
+                  filter.pageIndex = 1;
+                  filter.pageSize = 30;
+
+                  let suggestions: { id: number, name: string }[] = [];
+
+                  let promise = new Promise<void>((resolve, reject) => {
+                    this.service.getTours(filter).subscribe(
+                      tours => {
+                        for (let sugg of tours.items.map(tour => { return { id: tour.id, name: tour.sourceInfo.place.city + ' - ' + tour.destinationInfo.place.city }; })) {
+                          suggestions.push(sugg);
+                        }
+
+                        resolve();
+                      },
+                      (error) => {
+                        reject(error);
+                      }
+                    );
+                  }
+                  );
+
+                  await promise;
+
+                  return suggestions;
+                }
               },
               contentStyle: { overflow: 'auto' },
               baseZIndex: 10000,
