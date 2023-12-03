@@ -1,12 +1,18 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Offer } from '../../models/offer';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SharedService } from '../../shared.service';
 import { FileUpload, FileUploadEvent, FileUploadHandlerEvent } from 'primeng/fileupload';
 import { MessageService } from 'primeng/api';
 import { Tour } from '../../models/tour';
 import { Package, PackageFacility } from '../../models/package';
 import { TourFilter } from '../../models/tourFilter';
+import { CreateEditHotelComponent } from '../create-edit-hotel/create-edit-hotel.component';
+import { Hotel } from '../../models/hotel';
+import { CreateEditTourComponent } from '../create-edit-tour/create-edit-tour.component';
+import { Flight } from '../../models/flight';
+import { CreateEditFlightComponent } from '../create-edit-flight/create-edit-flight.component';
+import { ShowCalendarComponent } from '../../show-calendar/show-calendar.component';
 
 @Component({
   selector: 'app-create-edit-offers',
@@ -29,8 +35,8 @@ export class CreateEditOffersComponent {
   inputTitle: string | undefined;
   inputPrice: number = 0;
   inputCapacity: number = 0;
-  inputStartDate: Date | undefined;
-  inputEndDate: Date | undefined;
+  inputStartDate: string | undefined;
+  inputEndDate: string | undefined;
   inputDescription: string | undefined;
 
   imageId: number | undefined;
@@ -47,7 +53,10 @@ export class CreateEditOffersComponent {
   targetPFacilities: PackageFacility[] = [];
   queryFacility: string = '';
 
-  constructor(private service: SharedService, public ref: DynamicDialogRef, public config: DynamicDialogConfig, private messageService: MessageService)
+  refaddProduct: DynamicDialogRef | undefined;
+  refchangeDate: DynamicDialogRef | undefined;
+
+  constructor(private service: SharedService, private dialogService: DialogService, public ref: DynamicDialogRef, public config: DynamicDialogConfig, private messageService: MessageService)
   {
     if (config.data['offer']) {
       const offer: Offer = config.data['offer'];
@@ -61,10 +70,10 @@ export class CreateEditOffersComponent {
       this.inputDescription = offer.description;
       
       if (offer.startDate) {
-        this.inputStartDate = new Date(offer.startDate.toString());
+        this.inputStartDate = new Date(offer.startDate.toString()).toDateString();
       }
       if (offer.endDate) {
-        this.inputEndDate = new Date(offer.endDate.toString());
+        this.inputEndDate = new Date(offer.endDate.toString()).toDateString();
       }
 
       if (offer.productId)
@@ -120,8 +129,18 @@ export class CreateEditOffersComponent {
     offer.capacity = this.inputCapacity!;
     offer.price = this.inputPrice;
     offer.description = this.inputDescription;
-    offer.startDate = this.inputStartDate;
-    offer.endDate = this.inputEndDate;
+
+    if (this.inputStartDate)
+      offer.startDate = new Date(this.inputStartDate);
+
+    if (this.inputEndDate)
+      offer.endDate = new Date(this.inputEndDate);
+
+    if (this.imageId == undefined) {
+      this.errorLabel = "Please select an image";
+      return;
+    }
+
     offer.imageId = this.imageId;
 
     if (this.config.data['offerName'] != 'Package') {
@@ -167,8 +186,13 @@ export class CreateEditOffersComponent {
       pack.capacity = this.inputCapacity!;
       pack.price = this.inputPrice;
       pack.description = this.inputDescription;
-      pack.startDate = this.inputStartDate;
-      pack.endDate = this.inputEndDate;
+
+      if (this.inputStartDate)
+        pack.startDate = new Date(this.inputStartDate);
+
+      if (this.inputEndDate)
+        pack.endDate = new Date(this.inputEndDate);
+
       pack.imageId = this.imageId;
 
       pack.ToursIds = this.targetTours.map(tour => tour.id);
@@ -250,5 +274,88 @@ export class CreateEditOffersComponent {
 
   getDurationString(days: number) {
     return days > 0 ? 'Duration: ' + days + ' Days' : 'Single Day';
+  }
+
+  addNewProduct() {
+    switch (this.config.data['offerName']) {
+      case 'Hotel':
+        this.refaddProduct = this.dialogService.open(CreateEditHotelComponent, {
+          data: {
+            hotel: {},
+            execute: (hotel: Hotel) => this.service.createHotel(hotel)
+          },
+          header: 'Create a new hotel',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: false
+        });
+        break;
+
+      case 'Flight':
+        this.ref = this.dialogService.open(CreateEditFlightComponent, {
+          data: {
+            flight: {} as Flight,
+            execute: (flight: Flight) => this.service.createFlight(flight)
+          },
+          header: 'Create a new flight',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: false
+        });
+        break;
+
+      case 'Tour':
+        this.ref = this.dialogService.open(CreateEditTourComponent, {
+          data: {
+            tour: {} as Tour,
+            execute: (tour: Tour) => this.service.createTour(tour)
+          },
+          header: 'Create a new tour',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: false
+        });
+        break;
+    }
+  }
+
+  openCalendarDialog(field: string) {
+    switch (field) {
+      case 'StartDate':
+        this.refchangeDate = this.dialogService.open(ShowCalendarComponent, {
+          data: {
+            date: this.inputStartDate ? new Date(this.inputStartDate) : undefined
+          },
+          header: 'Select a start date',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: true
+        });
+
+        this.refchangeDate.onClose.subscribe((date: Date | undefined) => {
+          if (date) {
+            this.inputStartDate = date.toDateString();
+          }
+        })
+        break;
+
+      case 'EndDate':
+        this.refchangeDate = this.dialogService.open(ShowCalendarComponent, {
+          data: {
+            date: this.inputEndDate ? new Date(this.inputEndDate) : undefined
+          },
+          header: 'Select an end date',
+          contentStyle: { overflow: 'auto' },
+          baseZIndex: 10000,
+          maximizable: true
+        });
+
+        this.refchangeDate.onClose.subscribe((date: Date | undefined) => {
+          if (date) {
+            this.inputEndDate = date.toDateString();
+          }
+        })
+        break;
+    }
   }
 }

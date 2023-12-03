@@ -25,6 +25,9 @@ export class FlightsComponent {
   pageSize: number = 10;
   total: number = 0;
 
+  orders: string[] = ["Lastest", "Oldest", "Airline A-Z", "Airline Z-A", "Flight 1-9", "Flight 9-1"];
+  inputOrder: string = this.orders[0];
+
   filter: FlightFilter = new FlightFilter();
 
   ngOnInit(): void {
@@ -41,6 +44,32 @@ export class FlightsComponent {
   refreshList() {
     this.filter.pageIndex = this.pageIndex;
     this.filter.pageSize = this.pageSize;
+
+    switch (this.inputOrder) {
+      case "Lastest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = true;
+        break;
+      case "Oldest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = false;
+        break;
+      case "Airline Z-A":
+        this.filter.orderBy = "Airline";
+        this.filter.descending = true;
+        break;
+      case "Airline A-Z":
+        this.filter.orderBy = "Airline";
+        this.filter.descending = false;
+        break;
+      case "Flight 9-1":
+        this.filter.orderBy = "FlightNumber";
+        this.filter.descending = true;
+        break;
+      case "Flight 1-9":
+        this.filter.orderBy = "FlightNumber";
+        this.filter.descending = false;
+    }
 
     this.service.getFlights(this.filter).subscribe(paginator => {
       this.FlightList = paginator.items;
@@ -75,6 +104,12 @@ export class FlightsComponent {
   }
   getAddres(place: Place) {
     return place.address + ', ' + place.city + ', ' + place.country;
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
   }
 
 }

@@ -309,7 +309,7 @@ export class MarketingComponent {
                 }
               },
               header: 'Create a Hotel offer',
-              contentStyle: { overflow: 'visible' },
+              contentStyle: { overflow: 'auto' },
               maximizable: false
             });
             break;
@@ -415,7 +415,7 @@ export class MarketingComponent {
                 }
               },
               header: 'Create a Flight offer',
-              contentStyle: { overflow: 'visible' },
+              contentStyle: { overflow: 'auto' },
               maximizable: false
             });
             break;
@@ -521,7 +521,7 @@ export class MarketingComponent {
                 }
               },
               header: 'Create a Tour offer',
-              contentStyle: { overflow: 'visible' },
+              contentStyle: { overflow: 'auto' },
               maximizable: false
             });
             break;

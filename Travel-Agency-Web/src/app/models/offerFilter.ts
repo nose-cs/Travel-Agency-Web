@@ -1,4 +1,7 @@
-export class OfferFilter{
+import { Pagination } from "./pagination";
+
+export class OfferFilter extends Pagination
+{
   productId: number | undefined;
   agencyId: number | undefined;
   startDate: Date | undefined;
@@ -6,10 +9,4 @@ export class OfferFilter{
   capacity: number | undefined;
   startPrice: number | undefined;
   endPrice: number | undefined;
-
-  pageIndex: number | undefined;
-  pageSize: number | undefined;
-
-  orderBy: string | undefined;
-  descending: boolean | undefined;
 }

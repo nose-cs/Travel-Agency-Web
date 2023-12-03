@@ -28,6 +28,9 @@ export class ShowHotelsComponent {
   pageSize: number = 10;
   total: number = 0;
 
+  orders: string[] = ["Lastest", "Oldest", "Name A-Z", "Name Z-A", "Bigger Category", "Smaller Category"];
+  inputOrder: string = this.orders[0];
+
   filter: HotelFilter = new HotelFilter();
 
   ngOnInit(): void {
@@ -48,6 +51,32 @@ export class ShowHotelsComponent {
   refreshHotelList() {
     this.filter.pageIndex = this.pageIndex;
     this.filter.pageSize = this.pageSize;
+
+    switch (this.inputOrder) {
+      case "Lastest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = true;
+        break;
+      case "Oldest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = false;
+        break;
+      case "Name Z-A":
+        this.filter.orderBy = "Name";
+        this.filter.descending = true;
+        break;
+      case "Name A-Z":
+        this.filter.orderBy = "Name";
+        this.filter.descending = false;
+        break;
+      case "Bigger Category":
+        this.filter.orderBy = "Category";
+        this.filter.descending = true;
+        break;
+      case "Smaller Category":
+        this.filter.orderBy = "Category";
+        this.filter.descending = false;
+    }
 
     this.service.getHotels(this.filter).subscribe(paginator => {
       this.HotelList = paginator.items;
@@ -82,5 +111,11 @@ export class ShowHotelsComponent {
   }
   getAddres(place: Place) {
     return place.address + ', ' + place.city + ', ' + place.country;
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshHotelList();
   }
 }

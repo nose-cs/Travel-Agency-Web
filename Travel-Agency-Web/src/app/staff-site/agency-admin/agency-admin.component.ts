@@ -5,6 +5,7 @@ import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AgencyUser, Role} from "../../models/agencyUser";
 import {CreateEditUserComponent} from "../../staff/create-edit-user/create-edit-user.component";
 import {ShowAgencyUsersComponent} from "../../staff/show-agency-users/show-agency-users.component";
+import { Pagination } from '../../models/pagination';
 
 @Component({
   selector: 'app-agency-admin',
@@ -40,7 +41,7 @@ export class AgencyAdminComponent {
 
             this.ref = this.dialogService.open(ShowAgencyUsersComponent, {
               data: {
-                getUserList: this.service.getAgencyUsers(agencyId),
+                getUserList: (filter: Pagination) => this.service.getAgencyUsers(agencyId, filter),
                 editAgencyUser: (agencyUser: AgencyUser) => this.service.editAgencyUser(agencyUser, agencyId),
                 deleteAgencyUser: (id: number, agencyId: number) => this.service.deleteAgencyUser(agencyId, id),
                 roles: [

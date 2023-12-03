@@ -1,7 +1,9 @@
 import { Time } from "@angular/common"
 import { Day } from "./tour"
-                                                                                                                                                     
-export class TourFilter{
+import { Pagination } from "./pagination"
+
+export class TourFilter extends Pagination
+{
    id: number| undefined 
    duration: number| undefined
    startDay:Day|undefined
@@ -9,10 +11,4 @@ export class TourFilter{
    destinationPlace: string|undefined
    startTime: Time|undefined
   endTime: Time | undefined
-
-  pageIndex: number | undefined;
-  pageSize: number | undefined;
-
-  orderBy: string | undefined;
-  descending: boolean | undefined;
 }

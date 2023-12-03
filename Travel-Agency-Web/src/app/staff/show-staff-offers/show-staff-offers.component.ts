@@ -26,6 +26,9 @@ export class ShowStaffHotelOffersComponent {
   pageSize: number = 10;
   total: number = 0;
 
+  orders: string[] = ["Lastest", "Oldest", "Bigger Price", "Smaller Price"];
+  inputOrder: string = this.orders[0];
+
   filter: OfferFilter = new OfferFilter();
 
   ngOnInit() {
@@ -42,6 +45,25 @@ export class ShowStaffHotelOffersComponent {
   refreshTable() {
     this.filter.pageIndex = this.pageIndex;
     this.filter.pageSize = this.pageSize;
+
+    switch (this.inputOrder) {
+      case "Lastest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = true;
+        break;
+      case "Oldest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = false;
+        break;
+      case "Bigger Price":
+        this.filter.orderBy = "Price";
+        this.filter.descending = true;
+        break;
+      case "Smaller Price":
+        this.filter.orderBy = "Price";
+        this.filter.descending = false;
+        break;
+    }
 
     this.config.data['getOfferList'](this.filter).subscribe((paginator: PaginationResponse<Offer>) => {
       this.OfferList = paginator.items;
@@ -60,7 +82,7 @@ export class ShowStaffHotelOffersComponent {
         filterFacility: this.config.data['filterFacility']
       },
       header: 'Edit ' + this.config.data['offerName'] + ' offer',
-      contentStyle: { overflow: this.config.data['offerName'] == 'Package' ? 'auto' : 'visible' },
+      contentStyle: { overflow: 'auto' },
       width: this.config.data['offerName'] == 'Package' ? '80%' : undefined,
       maximizable: this.config.data['offerName'] == 'Package'
     });
@@ -81,5 +103,11 @@ export class ShowStaffHotelOffersComponent {
         this.config.data['deleteOffer'](offer.id).subscribe(() => { this.refreshTable(); });
       }
     });
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshTable();
   }
 }

@@ -30,6 +30,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TabViewModule } from 'primeng/tabview';
 import { PaginatorModule } from 'primeng/paginator';
 import { PickListModule } from 'primeng/picklist';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 import { HotelsComponent } from './hotels/hotels.component';
 import { ShowHotelsComponent } from './hotels/show-hotels/show-hotels.component';
@@ -69,6 +70,7 @@ import { CreateEditFlightComponent } from './staff/create-edit-flight/create-edi
 import { CreateEditTourComponent } from './staff/create-edit-tour/create-edit-tour.component';
 import { ShowFlightsComponent } from './staff/show-flights/show-flights.component';
 import { ShowToursComponent } from './staff/show-tours/show-tours.component';
+import { ShowCalendarComponent } from './show-calendar/show-calendar.component';
 import { PacksComponent } from './packs/packs.component';
 import { PackDetailsComponent } from './packs/pack-details/pack-details.component';
 
@@ -103,6 +105,7 @@ import { PackDetailsComponent } from './packs/pack-details/pack-details.componen
     CreateEditTourComponent,
     ShowFlightsComponent,
     ShowToursComponent,
+    ShowCalendarComponent,
     PacksComponent,
     PackDetailsComponent
   ],
@@ -140,7 +143,8 @@ import { PackDetailsComponent } from './packs/pack-details/pack-details.componen
     RadioButtonModule,
     TabViewModule,
     PaginatorModule,
-    PickListModule
+    PickListModule,
+    ScrollPanelModule
   ],
   providers: [SharedService,
     {

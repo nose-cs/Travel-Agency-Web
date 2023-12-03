@@ -18,6 +18,7 @@ import {CreateEditFlightComponent} from "../../staff/create-edit-flight/create-e
 import {ShowFlightsComponent} from "../../staff/show-flights/show-flights.component";
 import {Flight} from "../../models/flight";
 import {Tour} from "../../models/tour";
+import { Pagination } from '../../models/pagination';
 
 @Component({
   selector: 'app-traveller-admin',
@@ -53,7 +54,7 @@ export class TravellerAdminComponent {
       case "Manage":
         this.ref = this.dialogService.open(ShowAgencyUsersComponent, {
           data: {
-            getUserList: this.service.getAllAgencyUsers(),
+            getUserList: (filter: Pagination) => this.service.getAllAgencyUsers(filter),
             editAgencyUser: (agencyUser: AgencyUser) => this.service.editAgencyUser(agencyUser, agencyUser.agencyId),
             deleteAgencyUser: (id: number, agencyId: number) => this.service.deleteAgencyUser(agencyId, id),
             roles: [
@@ -89,7 +90,7 @@ export class TravellerAdminComponent {
       case "Manage":
         this.ref = this.dialogService.open(ShowAgenciesComponent, {
           data: {
-            getAgencyList: this.service.getAgency(),
+            getAgencyList: (filter: Pagination) => this.service.getAgencies(filter),
             editAgency: (agency: Agency, id: number) => this.service.editAgency(agency, id),
             deleteAgency: (id: number) => this.service.deleteAgency(id),
           },

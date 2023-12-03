@@ -1,4 +1,5 @@
 import { Place } from "./hotel";
+import { Pagination } from "./pagination";
 
 export interface Flight{
     id: number;
@@ -8,16 +9,11 @@ export interface Flight{
     airline: string
 }
 
-export class FlightFilter{
+export class FlightFilter extends Pagination
+{
     id: number | undefined;
     sourcePlace: string | undefined;
     destinationPlace: string | undefined;
     flightNumber: number | undefined;
-  airline: string | undefined;
-
-  pageIndex: number | undefined;
-  pageSize: number | undefined;
-
-  orderBy: string | undefined;
-  descending: boolean | undefined;
+    airline: string | undefined;
 }
