@@ -26,12 +26,6 @@ export class HotelfilteringComponent {
     filter.address = this.address;
     filter.Category = this.category;
 
-  // Llama al servicio con el filtro y emite el evento con los resultados
-  this.service.getHotelsWithFilter(filter).subscribe(data => {
-    this.filterResults.emit(data);
-  });
-}
     this.filter.emit(filter);
   }
-
 }
