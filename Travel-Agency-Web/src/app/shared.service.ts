@@ -493,6 +493,14 @@ export class SharedService {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/changePassword', changeRequest);
   }
 
+  getTouristsTravelCountry(country: string, exportTo: string): Observable<Document>
+  {
+    let params = new HttpParams();
+    params = params.append('country', country);
+    params = params.append('export', exportTo);
+
+    return this.http.get<Document>(this.APIUrl + '/Identity/getTouristsTravelCountry', {params});
+  }
 
   //Image CRUD
   uploadImage(file: File): Observable<number> {

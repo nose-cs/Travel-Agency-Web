@@ -1,3 +1,30 @@
+<p-card>
+  <div class="grid">
+    <div class="col-7">
+      <table>
+        <tr>
+          <td>Tourists that traveled more than once to </td>
+          <td>
+            <input pInputText [(ngModel)]="travelCountry" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-1">
+      <table>
+        <tr>
+          <td>
+            <p-button (click)="downloadDocTravel('PDF')" icon="pi pi-file-pdf" size="large" [rounded]="true" [text]="true" [raised]="true"></p-button>
+          </td>
+          <td>
+            <p-button (click)="downloadDocTravel('EXCEL')" icon="pi pi-file-excel" size="large" [rounded]="true" [text]="true" [raised]="true"></p-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</p-card>
+
 <p-dataView [value]="OffersControlItems" [layout]="'list'">
     <ng-template let-ofi pTemplate="listItem">
       <p-card header="{{ofi}}" [style]="{ margin: '10px', width: '97.5vw' }">
