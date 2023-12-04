@@ -9,16 +9,12 @@ import {CreateEditAgencyComponent} from "../../staff/create-edit-agency/create-e
 import {ShowAgenciesComponent} from "../../staff/show-agencies/show-agencies.component";
 import {Agency} from "../../models/agency";
 import {CreateEditHotelComponent} from "../../staff/create-edit-hotel/create-edit-hotel.component";
-import {ShowHotelsComponent} from "../../staff/show-hotels/show-hotels.component";
 import {Hotel} from "../../models/hotel";
-import {HotelFilter} from "../../models/hotelFilter";
 import {CreateEditTourComponent} from "../../staff/create-edit-tour/create-edit-tour.component";
-import {ShowToursComponent} from "../../staff/show-tours/show-tours.component";
 import {CreateEditFlightComponent} from "../../staff/create-edit-flight/create-edit-flight.component";
-import {ShowFlightsComponent} from "../../staff/show-flights/show-flights.component";
 import {Flight} from "../../models/flight";
 import {Tour} from "../../models/tour";
-import { Pagination } from '../../models/pagination';
+import {Pagination} from '../../models/pagination';
 
 @Component({
   selector: 'app-traveller-admin',
@@ -117,20 +113,6 @@ export class TravellerAdminComponent {
           maximizable: false
         });
         break;
-
-      case "Manage":
-        this.ref = this.dialogService.open(ShowHotelsComponent, {
-          data: {
-            getHotelList: this.service.getHotels({} as HotelFilter),
-            editHotel: (hotel: Hotel, id: number) => this.service.editHotel(hotel, id),
-            deleteHotel: (id: number) => this.service.deleteHotel(id),
-          },
-          contentStyle: {overflow: 'auto'},
-          baseZIndex: 10000,
-          width: '80%',
-          maximizable: true
-        });
-        break;
     }
   }
 
@@ -148,20 +130,6 @@ export class TravellerAdminComponent {
           maximizable: false
         });
         break;
-
-      case "Manage":
-        this.ref = this.dialogService.open(ShowToursComponent, {
-          data: {
-            getHotelList: this.service.getHotels({} as HotelFilter),
-            editHotel: (hotel: Hotel, id: number) => this.service.editHotel(hotel, id),
-            deleteHotel: (id: number) => this.service.deleteHotel(id),
-          },
-          contentStyle: {overflow: 'auto'},
-          baseZIndex: 10000,
-          width: '80%',
-          maximizable: true
-        });
-        break;
     }
   }
 
@@ -177,20 +145,6 @@ export class TravellerAdminComponent {
           contentStyle: {overflow: 'auto'},
           baseZIndex: 10000,
           maximizable: false
-        });
-        break;
-
-      case "Manage":
-        this.ref = this.dialogService.open(ShowFlightsComponent, {
-          data: {
-            getHotelList: this.service.getHotels({} as HotelFilter),
-            editHotel: (hotel: Hotel, id: number) => this.service.editHotel(hotel, id),
-            deleteHotel: (id: number) => this.service.deleteHotel(id),
-          },
-          contentStyle: {overflow: 'auto'},
-          baseZIndex: 10000,
-          width: '80%',
-          maximizable: true
         });
         break;
     }

@@ -13,6 +13,7 @@ import { CreateEditTourComponent } from '../create-edit-tour/create-edit-tour.co
 import { Flight } from '../../models/flight';
 import { CreateEditFlightComponent } from '../create-edit-flight/create-edit-flight.component';
 import { ShowCalendarComponent } from '../../show-calendar/show-calendar.component';
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-offers',
@@ -24,7 +25,7 @@ export class CreateEditOffersComponent {
 
   @ViewChild(FileUpload) fileUpload!: FileUpload;
   disableUpload: boolean = false;
-  
+
   viewImage = false;
   editImage = false;
 
@@ -68,7 +69,7 @@ export class CreateEditOffersComponent {
       this.inputPrice = offer.price;
       this.inputCapacity = offer.capacity;
       this.inputDescription = offer.description;
-      
+
       if (offer.startDate) {
         this.inputStartDate = new Date(offer.startDate.toString()).toDateString();
       }
@@ -151,6 +152,11 @@ export class CreateEditOffersComponent {
         return;
       }
 
+      if (isNullOrEmpty(this.inputTitle) || isNullOrEmpty(this.inputDescription) || !this.inputCapacity || !this.inputPrice || !this.inputStartDate || !this.inputEndDate) {
+        this.errorLabel = "Please fill all fields";
+        return;
+      }
+
       this.config.data['execute'](offer).subscribe(
         () => { this.ref.close(true); },
         (error: any) => {
@@ -227,7 +233,7 @@ export class CreateEditOffersComponent {
         () => { }
       );
     }
-    
+
   }
 
   myUploader(event: FileUploadHandlerEvent) {
