@@ -102,7 +102,7 @@ export class PacksComponent {
       },
       header: 'Reserve',
       contentStyle: { overflow: 'auto' },
-      baseZIndex: 10000,
+      width: '70%',
       maximizable: true
     });
   }

@@ -3,6 +3,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { SharedService } from '../shared.service';
 import { Reservation } from '../models/reservation';
 import { ShowCalendarComponent } from '../show-calendar/show-calendar.component';
+import { PackageFacility } from '../models/package';
 
 @Component({
   selector: 'app-reserve',
@@ -22,6 +23,19 @@ export class ReserveComponent {
   errorLabel: string = '';
 
   refchangeDate: DynamicDialogRef | undefined;
+
+  sourcePFacilities: PackageFacility[] = [];
+  targetPFacilities: PackageFacility[] = [];
+
+  ngOnInit() {
+    if (this.config.data['product'] == 'package') {
+      this.service.getPackageFacilities(this.config.data['offerId']).subscribe(
+        pfs => {
+          this.sourcePFacilities = pfs;
+        }
+      );
+    }
+  }
 
   onOk()
   {

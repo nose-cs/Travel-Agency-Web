@@ -28,5 +28,25 @@
       <input type="text" [(ngModel)]="creditCard" pInputText placeholder="Credit Card" />
   </div>
 </div>
+
+  <p-pickList *ngIf="this.config.data['product'] == 'package'" baseZIndex="2000" [source]="sourcePFacilities" [target]="targetPFacilities" sourceHeader="Facilities" targetHeader="Selected" [dragdrop]="true" [responsive]="true"
+              [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
+    <ng-template let-pf pTemplate="item">
+      <div class="flex flex-wrap p-2 align-items-center gap-3">
+        <div class="flex-1 flex flex-column gap-2">
+          <span class="font-bold">{{ pf.facility.name }}</span>
+          <div class="flex align-items-center gap-2">
+            <span>{{ pf.facility.description }}</span>
+          </div>
+          <label>${{pf.price}}</label>
+        </div>
+        <span class="font-bold text-900">{{ pf.facility.id }}</span>
+      </div>
+    </ng-template>
+  </p-pickList>
+
+<br/>
+
 <label style="color: #ff0000">{{ errorLabel }}</label>
+<br />
 <p-button label="Reserve" (click)="onOk()"></p-button>

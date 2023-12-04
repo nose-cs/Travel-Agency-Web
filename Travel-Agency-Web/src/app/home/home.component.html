@@ -46,7 +46,7 @@
       <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
           <div class="mb-3">
-            <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png" />
+            <img class="w-9 shadow-2 border-round" [src]="'../../assets/' + product.image.filePath" />
           </div>
           <div>
             <h4 class="mb-1">{{ product.sourceInfo.place.city }} - {{ product.destinationInfo.place.city }}</h4>
@@ -66,7 +66,7 @@
       <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
           <div class="mb-3">
-            <img class="w-9 shadow-2 border-round" src="../../assets/noimage.png" />
+            <img class="w-9 shadow-2 border-round" [src]="'../../assets/' + product.image.filePath" />
           </div>
           <div>
             <h4 class="mb-1">{{ product.title }}</h4>

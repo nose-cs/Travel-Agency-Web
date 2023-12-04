@@ -43,8 +43,8 @@ export class AppComponent {
       { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/Home'] },
       { label: 'Hotels', icon: 'pi pi-fw pi-building', routerLink: ['/Hotels'] },
       { label: 'Flights', icon: 'pi pi-fw pi-cloud', routerLink: ['/Flights'] },
-      { label: 'Tours', routerLink: ['/Tours']},
-      { label : 'Packages', routerLink: ['/Packages'] }
+      { label: 'Tours', icon: 'pi pi-sun', routerLink: ['/Tours']},
+      { label: 'Packages', icon: 'pi pi-map-marker', routerLink: ['/Packages'] }
     ];
 
     this.activeMenuItem = this.menuItems[0];
