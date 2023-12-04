@@ -23,6 +23,11 @@ export class PacksComponent {
   pageSize: number = 10;
   total: number = 0;
 
+  orders: string[] = ["Lastest", "Oldest", "Bigger Price", "Smaller Price"];
+  inputOrder: string = this.orders[0];
+
+  filter: OfferFilter = new OfferFilter();
+
 
   constructor(private service: SharedService, private router: Router, public dialogService: DialogService) {}
 
@@ -39,4 +44,40 @@ export class PacksComponent {
     this.ref = this.dialogService.open(PackDetailsComponent, { data: {product: product},  header: 'Package Details' })}
 
   ReserveOffer(id: number){}
+
+  onFilter(newfilter: OfferFilter) {
+    this.filter = newfilter;
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
+  }
+
+  refreshList() {
+    this.filter.pageIndex = this.pageIndex;
+    this.filter.pageSize = this.pageSize;
+
+    switch (this.inputOrder) {
+      case "Lastest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = true;
+        break;
+      case "Oldest":
+        this.filter.orderBy = "Id";
+        this.filter.descending = false;
+        break;
+      case "Bigger Price":
+        this.filter.orderBy = "Price";
+        this.filter.descending = true;
+        break;
+      case "Smaller Price":
+        this.filter.orderBy = "Price";
+        this.filter.descending = false;
+        break;
+    }
+
+    this.service.getOffersWithFilter(this.filter, 'package').subscribe(paginator => {
+      this.OfferList = paginator.items;
+      this.total = paginator.totalCollectionSize;
+    });
+  }
 }

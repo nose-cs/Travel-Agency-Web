@@ -25,7 +25,7 @@ import { Pagination } from './models/pagination';
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
   // Hotel CRUD
@@ -57,6 +57,10 @@ export class SharedService {
       }
 
       return this.http.get<PaginationResponse<Hotel>>(this.APIUrl + '/Hotel', {params});
+  }
+
+  getPackageHotels(id: number){
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/' + id + '/fromPackage') 
   }
 
   createHotel(hotel: Hotel): Observable<void> {
