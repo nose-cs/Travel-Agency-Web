@@ -88,7 +88,7 @@ export class ToursComponent {
 
   openOfferList(tourId: number) {
     console.log(tourId);
-    this.router.navigate(['ShowHotelOffers'], { queryParams: { offerId: tourId, offerType: 'tour' } });
+    this.router.navigate(['ShowOffers'], { queryParams: { offerId: tourId, offerType: 'tour' } });
   }
 
   getDayOfWeek(day: number): string {

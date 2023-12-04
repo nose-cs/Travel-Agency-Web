@@ -87,7 +87,7 @@ export class FlightsComponent {
 
   openOfferList(flightId: number) {
     console.log(flightId);
-    this.router.navigate(['ShowHotelOffers'], { queryParams: { offerId: flightId, offerType: 'flight' } });
+    this.router.navigate(['ShowOffers'], { queryParams: { offerId: flightId, offerType: 'flight' } });
   }
 
   openHotel(id: number) {
