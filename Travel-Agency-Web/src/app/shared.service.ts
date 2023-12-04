@@ -12,7 +12,7 @@ import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Document, ExportType } from './models/document';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
-import { Reservation } from './models/reservation';
+import { Reservation, ReservationFilter } from './models/reservation';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
 import { ChangePasswordRequest } from './models/changePasswordRequest';
@@ -20,7 +20,6 @@ import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
 import {Agency} from "./models/agency";
 import { Pagination } from './models/pagination';
-import { Reservation, ReservationFilter } from './models/reservation';
 
 @Injectable({
   providedIn: 'root'
