@@ -5,6 +5,7 @@ import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
 import { PackDetailsComponent } from './pack-details/pack-details.component';
+import { PaginatorState } from 'primeng/paginator';
 @Component({
   selector: 'app-packs',
   templateUrl: './packs.component.html',
@@ -45,6 +46,13 @@ export class PacksComponent {
 
   ReserveOffer(id: number){}
 
+  onPageChange(event: PaginatorState) {
+    this.first = event.first!;
+    this.pageSize = event.rows!;
+    this.pageIndex = event.page! + 1;
+    this.refreshList();
+  }
+
   onFilter(newfilter: OfferFilter) {
     this.filter = newfilter;
     this.pageIndex = 1;
@@ -79,5 +87,11 @@ export class PacksComponent {
       this.OfferList = paginator.items;
       this.total = paginator.totalCollectionSize;
     });
+  }
+
+  changeOrder() {
+    this.pageIndex = 1;
+    this.first = 0;
+    this.refreshList();
   }
 }
