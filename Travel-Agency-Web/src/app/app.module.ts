@@ -75,6 +75,7 @@ import { ShowStaffReservationsComponent } from './staff/show-staff-reservations/
 import { ShowCalendarComponent } from './show-calendar/show-calendar.component';
 import { PacksComponent } from './packs/packs.component';
 import { PackDetailsComponent } from './packs/pack-details/pack-details.component';
+import { ReserveComponent } from './reserve/reserve.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { PackDetailsComponent } from './packs/pack-details/pack-details.componen
     ShowStaffReservationsComponent,
     ShowCalendarComponent,
     PacksComponent,
-    PackDetailsComponent
+    PackDetailsComponent,
+    ReserveComponent
   ],
   imports: [
     BrowserModule,
