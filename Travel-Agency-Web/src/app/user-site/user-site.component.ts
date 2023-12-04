@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ChangePasswordRequest } from '../models/changePasswordRequest';
 import { SharedService } from '../shared.service';
+import { Reservation } from '../models/reservation';
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-user-site',
@@ -22,8 +24,15 @@ export class UserSiteComponent {
 
   visibleDialogChangePassword: boolean = false;
 
-  currentActiveIndex: number = 0;
-  historyActiveIndex: number = 0;
+  CurrentHotels: Reservation[] = [];
+
+  firstCurrentHotel: number = 0;
+  pageIndexCurrentHotel: number = 1;
+  pageSizeCurrentHotel: number = 10;
+  totalCurrentHotel: number = 0;
+
+  orders: string[] = ["Lastest", "Oldest", "Name A-Z", "Name Z-A", "Bigger Category", "Smaller Category"];
+  inputOrderCurrentHotel: string = this.orders[0];
 
   constructor(private service: SharedService) { }
 
@@ -32,6 +41,19 @@ export class UserSiteComponent {
     this.email = localStorage.getItem('email');
     this.role = localStorage.getItem('role');
     this.country = localStorage.getItem('country');
+  }
+
+  onPageChangeCurrentHotel(event: PaginatorState) {
+    this.firstCurrentHotel = event.first!;
+    this.pageSizeCurrentHotel = event.rows!;
+    this.pageIndexCurrentHotel = event.page! + 1;
+    //this.refreshHotelList();
+  }
+
+  changeOrderCurrentHotel() {
+    this.pageIndexCurrentHotel = 1;
+    this.firstCurrentHotel = 0;
+    //this.refreshHotelList();
   }
 
   dismissDialogChangePassword() {
