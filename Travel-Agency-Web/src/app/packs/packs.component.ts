@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
 import { PackDetailsComponent } from './pack-details/pack-details.component';
 import { PaginatorState } from 'primeng/paginator';
+import {ReserveComponent} from "../reserve/reserve.component";
 @Component({
   selector: 'app-packs',
   templateUrl: './packs.component.html',
@@ -43,8 +44,6 @@ export class PacksComponent {
   }
   show(product: Offer){
     this.ref = this.dialogService.open(PackDetailsComponent, { data: {product: product},  header: 'Package Details', width:'70%' })}
-
-  ReserveOffer(id: number){}
 
   onPageChange(event: PaginatorState) {
     this.first = event.first!;
@@ -93,5 +92,18 @@ export class PacksComponent {
     this.pageIndex = 1;
     this.first = 0;
     this.refreshList();
+  }
+
+  ReserveOffer(id: number) {
+    this.dialogService.open(ReserveComponent, {
+      data: {
+        product: 'package',
+        offerId: id
+      },
+      header: 'Reserve',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
+    });
   }
 }

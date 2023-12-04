@@ -19,7 +19,7 @@ export class ShowOffersComponent implements OnInit {
 
   constructor(private service: SharedService, private route: ActivatedRoute, private dialogService: DialogService) { }
 
-  productId!: number; 
+  productId!: number;
   offerType!: string;
   OffersList: Offer[] = [];
   showDetails: boolean = false;
@@ -42,7 +42,7 @@ export class ShowOffersComponent implements OnInit {
 
     this.refreshList();
   }
-  
+
 
   showDialog(){
     this.showDetails = true
@@ -90,18 +90,6 @@ export class ShowOffersComponent implements OnInit {
     this.pageIndex = 1;
     this.first = 0;
     this.refreshList();
-  }
-
-  openOffer(id: number) {
-    console.log(id);
-  }
-
-  openHotel(id: number) {
-    console.log(id);
-  }
-
-  openAgency(id: number) {
-    console.log(id);
   }
 
   changeOrder() {
