@@ -1,0 +1,37 @@
+<p-table [value]="ReservationList" styleClass="p-datatable-striped" [tableStyle]="{'width': '100%'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+        <th pSortableColumn="touristId" style="width:25%">Tourist Id<p-sortIcon field="touristId"></p-sortIcon></th>
+        <th pSortableColumn="offerTitle" style="width:25%">Offer Title <p-sortIcon field="offerTitle"></p-sortIcon></th>
+        <th pSortableColumn="departureDate">Start <p-sortIcon field="departureDate"></p-sortIcon></th>
+        <th pSortableColumn="arrivalDate">End <p-sortIcon field="arrivalDate"></p-sortIcon></th>
+        <th><label style="margin-left: 8px;">Actions</label></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reservation>
+      <tr>
+        <td>{{reservation.id}}</td>
+        <td>{{reservation.price | currency: 'USD'}}</td>
+        <td>{{reservation.touristId}}</td>
+        <td>{{reservation.offerTitle}}</td>
+        <td>{{reservation.departureDate | date}}</td>
+        <td>{{reservation.arrivalDate | date}}</td>
+        <td>
+          <table>
+            <tr>
+              <td>
+                <p-button icon="pi pi-file-edit" [rounded]="true" severity="secondary" (click)="editReservation(reservation)"></p-button>
+              </td>
+              <td>
+                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" (click)="deleteReservation(reservation)"></p-button>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
