@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { OfferFilter } from 'src/app/models/offerFilter';
 import { PaginatorState } from 'primeng/paginator';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ReserveComponent } from '../../reserve/reserve.component';
 
 @Component({
   selector: 'app-show-hotel-offers',
@@ -15,7 +17,7 @@ export class ShowHotelOffersComponent implements OnInit {
 
   layout: 'list' | 'grid' = 'grid';
 
-  constructor(private service: SharedService, private route: ActivatedRoute ) { }
+  constructor(private service: SharedService, private route: ActivatedRoute, private dialogService: DialogService) { }
 
   productId!: number; 
   offerType!: string;
@@ -106,5 +108,18 @@ export class ShowHotelOffersComponent implements OnInit {
     this.pageIndex = 1;
     this.first = 0;
     this.refreshList();
+  }
+
+  Reserve(id: number) {
+    this.dialogService.open(ReserveComponent, {
+      data: {
+        product: this.offerType,
+        offerId: id
+      },
+      header: 'Reserve',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
+    });
   }
 }

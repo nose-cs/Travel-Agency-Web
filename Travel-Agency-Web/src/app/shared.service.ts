@@ -19,6 +19,7 @@ import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
 import {Agency} from "./models/agency";
 import { Pagination } from './models/pagination';
+import { Reservation, ReservationFilter } from './models/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -301,6 +302,58 @@ export class SharedService {
 
   deletePackage(id: number): Observable<void> {
     return this.http.delete<void>(this.APIUrl + '/Package/' + id);
+  }
+
+
+  //Reservation CRUD
+  getReservations(filter: ReservationFilter, product: string): Observable<PaginationResponse<Reservation>>
+  {
+    let params = new HttpParams();
+    
+    if (filter.pageIndex) {
+      params = params.append('pageIndex', filter.pageIndex);
+    }
+    if (filter.pageSize) {
+      params = params.append('pageSize', filter.pageSize);
+    }
+    if (filter.orderBy) {
+      params = params.append('orderBy', filter.orderBy);
+    }
+    if (filter.descending) {
+      params = params.append('descending', filter.descending);
+    }
+    if (filter.current) {
+      params = params.append('current', filter.current);
+    }
+
+    switch (product) {
+      case 'Hotel':
+        return this.http.get<PaginationResponse<Reservation>>(this.APIUrl + '/HotelReservation', { params });
+      case 'Flight':
+        return this.http.get<PaginationResponse<Reservation>>(this.APIUrl + '/FlightReservation', { params });
+      case 'Tour':
+        return this.http.get<PaginationResponse<Reservation>>(this.APIUrl + '/TourReservation', { params });
+      case 'Package':
+        return this.http.get<PaginationResponse<Reservation>>(this.APIUrl + '/PackageReservation', { params });
+    }
+
+    throw new Error("Product not supported");
+  }
+
+  createReservation(reservation: Reservation, product: string) {
+
+    switch (product) {
+      case 'hotel':
+        return this.http.post<void>(this.APIUrl + '/HotelReservation', reservation);
+      case 'flight':
+        return this.http.post<void>(this.APIUrl + '/FlightReservation', reservation);
+      case 'tour':
+        return this.http.post<void>(this.APIUrl + '/TourReservation', reservation);
+      case 'package':
+        return this.http.post<void>(this.APIUrl + '/PackageReservation', reservation);
+    }
+
+    throw new Error("Product not supported");
   }
 
   //Hotel Statistics

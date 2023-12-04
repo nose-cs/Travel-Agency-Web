@@ -1,0 +1,32 @@
+<div class="formgrid grid" style="margin-top: 10px;">
+  <div class="field col">
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="inputDeparture" [disabled]="true" pInputText placeholder="Departure Date" />
+      <span class="p-inputgroup-addon" (click)="openCalendarDialog('StartDate')">
+        <i class="pi pi-pencil"></i>
+      </span>
+    </div>
+  </div>
+  <div class="field col">
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="inputArrival" [disabled]="true" pInputText placeholder="Arrival Date" />
+      <span class="p-inputgroup-addon" (click)="openCalendarDialog('EndDate')">
+        <i class="pi pi-pencil"></i>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="formgrid grid" style="margin-top: 28px;">
+
+  <div class="field col">
+    <span class="p-float-label">
+      <p-inputNumber inputId="tra" [(ngModel)]="numberofTravellers"> </p-inputNumber>
+      <label htmlFor="tra">Number of travellers</label>
+    </span>
+  </div>
+  <div class="field col">
+      <input type="text" [(ngModel)]="creditCard" pInputText placeholder="Credit Card" />
+  </div>
+</div>
+
+<p-button label="Reserve" (click)="onOk()"></p-button>
