@@ -849,4 +849,19 @@ export class MarketingComponent {
         break;
     }
   }
+
+  travelCountry: string = '';
+
+  downloadDocTravel(exportTo: string) {
+    this.service.getTouristsTravelCountry(this.travelCountry, exportTo).subscribe(
+      (doc: Document) => {
+        const link = document.createElement('a');
+        link.href = 'data:' + doc.contentType + ';base64,' + doc.contentBase64;
+        link.download = doc.name;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    ); 
+  }
 }
