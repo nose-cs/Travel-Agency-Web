@@ -5,6 +5,7 @@ import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog'
 import { PackDetailsComponent } from './pack-details/pack-details.component';
+import {ReserveComponent} from "../reserve/reserve.component";
 @Component({
   selector: 'app-packs',
   templateUrl: './packs.component.html',
@@ -43,8 +44,6 @@ export class PacksComponent {
   show(product: Offer){
     this.ref = this.dialogService.open(PackDetailsComponent, { data: {product: product},  header: 'Package Details', width:'70%' })}
 
-  ReserveOffer(id: number){}
-
   onFilter(newfilter: OfferFilter) {
     this.filter = newfilter;
     this.pageIndex = 1;
@@ -78,6 +77,19 @@ export class PacksComponent {
     this.service.getOffersWithFilter(this.filter, 'package').subscribe(paginator => {
       this.OfferList = paginator.items;
       this.total = paginator.totalCollectionSize;
+    });
+  }
+
+  ReserveOffer(id: number) {
+    this.dialogService.open(ReserveComponent, {
+      data: {
+        product: 'package',
+        offerId: id
+      },
+      header: 'Reserve',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true
     });
   }
 }

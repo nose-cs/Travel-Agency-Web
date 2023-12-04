@@ -56,8 +56,8 @@ export class CreateEditReservationsComponent {
     const reservation = new Reservation();
     reservation.id = this.id;
     reservation.touristId = this.inputTouristId;
-    reservation.departureDate = this.inputDepartureDate;
-    reservation.arrivalDate = this.inputArrivalDate;
+    reservation.departureDate = this.inputArrivalDate;
+    reservation.arrivalDate = this.inputDepartureDate;
     reservation.numberofTravellers = this.inputNumberofTravellers;
 
     if (this.selectedModel)

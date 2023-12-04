@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { Reservation } from 'src/app/models/reservation';
-import { Router } from '@angular/router';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CreateEditReservationsComponent } from '../../staff/create-edit-reservations/create-edit-reservations.component';
-import { SharedService } from '../../shared.service';
-import { OfferFilter } from '../../models/offerFilter';
+import {Component} from '@angular/core';
+import {Reservation} from 'src/app/models/reservation';
+import {Router} from '@angular/router';
+import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {CreateEditReservationsComponent} from '../../staff/create-edit-reservations/create-edit-reservations.component';
+import {SharedService} from '../../shared.service';
+import {OfferFilter} from '../../models/offerFilter';
 
 @Component({
   selector: 'app-agent',
@@ -17,7 +17,8 @@ export class AgentComponent {
 
   ref: DynamicDialogRef | undefined;
 
-  constructor(private service: SharedService, private router: Router, private dialogService: DialogService) { }
+  constructor(private service: SharedService, private router: Router, private dialogService: DialogService) {
+  }
 
   redirect(offerModel: string, action: string) {
 
@@ -31,28 +32,30 @@ export class AgentComponent {
             this.ref = this.dialogService.open(CreateEditReservationsComponent, {
               data: {
                 reservation: reservation,
-                execute: (hotelReservation: Reservation) => this.service.createReservation(hotelReservation, "Hotel"),
+                execute: (hotelReservation: Reservation) => this.service.createReservation(hotelReservation, "hotel"),
                 filter: async (query: string) => {
                   const filter = new OfferFilter();
                   filter.title = query;
                   filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
 
-                  let suggestions: { id: number, title: string | undefined , price: number}[] = [];
+                  let suggestions: { id: number, title: string | undefined, price: number }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
-                    this.service.getOffersWithFilter(filter, "hotel")!.subscribe(
-                      offers => {
-                        for (let sugg of offers.items.map(offer => { return { id: offer.id, title: offer.title, price: offer.price }; })) {
-                          suggestions.push(sugg);
-                        }
+                      this.service.getOffersWithFilter(filter, "hotel")!.subscribe(
+                        offers => {
+                          for (let sugg of offers.items.map(offer => {
+                            return {id: offer.id, title: offer.title, price: offer.price};
+                          })) {
+                            suggestions.push(sugg);
+                          }
 
-                        resolve();
-                      },
-                      (error) => {
-                        reject(error);
-                      }
-                    );
-                  }
+                          resolve();
+                        },
+                        (error) => {
+                          reject(error);
+                        }
+                      );
+                    }
                   )
                   await promise;
 
@@ -60,46 +63,47 @@ export class AgentComponent {
                 }
               },
               header: 'Create a Hotel Reservation',
-              contentStyle: { overflow: 'auto' },
+              contentStyle: {overflow: 'auto'},
               baseZIndex: 10000,
               maximizable: false
             });
             break;
         }
-      break;
+        break;
 
       case "Flight Reservations":
 
-        switch(action)
-        {
+        switch (action) {
           case "Create":
             const reservation = new Reservation();
 
             this.ref = this.dialogService.open(CreateEditReservationsComponent, {
               data: {
                 reservation: reservation,
-                execute: (flightReservation: Reservation) => this.service.createReservation(flightReservation, "Flight"),
+                execute: (flightReservation: Reservation) => this.service.createReservation(flightReservation, "flight"),
                 filter: async (query: string) => {
                   const filter = new OfferFilter();
                   filter.title = query;
                   filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
 
-                  let suggestions: { id: number, title: string | undefined , price: number}[] = [];
+                  let suggestions: { id: number, title: string | undefined, price: number }[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
-                    this.service.getOffersWithFilter(filter, "flight")!.subscribe(
-                      offers => {
-                        for (let sugg of offers.items.map(offer => { return { id: offer.id, title: offer.title, price: offer.price }; })) {
-                          suggestions.push(sugg);
-                        }
+                      this.service.getOffersWithFilter(filter, "flight")!.subscribe(
+                        offers => {
+                          for (let sugg of offers.items.map(offer => {
+                            return {id: offer.id, title: offer.title, price: offer.price};
+                          })) {
+                            suggestions.push(sugg);
+                          }
 
-                        resolve();
-                      },
-                      (error) => {
-                        reject(error);
-                      }
-                    );
-                  }
+                          resolve();
+                        },
+                        (error) => {
+                          reject(error);
+                        }
+                      );
+                    }
                   )
                   await promise;
 
@@ -107,7 +111,7 @@ export class AgentComponent {
                 }
               },
               header: 'Create a Flight Reservation',
-              contentStyle: { overflow: 'auto' },
+              contentStyle: {overflow: 'auto'},
               baseZIndex: 10000,
               maximizable: false
             });
@@ -115,55 +119,56 @@ export class AgentComponent {
 
         }
 
-      break;
+        break;
 
       case "Tour Reservations":
 
-      switch(action)
-      {
-        case "Create":
-          const reservation = new Reservation();
+        switch (action) {
+          case "Create":
+            const reservation = new Reservation();
 
-          this.ref = this.dialogService.open(CreateEditReservationsComponent, {
-            data: {
-              reservation: reservation,
-              execute: (hotelReservation: Reservation) => this.service.createReservation(hotelReservation, "Tour"),
-              filter: async (query: string) => {
-                const filter = new OfferFilter();
-                filter.title = query;
-                filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
+            this.ref = this.dialogService.open(CreateEditReservationsComponent, {
+              data: {
+                reservation: reservation,
+                execute: (hotelReservation: Reservation) => this.service.createReservation(hotelReservation, "tour"),
+                filter: async (query: string) => {
+                  const filter = new OfferFilter();
+                  filter.title = query;
+                  filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
 
-                let suggestions: { id: number, title: string | undefined , price: number}[] = [];
+                  let suggestions: { id: number, title: string | undefined, price: number }[] = [];
 
-                let promise = new Promise<void>((resolve, reject) => {
-                  this.service.getOffersWithFilter(filter, "tour")!.subscribe(
-                    offers => {
-                      for (let sugg of offers.items.map(offer => { return { id: offer.id, title: offer.title, price: offer.price }; })) {
-                        suggestions.push(sugg);
-                      }
+                  let promise = new Promise<void>((resolve, reject) => {
+                      this.service.getOffersWithFilter(filter, "tour")!.subscribe(
+                        offers => {
+                          for (let sugg of offers.items.map(offer => {
+                            return {id: offer.id, title: offer.title, price: offer.price};
+                          })) {
+                            suggestions.push(sugg);
+                          }
 
-                      resolve();
-                    },
-                    (error) => {
-                      reject(error);
+                          resolve();
+                        },
+                        (error) => {
+                          reject(error);
+                        }
+                      );
                     }
-                  );
+                  )
+                  await promise;
+
+                  return suggestions;
                 }
-                )
-                await promise;
+              },
+              header: 'Create a Tour Reservation',
+              contentStyle: {overflow: 'auto'},
+              baseZIndex: 10000,
+              maximizable: false
+            });
+            break;
+        }
 
-                return suggestions;
-              }
-            },
-            header: 'Create a Tour Reservation',
-            contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: false
-          });
-          break;
-      }
-
-    break;
+        break;
     }
 
   }
