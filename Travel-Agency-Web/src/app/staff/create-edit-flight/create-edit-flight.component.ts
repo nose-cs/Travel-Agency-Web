@@ -3,6 +3,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SharedService} from '../../shared.service';
 import {MessageService} from 'primeng/api';
 import {Flight} from "../../models/flight";
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-flight',
@@ -41,6 +42,13 @@ export class CreateEditFlightComponent {
   }
 
   onOk() {
+    if (isNullOrEmpty(this.inputAirline) || !this.inputFlightNumber || isNullOrEmpty(this.inputSourceAddress) || isNullOrEmpty(this.inputSourceCity)
+      || isNullOrEmpty(this.inputSourceCountry) || isNullOrEmpty(this.inputDestinationAddress) || isNullOrEmpty(this.inputDestinationCity)
+      || isNullOrEmpty(this.inputDestinationCountry)) {
+      this.errorLabel = 'Please fill all the fields';
+      return;
+    }
+
     const flight = {
       id: this.id,
       airline: this.inputAirline,

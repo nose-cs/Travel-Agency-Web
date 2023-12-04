@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AgencyUser, Role} from "../../models/agencyUser";
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-user',
@@ -8,10 +9,10 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
   styleUrls: ['./create-edit-user.component.css']
 })
 export class CreateEditUserComponent {
-  roles: {role: Role; name: string} [] | undefined;
+  roles: { role: Role; name: string } [] | undefined;
   id: number = 0;
   inputName: string | undefined;
-  inputRole: {role: Role; name: string} | undefined;
+  inputRole: { role: Role; name: string } | undefined;
   inputEmail: string | undefined;
   inputPassword: string | undefined;
   inputAgencyId: number | undefined;
@@ -44,12 +45,12 @@ export class CreateEditUserComponent {
   }
 
   onOk() {
-    if (!this.inputName || !this.inputRole || !this.inputEmail || !this.inputPassword) {
+    if (isNullOrEmpty(this.inputName) || isNullOrEmpty(this.inputEmail) || isNullOrEmpty(this.inputPassword) || !this.inputRole) {
       this.errorLabel = "Please fill all fields";
       return;
     }
 
-    if (!this.inputEmail.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+    if (!this.inputEmail || !this.inputEmail.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
       this.errorLabel = "Please enter a valid email";
       return;
     }
@@ -64,7 +65,9 @@ export class CreateEditUserComponent {
     } as AgencyUser;
 
     this.config.data['execute'](agencyUser, this.inputAgencyId).subscribe(
-      () => { this.ref.close(true); },
+      () => {
+        this.ref.close(true);
+      },
       (error: any) => {
         if (error?.error?.errors) {
           let err = '';
@@ -76,11 +79,11 @@ export class CreateEditUserComponent {
           }
 
           this.errorLabel = err;
-        }
-        else
+        } else
           this.errorLabel = error.error;
       },
-      () => { }
+      () => {
+      }
     );
   }
 

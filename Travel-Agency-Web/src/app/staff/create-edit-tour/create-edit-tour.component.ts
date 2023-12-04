@@ -5,6 +5,7 @@ import {FileUpload, FileUploadHandlerEvent} from 'primeng/fileupload';
 import {MessageService} from 'primeng/api';
 import {DatePipe} from "@angular/common";
 import {Day, Tour} from "../../models/tour";
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-tour',
@@ -81,6 +82,14 @@ export class CreateEditTourComponent {
   onOk() {
     const sourceTime = this.datePipe.transform(this.inputSourceTime, 'hh:mm:ss');
     const destinationTime = this.datePipe.transform(this.inputDestinationTime, 'hh:mm:ss');
+
+    if (isNullOrEmpty(this.inputSourceAddress) || isNullOrEmpty(this.inputSourceCity) || isNullOrEmpty(this.inputSourceCountry)
+      || isNullOrEmpty(this.inputDestinationAddress) || isNullOrEmpty(this.inputDestinationCity)
+      || isNullOrEmpty(this.inputDestinationCountry) || !this.inputDuration || !this.inputSourceDay || !this.inputSourceTime
+      || !this.inputDestinationTime) {
+      this.errorLabel = 'Please fill all the fields';
+      return;
+    }
 
     const tour= {
       id: this.id,

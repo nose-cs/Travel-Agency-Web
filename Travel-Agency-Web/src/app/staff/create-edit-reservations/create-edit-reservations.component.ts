@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Reservation } from '../../models/reservation';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-reservations',
@@ -60,8 +61,13 @@ export class CreateEditReservationsComponent {
   }
 
   onOk() {
-    const reservation = new Reservation();
+    if(!this.inputDepartureDate || !this.inputArrivalDate || !this.inputNumberofTravellers || !this.inputPaymentFormat)
+    {
+      this.errorLabel = "Please fill all fields";
+      return;
+    }
 
+    const reservation = new Reservation();
     reservation.id = this.id;
     reservation.touristId = this.inputTouristId;
     reservation.departureDate = this.inputDepartureDate;

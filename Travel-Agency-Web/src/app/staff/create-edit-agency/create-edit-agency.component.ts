@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AgencyUser, Role} from "../../models/agencyUser";
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Agency} from "../../models/agency";
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-agency',
@@ -34,12 +35,12 @@ export class CreateEditAgencyComponent {
   }
 
   onOk() {
-    if (!this.inputName || !this.inputEmail || !this.inputFax || !this.inputCountry || !this.inputCity || !this.inputAddress) {
+    if (isNullOrEmpty(this.inputName) || isNullOrEmpty(this.inputEmail) || isNullOrEmpty(this.inputFax) || isNullOrEmpty(this.inputCountry) || isNullOrEmpty(this.inputCity) || isNullOrEmpty(this.inputAddress)) {
       this.errorLabel = "Please fill all fields";
       return;
     }
 
-    if (!this.inputEmail.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+    if (!this.inputEmail || !this.inputEmail.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
       this.errorLabel = "Please enter a valid email";
       return;
     }
