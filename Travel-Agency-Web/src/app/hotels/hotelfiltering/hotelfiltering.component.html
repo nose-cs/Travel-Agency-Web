@@ -13,7 +13,7 @@
       </div>
       <div class="field col">
         <span class="p-float-label">
-          <p-inputNumber inputId="category" id="category" [(ngModel)]="category"></p-inputNumber>
+          <p-inputNumber inputId="category" id="category" [min]="1" [max]="5" [(ngModel)]="category"  ></p-inputNumber>
           <label htmlFor="category">Category</label>
         </span>
       </div>

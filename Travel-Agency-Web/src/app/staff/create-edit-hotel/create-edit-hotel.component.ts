@@ -4,6 +4,7 @@ import {SharedService} from '../../shared.service';
 import {FileUpload, FileUploadHandlerEvent} from 'primeng/fileupload';
 import {MessageService} from 'primeng/api';
 import {Category, Hotel} from "../../models/hotel";
+import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-hotel',
@@ -55,6 +56,16 @@ export class CreateEditHotelComponent {
   }
 
   onOk() {
+    if (isNullOrEmpty(this.inputName) || isNullOrEmpty(this.inputAddress) || isNullOrEmpty(this.inputCity) || isNullOrEmpty(this.inputCountry) || !this.inputCategory) {
+      this.errorLabel = 'Please fill all the fields';
+      return;
+    }
+
+    if (!this.imageId) {
+      this.errorLabel = 'Image is required';
+      return;
+    }
+
     const hotel = {
       id: this.id,
       name: this.inputName,

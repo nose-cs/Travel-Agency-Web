@@ -5,6 +5,7 @@ import {FacilityFilter, PackageFacility} from "../../models/package";
 import {SharedService} from "../../shared.service";
 import {DialogService, DynamicDialogRef, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Router} from '@angular/router';
+import {Hotel, Place } from 'src/app/models/hotel';
 
 @Component({
   selector: 'app-pack-details',
@@ -15,6 +16,7 @@ export class PackDetailsComponent {
 
   Pack!: Offer;
   tours!: Tour[];
+  hotels!: Hotel[]
   facilities!: PackageFacility[];
 
   constructor(private service: SharedService, private router: Router, public dialogService: DialogService, public ref: DynamicDialogRef, public config: DynamicDialogConfig) {
@@ -25,7 +27,14 @@ export class PackDetailsComponent {
 
   ngOnInit(): void {
     this.getDetails();
+  }
 
+  getStars(category: number): string {
+  
+    return '⭐'.repeat(category);
+  }
+  getAddres(place: Place) {
+    return place.address + ', ' + place.city + ', ' + place.country;
   }
 
   getDetails() {
@@ -36,7 +45,9 @@ export class PackDetailsComponent {
     // filter.idPack = this.Pack.id;
     this.service.getPackageFacilities(this.Pack.id).subscribe(data => {
       this.facilities = data;
-    })
+
+this.service.getPackageHotels(this.Pack.id).subscribe(data => {
+  this.hotels = data;})})
   }
 
   getDayOfWeek(day: number): string {

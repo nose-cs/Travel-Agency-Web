@@ -12,6 +12,7 @@ import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Document, ExportType } from './models/document';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
+import { Reservation } from './models/reservation';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
 import { ChangePasswordRequest } from './models/changePasswordRequest';
@@ -57,6 +58,10 @@ export class SharedService {
       }
 
       return this.http.get<PaginationResponse<Hotel>>(this.APIUrl + '/Hotel', {params});
+  }
+
+  getPackageHotels(id: number){
+    return this.http.get<Hotel[]>(this.APIUrl + '/Hotel/' + id + '/fromPackage')
   }
 
   createHotel(hotel: Hotel): Observable<void> {
@@ -206,6 +211,9 @@ export class SharedService {
     if (filter.productId) {
       params = params.append('productId', filter.productId.toString());
     }
+    if (filter.title){
+      params = params.append('title', filter.title.toString());
+    }
     if (filter.agencyId) {
       params = params.append('agencyId', filter.agencyId.toString());
     }
@@ -309,7 +317,7 @@ export class SharedService {
   getReservations(filter: ReservationFilter, product: string): Observable<PaginationResponse<Reservation>>
   {
     let params = new HttpParams();
-    
+
     if (filter.pageIndex) {
       params = params.append('pageIndex', filter.pageIndex);
     }

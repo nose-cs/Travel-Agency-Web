@@ -37,8 +37,8 @@ export class ReserveComponent {
 
     const reservation = new Reservation();
 
-    reservation.departureDate = new Date(this.inputDeparture);
-    reservation.arrivalDate = new Date(this.inputArrival);
+    reservation.departureDate = new Date(this.inputArrival);
+    reservation.arrivalDate = new Date(this.inputDeparture);
     reservation.creditCard = this.creditCard;
     reservation.numberofTravellers = this.numberofTravellers;
     reservation.offerId = this.config.data['offerId'];

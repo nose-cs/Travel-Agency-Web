@@ -68,8 +68,10 @@ import { ShowAgenciesComponent } from './staff/show-agencies/show-agencies.compo
 import { CreateEditHotelComponent } from './staff/create-edit-hotel/create-edit-hotel.component';
 import { CreateEditFlightComponent } from './staff/create-edit-flight/create-edit-flight.component';
 import { CreateEditTourComponent } from './staff/create-edit-tour/create-edit-tour.component';
-import { ShowFlightsComponent } from './staff/show-flights/show-flights.component';
-import { ShowToursComponent } from './staff/show-tours/show-tours.component';
+import { AgentComponent } from './staff-site/agent/agent.component';
+import { CreateEditReservationsComponent } from './staff/create-edit-reservations/create-edit-reservations.component';
+import { ShowStaffReservationsComponent } from './staff/show-staff-reservations/show-staff-reservations.component';
+
 import { ShowCalendarComponent } from './show-calendar/show-calendar.component';
 import { PacksComponent } from './packs/packs.component';
 import { PackDetailsComponent } from './packs/pack-details/pack-details.component';
@@ -104,8 +106,9 @@ import { ReserveComponent } from './reserve/reserve.component';
     CreateEditHotelComponent,
     CreateEditFlightComponent,
     CreateEditTourComponent,
-    ShowFlightsComponent,
-    ShowToursComponent,
+    AgentComponent,
+    CreateEditReservationsComponent,
+    ShowStaffReservationsComponent,
     ShowCalendarComponent,
     PacksComponent,
     PackDetailsComponent,
