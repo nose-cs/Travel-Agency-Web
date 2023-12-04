@@ -12,18 +12,19 @@ import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Document, ExportType } from './models/document';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
+import { Reservation } from './models/reservation';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
 import { ChangePasswordRequest } from './models/changePasswordRequest';
 import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
-import {Agency} from "./models/agency";
+import {Agency} from "./models/agency"; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:3571/api';
+  readonly APIUrl = 'http://localhost:5000/api';
   constructor(private http: HttpClient) { }
 
   // Hotel CRUD
@@ -197,6 +198,9 @@ export class SharedService {
     if (filter.productId) {
       params = params.append('productId', filter.productId.toString());
     }
+    if (filter.title){
+      params = params.append('title', filter.title.toString());
+    }
     if (filter.agencyId) {
       params = params.append('agencyId', filter.agencyId.toString());
     }
@@ -290,6 +294,66 @@ export class SharedService {
 
   deletePackage(id: number): Observable<void> {
     return this.http.delete<void>(this.APIUrl + '/Package/' + id);
+  }
+
+  //Hotel Reservation CRUD
+  createHotelReservation(reservation : Reservation): Observable<void>{
+    return this.http.post<void>(this.APIUrl + '/HotelReservation', reservation);
+  }
+
+  editHotelReservation(reservation: Reservation): Observable<void>{
+    return this.http.put<void>(this.APIUrl + '/HotelReservation', reservation);
+  }
+
+  deleteHotelReservation(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/HotelReservation/' + id);
+  }
+
+  getHotelReservations(): Observable<void>{
+    return this.http.get<void>(this.APIUrl + '/HotelReservations');
+  }
+  getHotelReservation(id : number): Observable<void>{
+    return this.http.get<void>(this.APIUrl + '/HotelReservations/' + id);
+  }
+
+  //Flight Reservation CRUD
+  createFlightReservation(reservation : Reservation): Observable<void>{
+    return this.http.post<void>(this.APIUrl + '/FlightReservation', reservation);
+  }
+
+  editFlightReservation(reservation: Reservation): Observable<void>{
+    return this.http.put<void>(this.APIUrl + '/FlightReservation', reservation);
+  }
+
+  deleteFlightReservation(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/FlightReservation/' + id);
+  }
+
+  getFlightReservations(): Observable<void>{
+    return this.http.get<void>(this.APIUrl + '/FlightReservations');
+  }
+  getFlightReservation(id : number): Observable<void>{
+    return this.http.get<void>(this.APIUrl + '/FlightReservations/' + id);
+  }
+
+  //Tour Reservation CRUD
+  createTourReservation(reservation : Reservation): Observable<void>{
+    return this.http.post<void>(this.APIUrl + '/TourReservation', reservation);
+  }
+
+  editTourReservation(reservation: Reservation): Observable<void>{
+    return this.http.put<void>(this.APIUrl + '/TourReservation', reservation);
+  }
+
+  deleteTourReservation(id: number): Observable<void> {
+    return this.http.delete<void>(this.APIUrl + '/TourReservation/' + id);
+  }
+
+  getTourReservations(): Observable<void>{
+    return this.http.get<void>(this.APIUrl + '/TourReservations');
+  }
+  getTourReservation(id : number): Observable<void>{
+    return this.http.get<void>(this.APIUrl + '/TourReservations/' + id);
   }
 
   //Hotel Statistics
