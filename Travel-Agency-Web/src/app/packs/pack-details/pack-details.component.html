@@ -27,7 +27,7 @@
       </div>
     </ng-template>
   </p-dataView>
-  <p style="font-size: 20px; font-weight: bold">Facilities:</p>
+  <p style="font-size: 20px; font-weight: bold">Facilities: (Optional)</p>
   <p-dataView [value]="facilities" >
     <ng-template let-product pTemplate="listItem">
       <div class="col-12">
@@ -37,9 +37,10 @@
               <div class="text-2xl font-bold">{{product.facility.name}}</div>
             </div>
             <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-              <div class="text-1xl">From {{product.facility.description}}</div>
+              <div class="text-1xl">{{product.facility.description}}</div>
             </div>
             <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+              <div class="text-1xl">${{product.price | number}}</div>
               <div class="text-1xl">${{product.price}}</div>
             </div>
           </div>

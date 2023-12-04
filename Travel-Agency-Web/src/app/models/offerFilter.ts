@@ -10,4 +10,6 @@ export class OfferFilter extends Pagination
   capacity: number | undefined;
   startPrice: number | undefined;
   endPrice: number | undefined;
+
+  validToday: boolean | undefined;
 }

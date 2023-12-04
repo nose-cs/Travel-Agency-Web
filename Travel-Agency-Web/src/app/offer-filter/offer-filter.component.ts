@@ -31,6 +31,7 @@ export class OfferFilterComponent {
     filter.startPrice = this.startPrice;
     filter.endPrice = this.endPrice;
     filter.capacity = this.capacity;
+    filter.validToday = true;
 
     this.filterResults.emit(filter);
   }
