@@ -310,10 +310,10 @@ export class SharedService {
   }
 
   getHotelReservations(): Observable<void>{
-    return this.http.get<void>(this.APIUrl + '/HotelReservations');
+    return this.http.get<void>(this.APIUrl + '/HotelReservation');
   }
   getHotelReservation(id : number): Observable<void>{
-    return this.http.get<void>(this.APIUrl + '/HotelReservations/' + id);
+    return this.http.get<void>(this.APIUrl + '/HotelReservation/' + id);
   }
 
   //Flight Reservation CRUD
@@ -330,10 +330,10 @@ export class SharedService {
   }
 
   getFlightReservations(): Observable<void>{
-    return this.http.get<void>(this.APIUrl + '/FlightReservations');
+    return this.http.get<void>(this.APIUrl + '/FlightReservation');
   }
   getFlightReservation(id : number): Observable<void>{
-    return this.http.get<void>(this.APIUrl + '/FlightReservations/' + id);
+    return this.http.get<void>(this.APIUrl + '/FlightReservation/' + id);
   }
 
   //Tour Reservation CRUD
@@ -350,10 +350,10 @@ export class SharedService {
   }
 
   getTourReservations(): Observable<void>{
-    return this.http.get<void>(this.APIUrl + '/TourReservations');
+    return this.http.get<void>(this.APIUrl + '/TourReservation');
   }
   getTourReservation(id : number): Observable<void>{
-    return this.http.get<void>(this.APIUrl + '/TourReservations/' + id);
+    return this.http.get<void>(this.APIUrl + '/TourReservation/' + id);
   }
 
   //Hotel Statistics
