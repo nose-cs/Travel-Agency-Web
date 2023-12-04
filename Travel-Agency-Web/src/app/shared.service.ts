@@ -12,6 +12,7 @@ import { SaleRequest, SaleResponse } from './models/salesStatistics';
 import { Document, ExportType } from './models/document';
 import { Flight, FlightFilter } from './models/flight';
 import { Tour } from './models/tour';
+import { Reservation, ReservationFilter } from './models/reservation';
 import { TourFilter } from './models/tourFilter';
 import { AgencyUser } from "./models/agencyUser";
 import { ChangePasswordRequest } from './models/changePasswordRequest';
@@ -19,13 +20,12 @@ import { PaginationResponse } from './models/PaginationResponse';
 import { Facility, FacilityFilter, Package, PackageFacility } from './models/package';
 import {Agency} from "./models/agency";
 import { Pagination } from './models/pagination';
-import { Reservation, ReservationFilter } from './models/reservation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl = 'http://localhost:5235/api';
+  readonly APIUrl = 'https://localhost:3571/api';
   constructor(private http: HttpClient) { }
 
   // Hotel CRUD
@@ -500,6 +500,14 @@ export class SharedService {
     return this.http.post<JwtAuth>(this.APIUrl + '/Identity/changePassword', changeRequest);
   }
 
+  getTouristsTravelCountry(country: string, exportTo: string): Observable<Document>
+  {
+    let params = new HttpParams();
+    params = params.append('country', country);
+    params = params.append('export', exportTo);
+
+    return this.http.get<Document>(this.APIUrl + '/Identity/getTouristsTravelCountry', {params});
+  }
 
   //Image CRUD
   uploadImage(file: File): Observable<number> {

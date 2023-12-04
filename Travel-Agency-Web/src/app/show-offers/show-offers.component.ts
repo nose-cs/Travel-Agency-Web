@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-import { Offer } from '../../models/offer';
+import { Offer } from '../models/offer';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { OfferFilter } from 'src/app/models/offerFilter';
 import { PaginatorState } from 'primeng/paginator';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ReserveComponent } from '../../reserve/reserve.component';
+import { ReserveComponent } from '../reserve/reserve.component';
 
 @Component({
-  selector: 'app-show-hotel-offers',
-  templateUrl: './show-hotel-offers.component.html',
-  styleUrls: ['./show-hotel-offers.component.css']
+  selector: 'app-show-offers',
+  templateUrl: './show-offers.component.html',
+  styleUrls: ['./show-offers.component.css']
 })
-export class ShowHotelOffersComponent implements OnInit {
+export class ShowOffersComponent implements OnInit {
 
   layout: 'list' | 'grid' = 'grid';
 

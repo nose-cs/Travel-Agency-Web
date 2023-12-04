@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { HotelOffersComponent } from './hotel-offers/hotel-offers.component';
-import { ShowHotelOffersComponent } from './hotel-offers/show-hotel-offers/show-hotel-offers.component';
+import { ShowOffersComponent } from './show-offers/show-offers.component';
 import { SharedService } from './shared.service';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -81,8 +80,7 @@ import { ReserveComponent } from './reserve/reserve.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    HotelOffersComponent,
-    ShowHotelOffersComponent,
+    ShowOffersComponent,
     HotelsComponent,
     ShowHotelsComponent,
     HotelfilteringComponent,
