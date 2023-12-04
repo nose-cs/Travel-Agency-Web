@@ -5,8 +5,6 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateEditReservationsComponent } from '../../staff/create-edit-reservations/create-edit-reservations.component';
 import { SharedService } from '../../shared.service';
 import { OfferFilter } from '../../models/offerFilter';
-import { Offer } from '../../models/offer';
-import { ShowStaffReservationsComponent } from '../../staff/show-staff-reservations/show-staff-reservations.component';
 
 @Component({
   selector: 'app-agent',
@@ -33,12 +31,12 @@ export class AgentComponent {
             this.ref = this.dialogService.open(CreateEditReservationsComponent, {
               data: {
                 reservation: reservation,
-                execute: (hotelReservation: Reservation) => this.service.createHotelReservation(hotelReservation),
+                execute: (hotelReservation: Reservation) => this.service.createReservation(hotelReservation, "Hotel"),
                 filter: async (query: string) => {
                   const filter = new OfferFilter();
                   filter.title = query;
                   filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
-                  
+
                   let suggestions: { id: number, title: string | undefined , price: number}[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
@@ -67,23 +65,6 @@ export class AgentComponent {
               maximizable: false
             });
             break;
-
-          case "Manage":
-
-            this.ref = this.dialogService.open(ShowStaffReservationsComponent, {
-              data: {
-                //offerName: 'Hotel Reservation',
-                getReservationList: this.service.getHotelReservations(),
-                editOffer: (reservation: Reservation) => this.service.editHotelReservation(reservation),
-                deleteOffer: (id: number) => this.service.deleteHotelReservation(id),
-              },
-              contentStyle: { overflow: 'auto' },
-              baseZIndex: 10000,
-              width: '80%',
-              maximizable: true
-            });
-            
-            break;
         }
       break;
 
@@ -97,12 +78,12 @@ export class AgentComponent {
             this.ref = this.dialogService.open(CreateEditReservationsComponent, {
               data: {
                 reservation: reservation,
-                execute: (flightReservation: Reservation) => this.service.createFlightReservation(flightReservation),
+                execute: (flightReservation: Reservation) => this.service.createReservation(flightReservation, "Flight"),
                 filter: async (query: string) => {
                   const filter = new OfferFilter();
                   filter.title = query;
                   filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
-                   
+
                   let suggestions: { id: number, title: string | undefined , price: number}[] = [];
 
                   let promise = new Promise<void>((resolve, reject) => {
@@ -111,7 +92,7 @@ export class AgentComponent {
                         for (let sugg of offers.items.map(offer => { return { id: offer.id, title: offer.title, price: offer.price }; })) {
                           suggestions.push(sugg);
                         }
-  
+
                         resolve();
                       },
                       (error) => {
@@ -132,9 +113,6 @@ export class AgentComponent {
             });
             break;
 
-          case "Manage":
-            console.log("Manage");
-            break;
         }
 
       break;
@@ -149,12 +127,12 @@ export class AgentComponent {
           this.ref = this.dialogService.open(CreateEditReservationsComponent, {
             data: {
               reservation: reservation,
-              execute: (hotelReservation: Reservation) => this.service.createHotelReservation(hotelReservation),
+              execute: (hotelReservation: Reservation) => this.service.createReservation(hotelReservation, "Tour"),
               filter: async (query: string) => {
                 const filter = new OfferFilter();
                 filter.title = query;
                 filter.agencyId = Number.parseInt(localStorage.getItem('agencyId')!);
-                 
+
                 let suggestions: { id: number, title: string | undefined , price: number}[] = [];
 
                 let promise = new Promise<void>((resolve, reject) => {
@@ -182,10 +160,6 @@ export class AgentComponent {
             baseZIndex: 10000,
             maximizable: false
           });
-          break;
-
-        case "Manage":
-          console.log("Manage");
           break;
       }
 

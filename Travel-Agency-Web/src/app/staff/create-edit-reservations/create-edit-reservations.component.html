@@ -8,49 +8,49 @@
       <label for="selectModel">Select Offer</label>
     </span>
   </div>
-  
+
   <div class="field col">
     <span class="p-float-label">
       <p-inputNumber inputId="touristId" [(ngModel)]="inputTouristId" [style]="{ width: '20vw' }"> </p-inputNumber>
       <label htmlFor="touristId">Tourist Id</label>
     </span>
   </div>
-  
-  
-  
+
+
+
   <div class="field col">
     <span class="p-float-label">
       <p-calendar [(ngModel)]="inputDepartureDate" [showTime]="true" id="departureDate" [style]="{ width: '20vw' }" appendTo="body"></p-calendar>
       <label htmlFor="departureDate">Departure Date</label>
     </span>
   </div>
-  
+
   <div class="field col">
     <span class="p-float-label">
       <p-calendar [(ngModel)]="inputArrivalDate" [showTime]="true" id="arrivalDate" [style]="{ width: '20vw' }" appendTo="body"></p-calendar>
       <label htmlFor="arrivalDate">Arrival Date</label>
     </span>
   </div>
-  
+
   <div class="field col">
     <span class="p-float-label">
       <p-inputNumber inputId="numberofTravellers" [(ngModel)]="inputNumberofTravellers" (ngModelChange)="capturePrice($event)" [style]="{ width: '2t0vw' }"> </p-inputNumber>
       <label htmlFor="numberofTravellers">Number of Travellers</label>
     </span>
   </div>
-  
+
   <p>
     Payment Format:<br>
-    <input type="radio" name="checkpaymentFormat" value="Cash" [(ngModel)]="inputPaymentFormat" checked> Cash<br>
+    <input type="radio" name="checkpaymentFormat" value="Cash" checked> Cash<br>
     <input type="radio" name="checkpaymentFormat" value="Credit Card"> Credit Card<br>
   </p>
-  
+
   <div class="field col">
     <p-card header="Price: ${{inputPrice}}"></p-card>
   </div>
-  
+
   <label style="color: #ff0000">{{ errorLabel }}</label>
-  
+
   <div class="card flex justify-content-end">
     <p-button icon="pi pi-check" label="Ok" styleClass="p-button-text" [style]="{ position: 'end' }" (click)="onOk()"></p-button>
   </div>

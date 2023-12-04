@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { Reservation } from '../../models/reservation';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import {isNullOrEmpty} from "../../common/common";
 
 @Component({
   selector: 'app-create-edit-reservations',
@@ -18,7 +17,6 @@ export class CreateEditReservationsComponent {
   inputDepartureDate: Date | undefined;
   inputArrivalDate: Date | undefined;
   inputNumberofTravellers: number = 0;
-  inputPaymentFormat: string = "Cash";
   inputPrice: number = 0;
   errorLabel: string = '';
 
@@ -29,7 +27,6 @@ export class CreateEditReservationsComponent {
     this.id = reservation.id;
     this.inputTouristId = reservation.touristId;
     this.inputNumberofTravellers = reservation.numberofTravellers;
-    this.inputPaymentFormat = reservation.paymentFormat;
 
     if (reservation.departureDate) {
       this.inputDepartureDate = new Date(reservation.departureDate.toString());
@@ -37,17 +34,6 @@ export class CreateEditReservationsComponent {
     if (reservation.arrivalDate) {
       this.inputArrivalDate = new Date(reservation.arrivalDate.toString());
     }
-    if (reservation.offerId && reservation.offerTitle)
-    {
-      this.setSelectedModel(reservation.offerId, reservation.offerTitle);
-    }
-  }
-  async setSelectedModel(offerId: number, offerTitle: string) {
-    this.suggestions = await this.config.data['filter'](offerTitle);
-
-    this.selectedModel = this.suggestions.find(sugg => sugg.id == offerId);
-    if (this.selectedModel)
-      this.inputPrice = this.selectedModel.price;
   }
 
   async searchModel(event: any) {
@@ -61,7 +47,7 @@ export class CreateEditReservationsComponent {
   }
 
   onOk() {
-    if(!this.inputDepartureDate || !this.inputArrivalDate || !this.inputNumberofTravellers || !this.inputPaymentFormat)
+    if(!this.inputDepartureDate || !this.inputArrivalDate || !this.inputNumberofTravellers)
     {
       this.errorLabel = "Please fill all fields";
       return;
@@ -73,13 +59,10 @@ export class CreateEditReservationsComponent {
     reservation.departureDate = this.inputDepartureDate;
     reservation.arrivalDate = this.inputArrivalDate;
     reservation.numberofTravellers = this.inputNumberofTravellers;
-    reservation.paymentFormat = this.inputPaymentFormat;
-    console.log(reservation.paymentFormat);
 
     if (this.selectedModel)
     {
       reservation.offerId = this.selectedModel.id;
-      reservation.offerTitle = this.selectedModel.title
       reservation.price = this.selectedModel.price;
     }
     else {
